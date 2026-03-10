@@ -27,7 +27,7 @@
       "description" : "create account",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -36,7 +36,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -59,7 +59,7 @@
       },
       "endpointId" : "deliveryservice:44ada7180e4fd2c2834067224531678d",
       "serviceName" : "ts-delivery-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment/account' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"money\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment/account' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"money\": \"example-value\", \"userId\": \"12345\"}'",
       "physicalServiceName" : "ts-delivery-service",
       "urlDerivedServiceName" : null
     },
@@ -122,7 +122,7 @@
       },
       "endpointId" : "trainservice:3f208f00e4b1417fc0632fecfcdddc9f",
       "serviceName" : "ts-train-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/trainservice/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"economyClass\": 123, \"confortClass\": 123, \"name\": \"Sample Name\", \"averageSpeed\": 123}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/trainservice/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"averageSpeed\": 123, \"name\": \"Sample Name\", \"confortClass\": 123, \"id\": \"12345\", \"economyClass\": 123}'",
       "physicalServiceName" : "ts-assurance-service",
       "urlDerivedServiceName" : "ts-train-service"
     },
@@ -184,7 +184,7 @@
       },
       "endpointId" : "userservice:88dc3f08364a728b27a06a6b3907812e",
       "serviceName" : "ts-user-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/userservice/users/register' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userName\": \"Sample Name\", \"gender\": 123, \"password\": \"********\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/userservice/users/register' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userId\": \"12345\", \"userName\": \"Sample Name\", \"documentType\": \"DEFAULT\", \"password\": \"********\", \"gender\": 123}'",
       "physicalServiceName" : "ts-route-service",
       "urlDerivedServiceName" : "ts-user-service"
     },
@@ -203,7 +203,7 @@
       "description" : "query account",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -212,7 +212,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -297,7 +297,7 @@
       },
       "endpointId" : "seatservice:57a440f3a64a6603f5975a4f231005c1",
       "serviceName" : "ts-seat-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/seatservice/seats/left_tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainNumber\": \"example-value\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"startStation\": \"example-value\", \"seatType\": \"DEFAULT\", \"destStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/seatservice/seats/left_tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"trainNumber\": \"example-value\", \"seatType\": \"DEFAULT\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"destStation\": \"example-value\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-seat-service"
     },
@@ -366,7 +366,7 @@
       "description" : "query payment",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -375,7 +375,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -458,7 +458,7 @@
       },
       "endpointId" : "adminbasicservice:f4ab2a753baf511decedea10cbd16ba7",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"description\": \"Sample description text\", \"name\": \"Sample Name\", \"value\": \"example-value\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"value\": \"example-value\", \"description\": \"Sample description text\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -568,7 +568,7 @@
       },
       "endpointId" : "travelservice:999a422e5a75af6ad1fb836e812a038b",
       "serviceName" : "ts-travel-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-travel-service"
     },
@@ -730,7 +730,7 @@
       },
       "endpointId" : "notifyservice:3d215459266f19901330399862369e4a",
       "serviceName" : "ts-notify-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/preserve_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatClass\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"orderNumber\": \"example-value\", \"email\": \"user@example.com\", \"id\": \"12345\", \"sendStatus\": \"ACTIVE\", \"price\": 99.99, \"date\": \"2024-01-15T10:30:00Z\", \"username\": \"Sample Name\", \"startPlace\": \"example-value\", \"startTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/preserve_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startPlace\": \"example-value\", \"price\": 99.99, \"username\": \"Sample Name\", \"id\": \"12345\", \"email\": \"user@example.com\", \"startTime\": \"10:30:00\", \"orderNumber\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"seatClass\": \"example-value\", \"sendStatus\": \"ACTIVE\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-notification-service",
       "urlDerivedServiceName" : "ts-notify-service"
     },
@@ -855,7 +855,7 @@
       },
       "endpointId" : "fooddeliveryservice:130cb7e037b8269b69d42fb8ffb35483",
       "serviceName" : "ts-fooddelivery-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/fooddeliveryservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"createdTime\": \"2024-01-15T10:30:00Z\", \"id\": \"12345\", \"foodList\": [{\"price\": 99.99, \"foodName\": \"Sample Name\"}], \"deliveryTime\": \"10:30:00\", \"stationFoodStoreId\": \"12345\", \"tripId\": \"12345\", \"deliveryFee\": 123.45, \"seatNo\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/fooddeliveryservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"foodList\": [{\"price\": 99.99, \"foodName\": \"Sample Name\"}], \"stationFoodStoreId\": \"12345\", \"deliveryTime\": \"10:30:00\", \"deliveryFee\": 123.45, \"tripId\": \"12345\", \"createdTime\": \"2024-01-15T10:30:00Z\", \"seatNo\": 123}'",
       "physicalServiceName" : "ts-food-service",
       "urlDerivedServiceName" : "ts-fooddelivery-service"
     },
@@ -886,7 +886,7 @@
       "description" : "pay",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -895,7 +895,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -918,7 +918,7 @@
       },
       "endpointId" : "deliveryservice:1ae2acc27e8ff7779454b55da6bd5331",
       "serviceName" : "ts-delivery-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"tripId\": \"12345\", \"price\": 99.99, \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"price\": 99.99, \"tripId\": \"12345\", \"userId\": \"12345\", \"orderId\": \"12345\"}'",
       "physicalServiceName" : "ts-delivery-service",
       "urlDerivedServiceName" : null
     },
@@ -1217,7 +1217,7 @@
       },
       "endpointId" : "travel2service:064e6daaa4ced445f1a0d6db17d9c7c1",
       "serviceName" : "ts-travel2-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-travel2-service"
     },
@@ -1386,6 +1386,7 @@
       "authentication" : {
         "required" : false,
         "permitAll" : true,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
@@ -1394,7 +1395,7 @@
       "authorization" : {
         "requiredRoles" : [ ],
         "requiresAuthentication" : false,
-        "source" : "default",
+        "source" : "yaml",
         "public" : true
       },
       "responseSchema" : {
@@ -1434,7 +1435,7 @@
       "description" : "home",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -1443,7 +1444,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -1640,7 +1641,7 @@
       },
       "endpointId" : "travelplanservice:4a35bacd0548c3d485c09719977dfff4",
       "serviceName" : "ts-travelplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/minStation' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/minStation' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-travelplan-service"
     },
@@ -1845,7 +1846,7 @@
       "description" : "cancel ticket",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -1854,7 +1855,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -1940,7 +1941,7 @@
       },
       "endpointId" : "adminrouteservice:7c6245303609cca6fbcd329b487e2985",
       "serviceName" : "ts-adminroute-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminrouteservice/adminroute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"endStation\": \"example-value\", \"distanceList\": \"example-value\", \"stationList\": \"example-value\", \"loginId\": \"12345\", \"startStation\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminrouteservice/adminroute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"distanceList\": \"example-value\", \"stationList\": \"example-value\", \"startStation\": \"example-value\", \"endStation\": \"example-value\", \"id\": \"12345\", \"loginId\": \"12345\"}'",
       "physicalServiceName" : "ts-route-service",
       "urlDerivedServiceName" : "ts-adminroute-service"
     },
@@ -2000,7 +2001,7 @@
       },
       "endpointId" : "adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\", \"documentNumber\": \"example-value\", \"id\": \"12345\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -2063,7 +2064,7 @@
       },
       "endpointId" : "trainservice:4cc411372ec983e237cb71e9c96fd339",
       "serviceName" : "ts-train-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/trainservice/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"economyClass\": 123, \"confortClass\": 123, \"name\": \"Sample Name\", \"averageSpeed\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/trainservice/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"averageSpeed\": 123, \"name\": \"Sample Name\", \"confortClass\": 123, \"id\": \"12345\", \"economyClass\": 123}'",
       "physicalServiceName" : "ts-assurance-service",
       "urlDerivedServiceName" : "ts-train-service"
     },
@@ -2125,7 +2126,7 @@
       },
       "endpointId" : "orderservice:3f67e79f0a4d8e91e0f4f23de26bb074",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainNumber\": \"example-value\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"startStation\": \"example-value\", \"seatType\": \"DEFAULT\", \"destStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"trainNumber\": \"example-value\", \"seatType\": \"DEFAULT\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"destStation\": \"example-value\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -2187,7 +2188,7 @@
       },
       "endpointId" : "travelservice:03f802c02df8327f4e6cacc6ca04e8a0",
       "serviceName" : "ts-travel-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trip_detail' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"to\": \"example-value\", \"tripId\": \"12345\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"from\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trip_detail' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"tripId\": \"12345\", \"from\": \"example-value\", \"to\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-travel-service"
     },
@@ -2541,8 +2542,8 @@
       "methodName" : "queryById",
       "description" : "query by id",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -2551,9 +2552,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -2636,7 +2637,7 @@
       },
       "endpointId" : "orderotherservice:9995eb9806fc9fa9b74b483129ce3dd8",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -2698,7 +2699,7 @@
       },
       "endpointId" : "fooddeliveryservice:a577a5be789cea4b2b1e86b9db59dfa3",
       "serviceName" : "ts-fooddelivery-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/fooddeliveryservice/orders/seatno' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatNo\": 123, \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/fooddeliveryservice/orders/seatno' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"orderId\": \"12345\", \"seatNo\": 123}'",
       "physicalServiceName" : "ts-food-service",
       "urlDerivedServiceName" : "ts-fooddelivery-service"
     },
@@ -2861,7 +2862,7 @@
       },
       "endpointId" : "notifyservice:be4649dca5c61b3312a9888dd6af7dae",
       "serviceName" : "ts-notify-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_cancel_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatClass\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"orderNumber\": \"example-value\", \"email\": \"user@example.com\", \"id\": \"12345\", \"sendStatus\": \"ACTIVE\", \"price\": 99.99, \"date\": \"2024-01-15T10:30:00Z\", \"username\": \"Sample Name\", \"startPlace\": \"example-value\", \"startTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_cancel_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startPlace\": \"example-value\", \"price\": 99.99, \"username\": \"Sample Name\", \"id\": \"12345\", \"email\": \"user@example.com\", \"startTime\": \"10:30:00\", \"orderNumber\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"seatClass\": \"example-value\", \"sendStatus\": \"ACTIVE\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-notification-service",
       "urlDerivedServiceName" : "ts-notify-service"
     },
@@ -2924,7 +2925,7 @@
       },
       "endpointId" : "stationservice:cbbfccfd51d9ff1d832a612a333968c7",
       "serviceName" : "ts-station-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/stationservice/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"name\": \"Sample Name\", \"id\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/stationservice/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"id\": \"12345\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-contacts-service",
       "urlDerivedServiceName" : "ts-station-service"
     },
@@ -3112,7 +3113,7 @@
       },
       "endpointId" : "securityservice:c5bd1f8862183bf5cdd66573f03c9ffb",
       "serviceName" : "ts-security-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/securityservice/securityConfigs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"securityProperties\": {\"authorizationRules\": [{\"paths\": [\"/path/to/resource\"], \"authorities\": [\"example-value\"], \"method\": \"example-value\"}]}}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/securityservice/securityConfigs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"securityProperties\": {\"authorizationRules\": [{\"authorities\": [\"example-value\"], \"method\": \"example-value\", \"paths\": [\"/path/to/resource\"]}]}}'",
       "physicalServiceName" : "ts-security-service",
       "urlDerivedServiceName" : "ts-security-service"
     },
@@ -3181,8 +3182,8 @@
       "methodName" : "query",
       "description" : "query",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -3191,9 +3192,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -3389,7 +3390,7 @@
       },
       "endpointId" : "configservice:d45a7dd8a760cff9f6ebb87b0f52e32f",
       "serviceName" : "ts-config-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/configservice/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"description\": \"Sample description text\", \"name\": \"Sample Name\", \"value\": \"example-value\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/configservice/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"value\": \"example-value\", \"description\": \"Sample description text\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-security-service",
       "urlDerivedServiceName" : "ts-config-service"
     },
@@ -3482,7 +3483,7 @@
       "description" : "execute ticket",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -3491,7 +3492,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -3577,7 +3578,7 @@
       },
       "endpointId" : "admintravelservice:e29836be2fb95d6b8f87aefd87f97fd1",
       "serviceName" : "ts-admintravel-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/admintravelservice/admintravel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/admintravelservice/admintravel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-admintravel-service"
     },
@@ -3741,7 +3742,7 @@
       },
       "endpointId" : "travel2service:d976d514cb7f8c19d518dd61da86f280",
       "serviceName" : "ts-travel2-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trips/left' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trips/left' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-travel2-service"
     },
@@ -3855,7 +3856,7 @@
       },
       "endpointId" : "consignpriceservice:508b3c94d822c59f7a4ec967b5e4c3fb",
       "serviceName" : "ts-consignprice-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/consignpriceservice/consignprice' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"beyondPrice\": 99.99, \"id\": \"12345\", \"initialWeight\": 123.45, \"initialPrice\": 99.99, \"index\": 123, \"withinPrice\": 99.99}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/consignpriceservice/consignprice' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"initialPrice\": 99.99, \"initialWeight\": 123.45, \"id\": \"12345\", \"withinPrice\": 99.99, \"index\": 123, \"beyondPrice\": 99.99}'",
       "physicalServiceName" : "ts-security-service",
       "urlDerivedServiceName" : "ts-consignprice-service"
     },
@@ -4018,7 +4019,7 @@
       },
       "endpointId" : "orderservice:ece38fe62235adf62945496f420efeee",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -4205,7 +4206,7 @@
       },
       "endpointId" : "notifyservice:e66dd3b965777bde4a6a469f370fe347",
       "serviceName" : "ts-notify-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_create_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatClass\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"orderNumber\": \"example-value\", \"email\": \"user@example.com\", \"id\": \"12345\", \"sendStatus\": \"ACTIVE\", \"price\": 99.99, \"date\": \"2024-01-15T10:30:00Z\", \"username\": \"Sample Name\", \"startPlace\": \"example-value\", \"startTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_create_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startPlace\": \"example-value\", \"price\": 99.99, \"username\": \"Sample Name\", \"id\": \"12345\", \"email\": \"user@example.com\", \"startTime\": \"10:30:00\", \"orderNumber\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"seatClass\": \"example-value\", \"sendStatus\": \"ACTIVE\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-notification-service",
       "urlDerivedServiceName" : "ts-notify-service"
     },
@@ -4267,7 +4268,7 @@
       },
       "endpointId" : "routeplanservice:6cd62f36a500718e12dc0686c615f481",
       "serviceName" : "ts-routeplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/cheapestRoute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"startStation\": \"example-value\", \"num\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/cheapestRoute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"num\": 123, \"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-routeplan-service"
     },
@@ -4493,7 +4494,7 @@
       },
       "endpointId" : "orderotherservice:107ba6529ce756166c6af38fbc9f6af7",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -4512,7 +4513,7 @@
       "description" : "home",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -4521,7 +4522,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -4762,8 +4763,8 @@
       "methodName" : "delete",
       "description" : "delete",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -4772,9 +4773,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -5017,7 +5018,7 @@
       },
       "endpointId" : "basicservice:f29a4412da8d99120de59403ac16a49a",
       "serviceName" : "ts-basic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/basicservice/basic/travel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\", \"trip\": {\"routeId\": \"12345\", \"startTime\": \"10:30:00\", \"stationsName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"startStationName\": \"Sample Name\", \"id\": \"12345\", \"tripId\": {\"type\": {}, \"number\": \"example-value\"}, \"endTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/basicservice/basic/travel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startPlace\": \"example-value\", \"trip\": {\"id\": \"12345\", \"stationsName\": \"Sample Name\", \"startStationName\": \"Sample Name\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\", \"routeId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"endTime\": \"10:30:00\", \"tripId\": {\"number\": \"example-value\", \"type\": {}}}, \"endPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
       "physicalServiceName" : "ts-notification-service",
       "urlDerivedServiceName" : "ts-basic-service"
     },
@@ -5098,7 +5099,7 @@
       "description" : "preserve",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -5107,7 +5108,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -5130,7 +5131,7 @@
       },
       "endpointId" : "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
       "serviceName" : "ts-preserve-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/preserveservice/preserve' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatType\": \"DEFAULT\", \"loginToken\": \"example-value\", \"to\": \"example-value\", \"contactsId\": \"12345\", \"foodType\": \"DEFAULT\", \"consigneePhone\": \"555-123-4567\", \"storeName\": \"Sample Name\", \"consigneeWeight\": 123.45, \"foodPrice\": 99.99, \"stationName\": \"Sample Name\", \"assurance\": 123, \"accountId\": \"12345\", \"tripId\": \"12345\", \"date\": \"2024-01-15T10:30:00Z\", \"handleDate\": \"2024-01-15T10:30:00Z\", \"consigneeName\": \"Sample Name\", \"from\": \"example-value\", \"foodName\": \"Sample Name\", \"isWithin\": true}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/preserveservice/preserve' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationName\": \"Sample Name\", \"contactsId\": \"12345\", \"seatType\": \"DEFAULT\", \"foodType\": \"DEFAULT\", \"consigneePhone\": \"555-123-4567\", \"consigneeName\": \"Sample Name\", \"from\": \"example-value\", \"foodName\": \"Sample Name\", \"isWithin\": true, \"date\": \"2024-01-15T10:30:00Z\", \"handleDate\": \"2024-01-15T10:30:00Z\", \"foodPrice\": 99.99, \"tripId\": \"12345\", \"storeName\": \"Sample Name\", \"consigneeWeight\": 123.45, \"accountId\": \"12345\", \"loginToken\": \"example-value\", \"assurance\": 123, \"to\": \"example-value\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-preserve-service"
     },
@@ -5315,7 +5316,7 @@
       },
       "endpointId" : "adminbasicservice:8cf484e25d7468361a20211ab29122d0",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"routeId\": \"12345\", \"id\": \"12345\", \"basicPriceRate\": 99.99, \"trainType\": \"DEFAULT\", \"firstClassPriceRate\": 99.99}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"basicPriceRate\": 99.99, \"firstClassPriceRate\": 99.99, \"trainType\": \"DEFAULT\", \"routeId\": \"12345\", \"id\": \"12345\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -5489,7 +5490,7 @@
       },
       "endpointId" : "orderservice:ee5ee1f3fa5045f541893e17a01de8ca",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderservice/order/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderservice/order/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -5737,7 +5738,7 @@
       },
       "endpointId" : "travelservice:c34f4fefbd9c70a41c58a47fe9411412",
       "serviceName" : "ts-travel-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips/left' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips/left' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-travel-service"
     },
@@ -5799,7 +5800,7 @@
       },
       "endpointId" : "notifyservice:cb89a551ed32f5c43027d5ca8e4ce733",
       "serviceName" : "ts-notify-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_changed_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"seatClass\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"orderNumber\": \"example-value\", \"email\": \"user@example.com\", \"id\": \"12345\", \"sendStatus\": \"ACTIVE\", \"price\": 99.99, \"date\": \"2024-01-15T10:30:00Z\", \"username\": \"Sample Name\", \"startPlace\": \"example-value\", \"startTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/notifyservice/notification/order_changed_success' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startPlace\": \"example-value\", \"price\": 99.99, \"username\": \"Sample Name\", \"id\": \"12345\", \"email\": \"user@example.com\", \"startTime\": \"10:30:00\", \"orderNumber\": \"example-value\", \"endPlace\": \"example-value\", \"seatNumber\": \"example-value\", \"seatClass\": \"example-value\", \"sendStatus\": \"ACTIVE\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-notification-service",
       "urlDerivedServiceName" : "ts-notify-service"
     },
@@ -5862,7 +5863,7 @@
       },
       "endpointId" : "orderotherservice:57342a140331917e8e1e76cf7ac0cc4d",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderOtherService/orderOther/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderOtherService/orderOther/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -6157,7 +6158,7 @@
       },
       "endpointId" : "orderservice:b846949a108b0a333793d69932570d74",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -6219,7 +6220,7 @@
       },
       "endpointId" : "orderotherservice:3f5d4dccf15527eb8583035666a83723",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/refresh' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"boughtDateStart\": \"2024-01-15T10:30:00Z\", \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"loginId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/refresh' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"loginId\": \"12345\", \"boughtDateStart\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -6329,7 +6330,7 @@
       },
       "endpointId" : "adminbasicservice:4ddd6733bfc01e91c1e39d67ce3e725b",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"description\": \"Sample description text\", \"name\": \"Sample Name\", \"value\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"value\": \"example-value\", \"description\": \"Sample description text\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -6454,7 +6455,7 @@
       },
       "endpointId" : "consignservice:5e668e41aae85ef99c6d7f8ebfd2439c",
       "serviceName" : "ts-consign-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/consignservice/consigns' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"to\": \"example-value\", \"id\": \"12345\", \"targetDate\": \"2024-01-15T10:30:00Z\", \"weight\": 123.45, \"handleDate\": \"2024-01-15T10:30:00Z\", \"consignee\": \"example-value\", \"orderId\": \"12345\", \"phone\": \"555-123-4567\", \"from\": \"example-value\", \"isWithin\": true}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/consignservice/consigns' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"phone\": \"555-123-4567\", \"weight\": 123.45, \"id\": \"12345\", \"targetDate\": \"2024-01-15T10:30:00Z\", \"orderId\": \"12345\", \"accountId\": \"12345\", \"from\": \"example-value\", \"to\": \"example-value\", \"consignee\": \"example-value\", \"isWithin\": true, \"handleDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-consign-service",
       "urlDerivedServiceName" : "ts-consign-service"
     },
@@ -6628,7 +6629,7 @@
       },
       "endpointId" : "travelplanservice:cc029cd05c1e6cd2d1e67b524a605f11",
       "serviceName" : "ts-travelplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/quickest' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/quickest' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-travelplan-service"
     },
@@ -6828,7 +6829,7 @@
       },
       "endpointId" : "paymentservice:242cdd64f4e4932ee64266d9d025f24b",
       "serviceName" : "ts-payment-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/paymentservice/payment/money' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"price\": 99.99, \"userId\": \"12345\", \"id\": \"12345\", \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/paymentservice/payment/money' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"orderId\": \"12345\", \"userId\": \"12345\", \"price\": 99.99}'",
       "physicalServiceName" : "ts-order-related-service",
       "urlDerivedServiceName" : "ts-payment-service"
     },
@@ -7003,7 +7004,7 @@
       },
       "endpointId" : "travel2service:b30e9d214c6730447f9311cca9f251f3",
       "serviceName" : "ts-travel2-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trip_detail' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"to\": \"example-value\", \"tripId\": \"12345\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"from\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travel2service/trip_detail' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"tripId\": \"12345\", \"from\": \"example-value\", \"to\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-travel2-service"
     },
@@ -7125,7 +7126,7 @@
       },
       "endpointId" : "orderservice:525a6edfc0afbd96231467b77b0e6899",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/query' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"boughtDateStart\": \"2024-01-15T10:30:00Z\", \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"loginId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/query' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"loginId\": \"12345\", \"boughtDateStart\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -7235,7 +7236,7 @@
       },
       "endpointId" : "orderservice:b2e2a1e495d5c8a9e5070a7da692cc4a",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -7462,7 +7463,7 @@
       },
       "endpointId" : "priceservice:53965052aefa84d4938d6afd503699d7",
       "serviceName" : "ts-price-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/priceservice/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"basicPriceRate\": 99.99, \"routeId\": \"12345\", \"firstClassPriceRate\": 99.99, \"trainType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/priceservice/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainType\": \"DEFAULT\", \"basicPriceRate\": 99.99, \"firstClassPriceRate\": 99.99, \"id\": \"12345\", \"routeId\": \"12345\"}'",
       "physicalServiceName" : "ts-price-service",
       "urlDerivedServiceName" : "ts-price-service"
     },
@@ -7481,7 +7482,7 @@
       "description" : "query add money",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -7490,7 +7491,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -7783,7 +7784,7 @@
       },
       "endpointId" : "adminbasicservice:4afc8ba2887366eb6ea4f5d07a726da3",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"economyClass\": 123, \"confortClass\": 123, \"name\": \"Sample Name\", \"averageSpeed\": 123}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"averageSpeed\": 123, \"name\": \"Sample Name\", \"confortClass\": 123, \"id\": \"12345\", \"economyClass\": 123}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -7872,8 +7873,8 @@
       "methodName" : "queryForStationId",
       "description" : "query for station id",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -7882,9 +7883,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -8126,7 +8127,7 @@
       },
       "endpointId" : "orderotherservice:c6e37144fb5f6e981eaf8db18a1e1761",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/query' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"boughtDateStart\": \"2024-01-15T10:30:00Z\", \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"loginId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/query' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"loginId\": \"12345\", \"boughtDateStart\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -8158,6 +8159,7 @@
       "authentication" : {
         "required" : false,
         "permitAll" : true,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
@@ -8166,7 +8168,7 @@
       "authorization" : {
         "requiredRoles" : [ ],
         "requiresAuthentication" : false,
-        "source" : "default",
+        "source" : "yaml",
         "public" : true
       },
       "responseSchema" : {
@@ -8187,7 +8189,7 @@
       },
       "endpointId" : "userservice:a7b24ef469dab9ae23542bfb6676f1ff",
       "serviceName" : "ts-user-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/userservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userName\": \"Sample Name\", \"gender\": 123, \"password\": \"********\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/userservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userId\": \"12345\", \"userName\": \"Sample Name\", \"documentType\": \"DEFAULT\", \"password\": \"********\", \"gender\": 123}'",
       "physicalServiceName" : "ts-route-service",
       "urlDerivedServiceName" : "ts-user-service"
     },
@@ -8393,7 +8395,7 @@
       "description" : "home",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -8402,7 +8404,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -8475,69 +8477,6 @@
       "physicalServiceName" : "ts-auth-service",
       "urlDerivedServiceName" : "ts-user-service"
     },
-    "rebookservice:8e3ad72b0d525bba5e155a4f64fbb737" : {
-      "id" : "ts-rebook-service:29a672ac23a26762c8a3dd73cab52bd4",
-      "methodId" : "ts-rebook-service:29a672ac23a26762c8a3dd73cab52bd4",
-      "httpMethod" : "POST",
-      "fullUri" : "/api/v1/rebookservice/rebook/difference",
-      "simplifiedUri" : "/api/v1/rebookservice/rebook/difference",
-      "pathParameterDetails" : [ ],
-      "queryParameterDetails" : [ ],
-      "requestBodyDetail" : {
-        "name" : "info",
-        "type" : "RebookInfo",
-        "javaType" : "RebookInfo",
-        "required" : true,
-        "annotations" : [ "RequestBody" ],
-        "position" : 1,
-        "validationConstraints" : [ ],
-        "pathVariable" : false,
-        "requestParam" : false,
-        "requestBody" : true,
-        "requestHeader" : false
-      },
-      "responseType" : "",
-      "controllerClass" : "RebookController",
-      "methodName" : "payDifference",
-      "description" : "pay difference",
-      "authentication" : {
-        "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
-        "permitAll" : false,
-        "source" : "yaml",
-        "mechanism" : {
-          "type" : "NONE"
-        },
-        "optionalAuthentication" : false
-      },
-      "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
-        "requiresAuthentication" : true,
-        "source" : "yaml",
-        "public" : false
-      },
-      "responseSchema" : {
-        "statusCodes" : {
-          "200" : {
-            "typeName" : "",
-            "fullTypeName" : "",
-            "optional" : false,
-            "reactive" : false,
-            "paginated" : false,
-            "generic" : false
-          }
-        },
-        "defaultResponseType" : "",
-        "consumesMultipart" : false,
-        "reactive" : false,
-        "paginated" : false
-      },
-      "endpointId" : "rebookservice:8e3ad72b0d525bba5e155a4f64fbb737",
-      "serviceName" : "ts-rebook-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/rebookservice/rebook/difference' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"oldTripId\": \"12345\", \"tripId\": \"12345\", \"seatType\": \"DEFAULT\", \"loginId\": \"12345\", \"date\": \"2024-01-15T10:30:00Z\", \"orderId\": \"12345\"}'",
-      "physicalServiceName" : "ts-rebook-service",
-      "urlDerivedServiceName" : "ts-rebook-service"
-    },
     "rebookservice:35cc179b1907c41db30161886a02d155" : {
       "id" : "ts-rebook-service:9b2d8d378b1983c45a4be18bd3142c42",
       "methodId" : "ts-rebook-service:9b2d8d378b1983c45a4be18bd3142c42",
@@ -8597,7 +8536,70 @@
       },
       "endpointId" : "rebookservice:35cc179b1907c41db30161886a02d155",
       "serviceName" : "ts-rebook-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/rebookservice/rebook' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"oldTripId\": \"12345\", \"tripId\": \"12345\", \"seatType\": \"DEFAULT\", \"loginId\": \"12345\", \"date\": \"2024-01-15T10:30:00Z\", \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/rebookservice/rebook' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"orderId\": \"12345\", \"seatType\": \"DEFAULT\", \"loginId\": \"12345\", \"oldTripId\": \"12345\", \"tripId\": \"12345\", \"date\": \"2024-01-15T10:30:00Z\"}'",
+      "physicalServiceName" : "ts-rebook-service",
+      "urlDerivedServiceName" : "ts-rebook-service"
+    },
+    "rebookservice:8e3ad72b0d525bba5e155a4f64fbb737" : {
+      "id" : "ts-rebook-service:29a672ac23a26762c8a3dd73cab52bd4",
+      "methodId" : "ts-rebook-service:29a672ac23a26762c8a3dd73cab52bd4",
+      "httpMethod" : "POST",
+      "fullUri" : "/api/v1/rebookservice/rebook/difference",
+      "simplifiedUri" : "/api/v1/rebookservice/rebook/difference",
+      "pathParameterDetails" : [ ],
+      "queryParameterDetails" : [ ],
+      "requestBodyDetail" : {
+        "name" : "info",
+        "type" : "RebookInfo",
+        "javaType" : "RebookInfo",
+        "required" : true,
+        "annotations" : [ "RequestBody" ],
+        "position" : 1,
+        "validationConstraints" : [ ],
+        "pathVariable" : false,
+        "requestParam" : false,
+        "requestBody" : true,
+        "requestHeader" : false
+      },
+      "responseType" : "",
+      "controllerClass" : "RebookController",
+      "methodName" : "payDifference",
+      "description" : "pay difference",
+      "authentication" : {
+        "required" : true,
+        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "permitAll" : false,
+        "source" : "yaml",
+        "mechanism" : {
+          "type" : "NONE"
+        },
+        "optionalAuthentication" : false
+      },
+      "authorization" : {
+        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiresAuthentication" : true,
+        "source" : "yaml",
+        "public" : false
+      },
+      "responseSchema" : {
+        "statusCodes" : {
+          "200" : {
+            "typeName" : "",
+            "fullTypeName" : "",
+            "optional" : false,
+            "reactive" : false,
+            "paginated" : false,
+            "generic" : false
+          }
+        },
+        "defaultResponseType" : "",
+        "consumesMultipart" : false,
+        "reactive" : false,
+        "paginated" : false
+      },
+      "endpointId" : "rebookservice:8e3ad72b0d525bba5e155a4f64fbb737",
+      "serviceName" : "ts-rebook-service",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/rebookservice/rebook/difference' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"orderId\": \"12345\", \"seatType\": \"DEFAULT\", \"loginId\": \"12345\", \"oldTripId\": \"12345\", \"tripId\": \"12345\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-rebook-service"
     },
@@ -8628,13 +8630,12 @@
       "description" : "delete user by id",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN" ],
         "permitAll" : false,
         "source" : "yaml",
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -8776,7 +8777,7 @@
       },
       "endpointId" : "adminbasicservice:0fc9a1ed05bfa90591a551fdc82a9aa6",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\", \"documentNumber\": \"example-value\", \"id\": \"12345\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -8950,7 +8951,7 @@
       },
       "endpointId" : "orderotherservice:d64e3da58fc626ed9615e9b89341dab7",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainNumber\": \"example-value\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"startStation\": \"example-value\", \"seatType\": \"DEFAULT\", \"destStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderOtherService/orderOther/tickets' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"trainNumber\": \"example-value\", \"seatType\": \"DEFAULT\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"destStation\": \"example-value\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -9012,7 +9013,7 @@
       },
       "endpointId" : "routeplanservice:c64ff8d3d2272f2515cd302c7c3bc229",
       "serviceName" : "ts-routeplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/quickestRoute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"startStation\": \"example-value\", \"num\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/quickestRoute' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"num\": 123, \"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-routeplan-service"
     },
@@ -9055,7 +9056,7 @@
       "description" : "draw back",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -9064,7 +9065,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -9130,7 +9131,7 @@
       "description" : "add money",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -9139,7 +9140,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -9293,8 +9294,8 @@
       "methodName" : "queryForIdBatch",
       "description" : "query for id batch",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -9303,9 +9304,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -9385,7 +9386,7 @@
       },
       "endpointId" : "adminbasicservice:043613f91593945e178f3efde9dc5c92",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"routeId\": \"12345\", \"id\": \"12345\", \"basicPriceRate\": 99.99, \"trainType\": \"DEFAULT\", \"firstClassPriceRate\": 99.99}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"basicPriceRate\": 99.99, \"firstClassPriceRate\": 99.99, \"trainType\": \"DEFAULT\", \"routeId\": \"12345\", \"id\": \"12345\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -9448,7 +9449,7 @@
       },
       "endpointId" : "contactservice:26d9e457e06a96301a04eda21bc2e706",
       "serviceName" : "ts-contact-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/contactservice/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\", \"documentNumber\": \"example-value\", \"id\": \"12345\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/contactservice/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-contacts-service",
       "urlDerivedServiceName" : "ts-contact-service"
     },
@@ -9541,8 +9542,8 @@
       "methodName" : "home",
       "description" : "home",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -9551,9 +9552,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -9636,7 +9637,7 @@
       },
       "endpointId" : "adminorderservice:c6bb572f5f8bb26f7adf22265a86eb5f",
       "serviceName" : "ts-adminorder-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminorderservice/adminorder' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminorderservice/adminorder' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-adminorder-service"
     },
@@ -9718,6 +9719,7 @@
       "authentication" : {
         "required" : false,
         "permitAll" : true,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
@@ -9726,7 +9728,7 @@
       "authorization" : {
         "requiredRoles" : [ ],
         "requiresAuthentication" : false,
-        "source" : "default",
+        "source" : "yaml",
         "public" : true
       },
       "responseSchema" : {
@@ -9828,7 +9830,7 @@
       "description" : "home",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -9837,7 +9839,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -9995,7 +9997,7 @@
       },
       "endpointId" : "adminbasicservice:4823c4e99d758c6c31597f3dab768239",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"name\": \"Sample Name\", \"id\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"id\": \"12345\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -10171,7 +10173,7 @@
       },
       "endpointId" : "stationservice:a48a26d61d06e26ce961178db330f0b8",
       "serviceName" : "ts-station-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/stationservice/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"name\": \"Sample Name\", \"id\": \"12345\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/stationservice/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"id\": \"12345\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-contacts-service",
       "urlDerivedServiceName" : "ts-station-service"
     },
@@ -10285,7 +10287,7 @@
       },
       "endpointId" : "consignservice:ef905478902a3d447dfd17b09e927d0d",
       "serviceName" : "ts-consign-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/consignservice/consigns' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"to\": \"example-value\", \"id\": \"12345\", \"targetDate\": \"2024-01-15T10:30:00Z\", \"weight\": 123.45, \"handleDate\": \"2024-01-15T10:30:00Z\", \"consignee\": \"example-value\", \"orderId\": \"12345\", \"phone\": \"555-123-4567\", \"from\": \"example-value\", \"isWithin\": true}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/consignservice/consigns' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"phone\": \"555-123-4567\", \"weight\": 123.45, \"id\": \"12345\", \"targetDate\": \"2024-01-15T10:30:00Z\", \"orderId\": \"12345\", \"accountId\": \"12345\", \"from\": \"example-value\", \"to\": \"example-value\", \"consignee\": \"example-value\", \"isWithin\": true, \"handleDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-consign-service",
       "urlDerivedServiceName" : "ts-consign-service"
     },
@@ -10839,18 +10841,30 @@
       "urlDerivedServiceName" : "ts-fooddelivery-service"
     },
     "routeservice:1c6f73b5d6074dffef591530ff569021" : {
-      "id" : "ts-route-service:4954848d55e6b2b0e69e1b6647ebc0dd",
-      "methodId" : "ts-route-service:4954848d55e6b2b0e69e1b6647ebc0dd",
+      "id" : "ts-route-service:4ffd7e41b2de1413bd22c96cb468798c",
+      "methodId" : "ts-route-service:4ffd7e41b2de1413bd22c96cb468798c",
       "httpMethod" : "GET",
-      "fullUri" : "/api/v1/routeservice/routes/{routeId}",
-      "simplifiedUri" : "/api/v1/routeservice/routes/{?}",
+      "fullUri" : "/api/v1/routeservice/routes/{start}/{end}",
+      "simplifiedUri" : "/api/v1/routeservice/routes/{?}/{?}",
       "pathParameterDetails" : [ {
-        "name" : "routeId",
+        "name" : "start",
         "type" : "String",
         "javaType" : "String",
         "required" : true,
         "annotations" : [ "PathVariable" ],
-        "position" : 1,
+        "position" : 0,
+        "validationConstraints" : [ ],
+        "pathVariable" : true,
+        "requestParam" : false,
+        "requestBody" : false,
+        "requestHeader" : false
+      }, {
+        "name" : "end",
+        "type" : "String",
+        "javaType" : "String",
+        "required" : true,
+        "annotations" : [ "PathVariable" ],
+        "position" : 2,
         "validationConstraints" : [ ],
         "pathVariable" : true,
         "requestParam" : false,
@@ -10861,8 +10875,8 @@
       "requestBodyDetail" : null,
       "responseType" : "",
       "controllerClass" : "RouteController",
-      "methodName" : "queryById",
-      "description" : "query by id",
+      "methodName" : "queryByStartAndTerminal",
+      "description" : "query by start and terminal",
       "authentication" : {
         "required" : false,
         "permitAll" : true,
@@ -10896,7 +10910,7 @@
       },
       "endpointId" : "routeservice:1c6f73b5d6074dffef591530ff569021",
       "serviceName" : "ts-route-service",
-      "curlExample" : "curl -X GET 'http://localhost:8080/api/v1/routeservice/routes/12345' -H 'Authorization: Bearer <token>'",
+      "curlExample" : "curl -X GET 'http://localhost:8080/api/v1/routeservice/routes/example-value/example-value' -H 'Authorization: Bearer <token>'",
       "physicalServiceName" : "ts-route-service",
       "urlDerivedServiceName" : "ts-route-service"
     },
@@ -10927,7 +10941,7 @@
       "description" : "calculate",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -10936,7 +10950,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -11022,7 +11036,7 @@
       },
       "endpointId" : "adminorderservice:0db7f9b8ac5c01236b28e8885d518498",
       "serviceName" : "ts-adminorder-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminorderservice/adminorder' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminorderservice/adminorder' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-adminorder-service"
     },
@@ -11321,18 +11335,20 @@
       "methodName" : "addUser",
       "description" : "add user",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "permitAll" : false,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
-        "source" : "default",
-        "public" : true
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiresAuthentication" : true,
+        "source" : "yaml",
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -11352,7 +11368,7 @@
       },
       "endpointId" : "adminuserservice:85d4eae6a44d78df33005e57748e6a99",
       "serviceName" : "ts-adminuser-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminuserservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userName\": \"Sample Name\", \"gender\": 123, \"password\": \"********\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminuserservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userId\": \"12345\", \"userName\": \"Sample Name\", \"documentType\": \"DEFAULT\", \"password\": \"********\", \"gender\": 123}'",
       "physicalServiceName" : "ts-delivery-service",
       "urlDerivedServiceName" : "ts-adminuser-service"
     },
@@ -11415,7 +11431,7 @@
       },
       "endpointId" : "priceservice:24be12948c090ecc1080f1f633f9933b",
       "serviceName" : "ts-price-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/priceservice/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"basicPriceRate\": 99.99, \"routeId\": \"12345\", \"firstClassPriceRate\": 99.99, \"trainType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/priceservice/prices' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainType\": \"DEFAULT\", \"basicPriceRate\": 99.99, \"firstClassPriceRate\": 99.99, \"id\": \"12345\", \"routeId\": \"12345\"}'",
       "physicalServiceName" : "ts-price-service",
       "urlDerivedServiceName" : "ts-price-service"
     },
@@ -11589,7 +11605,7 @@
       },
       "endpointId" : "travelplanservice:8515d5ff3118a8af354c6eb202d820b3",
       "serviceName" : "ts-travelplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/cheapest' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/cheapest' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-travelplan-service"
     },
@@ -11712,7 +11728,7 @@
       },
       "endpointId" : "waitorderservice:201ea2c8a3b635dbee73a6eecbca9cb3",
       "serviceName" : "ts-waitorder-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/waitorderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"seatType\": \"DEFAULT\", \"to\": \"example-value\", \"contactsId\": \"12345\", \"tripId\": \"12345\", \"price\": 99.99, \"date\": \"2024-01-15T10:30:00Z\", \"from\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/waitorderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"price\": 99.99, \"contactsId\": \"12345\", \"tripId\": \"12345\", \"seatType\": \"DEFAULT\", \"accountId\": \"12345\", \"from\": \"example-value\", \"to\": \"example-value\", \"date\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-waitorder-service"
     },
@@ -11774,7 +11790,7 @@
       },
       "endpointId" : "travelservice:bb176cd1098f0701af47be71c7054441",
       "serviceName" : "ts-travel-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips/left_parallel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endPlace\": \"example-value\", \"startPlace\": \"example-value\", \"departureTime\": \"10:30:00\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelservice/trips/left_parallel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"departureTime\": \"10:30:00\", \"endPlace\": \"example-value\", \"startPlace\": \"example-value\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-travel-service"
     },
@@ -11900,7 +11916,7 @@
       },
       "endpointId" : "routeservice:f2d4c8387a8c1dc40c4ede635a4d69b9",
       "serviceName" : "ts-route-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeservice/routes' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endStation\": \"example-value\", \"distanceList\": \"example-value\", \"stationList\": \"example-value\", \"Id\": \"12345\", \"startStation\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeservice/routes' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"distanceList\": \"example-value\", \"stationList\": \"example-value\", \"Id\": \"12345\", \"startStation\": \"example-value\", \"endStation\": \"example-value\"}'",
       "physicalServiceName" : "ts-route-service",
       "urlDerivedServiceName" : "ts-route-service"
     },
@@ -12154,7 +12170,7 @@
       "description" : "collect ticket",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -12163,7 +12179,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_ADMIN" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -12246,7 +12262,7 @@
       },
       "endpointId" : "adminbasicservice:fc11896a23a5101e2ba76fda91bd424b",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"economyClass\": 123, \"confortClass\": 123, \"name\": \"Sample Name\", \"averageSpeed\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/trains' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"averageSpeed\": 123, \"name\": \"Sample Name\", \"confortClass\": 123, \"id\": \"12345\", \"economyClass\": 123}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -12277,7 +12293,6 @@
       "description" : "create food order",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -12286,7 +12301,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -12309,7 +12324,7 @@
       },
       "endpointId" : "foodservice:594f945d0e8f53146ba0113ae47affb7",
       "serviceName" : "ts-food-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/foodservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"foodType\": \"DEFAULT\", \"id\": \"12345\", \"storeName\": \"Sample Name\", \"price\": 99.99, \"orderId\": \"12345\", \"stationName\": \"Sample Name\", \"foodName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/foodservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationName\": \"Sample Name\", \"storeName\": \"Sample Name\", \"foodType\": \"DEFAULT\", \"price\": 99.99, \"orderId\": \"12345\", \"id\": \"12345\", \"foodName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-food-service",
       "urlDerivedServiceName" : "ts-food-service"
     },
@@ -12371,7 +12386,7 @@
       },
       "endpointId" : "travelplanservice:abf83e5c813a5ec554e6891792e75801",
       "serviceName" : "ts-travelplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/transferResult' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"viaStation\": \"example-value\", \"endStation\": \"example-value\", \"trainType\": \"DEFAULT\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"startStation\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/travelplanservice/travelPlan/transferResult' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainType\": \"DEFAULT\", \"startStation\": \"example-value\", \"endStation\": \"example-value\", \"viaStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-order-service",
       "urlDerivedServiceName" : "ts-travelplan-service"
     },
@@ -12434,7 +12449,7 @@
       },
       "endpointId" : "contactservice:11d5bb119f9764a380b38cc25ed43d62",
       "serviceName" : "ts-contact-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/contactservice/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\", \"documentNumber\": \"example-value\", \"id\": \"12345\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/contactservice/contacts' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-contacts-service",
       "urlDerivedServiceName" : "ts-contact-service"
     },
@@ -12700,8 +12715,8 @@
       "methodName" : "queryForNameBatch",
       "description" : "query for name batch",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
@@ -12710,9 +12725,9 @@
       },
       "authorization" : {
         "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
+        "requiresAuthentication" : true,
         "source" : "yaml",
-        "public" : true
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -12864,7 +12879,7 @@
       "description" : "update trip",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -12873,7 +12888,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -12896,7 +12911,7 @@
       },
       "endpointId" : "travel2service:d06d46b218537ccbdd0c12c4653efc4a",
       "serviceName" : "ts-travel2-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/travel2service/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/travel2service/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-travel2-service"
     },
@@ -12958,7 +12973,7 @@
       },
       "endpointId" : "routeplanservice:9bd860f5db264e172266f6fcda9bbae5",
       "serviceName" : "ts-routeplan-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/minStopStations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"startStation\": \"example-value\", \"num\": 123}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/routeplanservice/routePlan/minStopStations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"num\": 123, \"endStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-routeplan-service"
     },
@@ -13021,7 +13036,7 @@
       },
       "endpointId" : "paymentservice:9bc56771957de779a5256dfb421ee53b",
       "serviceName" : "ts-payment-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/paymentservice/payment' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"price\": 99.99, \"userId\": \"12345\", \"id\": \"12345\", \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/paymentservice/payment' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"orderId\": \"12345\", \"userId\": \"12345\", \"price\": 99.99}'",
       "physicalServiceName" : "ts-order-related-service",
       "urlDerivedServiceName" : "ts-payment-service"
     },
@@ -13196,7 +13211,7 @@
       },
       "endpointId" : "securityservice:45ebb9f119397e01e95d5c38a7619621",
       "serviceName" : "ts-security-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/securityservice/securityConfigs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"securityProperties\": {\"authorizationRules\": [{\"paths\": [\"/path/to/resource\"], \"authorities\": [\"example-value\"], \"method\": \"example-value\"}]}}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/securityservice/securityConfigs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"securityProperties\": {\"authorizationRules\": [{\"authorities\": [\"example-value\"], \"method\": \"example-value\", \"paths\": [\"/path/to/resource\"]}]}}'",
       "physicalServiceName" : "ts-security-service",
       "urlDerivedServiceName" : "ts-security-service"
     },
@@ -13227,7 +13242,7 @@
       "description" : "pay difference",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -13236,7 +13251,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN", "ROLE_USER" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -13259,7 +13274,7 @@
       },
       "endpointId" : "deliveryservice:bd2364380c5807ef8ef05d08b799576d",
       "serviceName" : "ts-delivery-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment/difference' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"tripId\": \"12345\", \"price\": 99.99, \"orderId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/inside_pay_service/inside_payment/difference' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"price\": 99.99, \"tripId\": \"12345\", \"userId\": \"12345\", \"orderId\": \"12345\"}'",
       "physicalServiceName" : "ts-delivery-service",
       "urlDerivedServiceName" : null
     },
@@ -13385,7 +13400,7 @@
       },
       "endpointId" : "travelservice:650375bd4b6277d2c4c8668cf64e9f29",
       "serviceName" : "ts-travel-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/travelservice/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/travelservice/trips' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-travel-service"
     },
@@ -13448,7 +13463,7 @@
       },
       "endpointId" : "orderotherservice:c952885a5a27c76ff1dde89a11aa2e98",
       "serviceName" : "ts-order-other-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderOtherService/orderOther' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"id\": \"12345\", \"accountId\": \"12345\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"to\": \"example-value\", \"documentType\": \"DEFAULT\", \"seatNumber\": \"example-value\", \"travelTime\": \"10:30:00\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"status\": \"ACTIVE\", \"seatClass\": 123, \"contactsDocumentNumber\": \"example-value\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/orderOtherService/orderOther' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"contactsDocumentNumber\": \"example-value\", \"status\": \"ACTIVE\", \"price\": 99.99, \"trainNumber\": \"example-value\", \"contactsName\": \"Sample Name\", \"from\": \"example-value\", \"seatNumber\": \"example-value\", \"id\": \"12345\", \"coachNumber\": 123, \"travelDate\": \"2024-01-15T10:30:00Z\", \"boughtDate\": \"2024-01-15T10:30:00Z\", \"to\": \"example-value\", \"seatClass\": 123, \"travelTime\": \"10:30:00\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-other-service"
     },
@@ -13510,7 +13525,7 @@
       },
       "endpointId" : "orderservice:adc31e2e6e775a940c1db0665dda2f99",
       "serviceName" : "ts-order-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/refresh' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"boughtDateStart\": \"2024-01-15T10:30:00Z\", \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"loginId\": \"12345\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/orderservice/order/refresh' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"travelDateEnd\": \"2024-01-15T10:30:00Z\", \"enableBoughtDateQuery\": \"2024-01-15T10:30:00Z\", \"travelDateStart\": \"2024-01-15T10:30:00Z\", \"boughtDateEnd\": \"2024-01-15T10:30:00Z\", \"enableStateQuery\": true, \"enableTravelDateQuery\": \"2024-01-15T10:30:00Z\", \"state\": 123, \"loginId\": \"12345\", \"boughtDateStart\": \"2024-01-15T10:30:00Z\"}'",
       "physicalServiceName" : "ts-preserve-service",
       "urlDerivedServiceName" : "ts-order-service"
     },
@@ -13540,18 +13555,20 @@
       "methodName" : "updateUser",
       "description" : "update user",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "permitAll" : false,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
-        "source" : "default",
-        "public" : true
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiresAuthentication" : true,
+        "source" : "yaml",
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -13571,7 +13588,7 @@
       },
       "endpointId" : "adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
       "serviceName" : "ts-adminuser-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminuserservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"userId\": \"12345\", \"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userName\": \"Sample Name\", \"gender\": 123, \"password\": \"********\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminuserservice/users' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"documentNum\": \"example-value\", \"email\": \"user@example.com\", \"userId\": \"12345\", \"userName\": \"Sample Name\", \"documentType\": \"DEFAULT\", \"password\": \"********\", \"gender\": 123}'",
       "physicalServiceName" : "ts-delivery-service",
       "urlDerivedServiceName" : "ts-adminuser-service"
     },
@@ -13888,7 +13905,7 @@
       "description" : "create config",
       "authentication" : {
         "required" : true,
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "permitAll" : false,
         "source" : "yaml",
         "mechanism" : {
@@ -13897,7 +13914,7 @@
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiredRoles" : [ "ROLE_USER" ],
         "requiresAuthentication" : true,
         "source" : "yaml",
         "public" : false
@@ -13920,7 +13937,7 @@
       },
       "endpointId" : "configservice:49a892344917c5b779b3613e26fef310",
       "serviceName" : "ts-config-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/configservice/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"description\": \"Sample description text\", \"name\": \"Sample Name\", \"value\": \"example-value\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/configservice/configs' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"value\": \"example-value\", \"description\": \"Sample description text\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-security-service",
       "urlDerivedServiceName" : "ts-config-service"
     },
@@ -14000,18 +14017,20 @@
       "methodName" : "getAllUsers",
       "description" : "get all users",
       "authentication" : {
-        "required" : false,
-        "permitAll" : true,
+        "required" : true,
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "permitAll" : false,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
         "optionalAuthentication" : false
       },
       "authorization" : {
-        "requiredRoles" : [ ],
-        "requiresAuthentication" : false,
-        "source" : "default",
-        "public" : true
+        "requiredRoles" : [ "ROLE_ADMIN" ],
+        "requiresAuthentication" : true,
+        "source" : "yaml",
+        "public" : false
       },
       "responseSchema" : {
         "statusCodes" : {
@@ -14114,6 +14133,7 @@
       "authentication" : {
         "required" : false,
         "permitAll" : true,
+        "source" : "yaml",
         "mechanism" : {
           "type" : "NONE"
         },
@@ -14122,7 +14142,7 @@
       "authorization" : {
         "requiredRoles" : [ ],
         "requiresAuthentication" : false,
-        "source" : "default",
+        "source" : "yaml",
         "public" : true
       },
       "responseSchema" : {
@@ -14418,7 +14438,7 @@
       },
       "endpointId" : "seatservice:99f639d13471c7f245435434f244da89",
       "serviceName" : "ts-seat-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/seatservice/seats' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainNumber\": \"example-value\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"startStation\": \"example-value\", \"seatType\": \"DEFAULT\", \"destStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/seatservice/seats' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"startStation\": \"example-value\", \"travelDate\": \"2024-01-15T10:30:00Z\", \"trainNumber\": \"example-value\", \"seatType\": \"DEFAULT\", \"totalNum\": 10, \"stations\": [\"example-value\"], \"destStation\": \"example-value\"}'",
       "physicalServiceName" : "ts-travel-service",
       "urlDerivedServiceName" : "ts-seat-service"
     },
@@ -14481,7 +14501,7 @@
       },
       "endpointId" : "admintravelservice:a56b55bd5d8c8d5588afb3bff11280f9",
       "serviceName" : "ts-admintravel-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/admintravelservice/admintravel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationsName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"tripId\": \"12345\", \"terminalStationName\": \"Sample Name\", \"loginId\": \"12345\", \"startTime\": \"10:30:00\", \"trainTypeName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/admintravelservice/admintravel' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"trainTypeName\": \"Sample Name\", \"terminalStationName\": \"Sample Name\", \"tripId\": \"12345\", \"startTime\": \"10:30:00\", \"startStationName\": \"Sample Name\", \"routeId\": \"12345\", \"endTime\": \"10:30:00\", \"loginId\": \"12345\", \"stationsName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-rebook-service",
       "urlDerivedServiceName" : "ts-admintravel-service"
     },
@@ -14541,7 +14561,7 @@
       },
       "endpointId" : "adminbasicservice:19a4a4e3c2407d804bc8ab28a5ee1c61",
       "serviceName" : "ts-adminbasic-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"name\": \"Sample Name\", \"id\": \"12345\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/adminbasicservice/adminbasic/stations' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stayTime\": \"10:30:00\", \"id\": \"12345\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-admin-service",
       "urlDerivedServiceName" : "ts-adminbasic-service"
     },
@@ -15089,7 +15109,7 @@
       },
       "endpointId" : "foodservice:e3e5793800d2d7e1af66b9ed4991c973",
       "serviceName" : "ts-food-service",
-      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/foodservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"foodType\": \"DEFAULT\", \"id\": \"12345\", \"storeName\": \"Sample Name\", \"price\": 99.99, \"orderId\": \"12345\", \"stationName\": \"Sample Name\", \"foodName\": \"Sample Name\"}'",
+      "curlExample" : "curl -X PUT 'http://localhost:8080/api/v1/foodservice/orders' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"stationName\": \"Sample Name\", \"storeName\": \"Sample Name\", \"foodType\": \"DEFAULT\", \"price\": 99.99, \"orderId\": \"12345\", \"id\": \"12345\", \"foodName\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-food-service",
       "urlDerivedServiceName" : "ts-food-service"
     },
@@ -15328,15 +15348,15 @@
       },
       "endpointId" : "contactservice:42c7f9ca15a0465990e6b8e0babbd832",
       "serviceName" : "ts-contact-service",
-      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/contactservice/contacts/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\", \"documentNumber\": \"example-value\", \"id\": \"12345\", \"documentType\": \"DEFAULT\"}'",
+      "curlExample" : "curl -X POST 'http://localhost:8080/api/v1/contactservice/contacts/admin' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\"id\": \"12345\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"name\": \"Sample Name\"}'",
       "physicalServiceName" : "ts-contacts-service",
       "urlDerivedServiceName" : "ts-contact-service"
     }
   },
   "metadata" : {
     "systemName" : "train-ticket-aitest",
-    "commitId" : "e89e9b5183426307c98baa1c70169b8e9ec7b5b1",
-    "indexedAt" : "2025-12-18T02:47:53.078267Z",
+    "commitId" : "c0e46f2a5adfcae82ee79f0f981bb61a5c378274",
+    "indexedAt" : "2025-12-19T08:47:26.642162Z",
     "totalComponents" : 259,
     "componentCounts" : {
       "endpoints" : 259,

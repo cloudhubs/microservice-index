@@ -1,0 +1,148 @@
+{
+  "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+  "serviceName": "ts-delivery-service",
+  "endpoint": "/api/v1/inside_pay_service/inside_payment/account",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"1250.50\",\"userId\":\"user-9823\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "1250.50",
+          "userId": "user-9823"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is permitted by the policy, so the request should succeed with a 2xx response when valid financial data is provided.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"980.00\",\"userId\":\"user-4410\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "980.00",
+          "userId": "user-4410"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is also allowed, so the authenticated request should produce a successful 2xx outcome with valid payload.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"750.25\",\"userId\":\"user-1297\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "750.25",
+          "userId": "user-1297"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Endpoint is not public, so unauthenticated requests should be rejected with a 401 (or similar 4xx) response.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"3100.00\",\"userId\":\"user-8762\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "3100.00",
+          "userId": "user-8762"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid/corrupted tokens should be rejected with a 401 or equivalent error to enforce credential validation.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:28:50.428Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "account",
+    "isIdempotent": false,
+    "sensitivityType": "FINANCIAL",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

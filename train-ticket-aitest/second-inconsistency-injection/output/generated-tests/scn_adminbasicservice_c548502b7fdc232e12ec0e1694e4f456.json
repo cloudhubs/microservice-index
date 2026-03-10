@@ -1,0 +1,174 @@
+{
+  "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/contacts",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"accountId\":\"12345\",\"phoneNumber\":\"555-123-4567\",\"name\":\"Sample Name\",\"documentNumber\":\"example-value\",\"id\":\"12345\",\"documentType\":\"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "name": "Sample Name",
+          "documentNumber": "example-value",
+          "id": "12345",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry point denies ROLE_USER, but downstream contactservice allows ROLE_USER access (OverPermissiveDownstream) so the response should remain 403 while highlighting the downstream inconsistency.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"accountId\":\"12345\",\"phoneNumber\":\"555-123-4567\",\"name\":\"Sample Name\",\"documentNumber\":\"example-value\",\"id\":\"12345\",\"documentType\":\"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "name": "Sample Name",
+          "documentNumber": "example-value",
+          "id": "12345",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is an allowed role at both entry and downstream services so the PUT request should succeed with a 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"accountId\":\"12345\",\"phoneNumber\":\"555-123-4567\",\"name\":\"Sample Name\",\"documentNumber\":\"example-value\",\"id\":\"12345\",\"documentType\":\"DEFAULT\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "name": "Sample Name",
+          "documentNumber": "example-value",
+          "id": "12345",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public and requires authentication, so anonymous requests should be rejected (401/403).",
+      "sensitivityLevel": "PII",
+      "testPriority": "LOW"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"accountId\":\"12345\",\"phoneNumber\":\"555-123-4567\",\"name\":\"Sample Name\",\"documentNumber\":\"example-value\",\"id\":\"12345\",\"documentType\":\"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "name": "Sample Name",
+          "documentNumber": "example-value",
+          "id": "12345",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Corrupted or invalid tokens should be rejected before downstream calls are made, returning a 401 (or comparable 4xx/5xx) response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "LOW"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:09:54.936Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "contacts",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

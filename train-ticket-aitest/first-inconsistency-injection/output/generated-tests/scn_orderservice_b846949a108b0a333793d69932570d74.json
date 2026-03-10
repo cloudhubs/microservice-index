@@ -1,0 +1,207 @@
+{
+  "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+  "serviceName": "ts-order-service",
+  "endpoint": "/api/v1/orderservice/order",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Jordan Miles\",\"id\":\"550e8400-e29b-41d4-a716-446655440000\",\"to\":\"San Francisco\",\"seatClass\":2,\"boughtDate\":\"2024-11-20T08:45:00Z\",\"contactsDocumentNumber\":\"ID12345678\",\"from\":\"Los Angeles\",\"travelDate\":\"2024-12-01T09:00:00Z\",\"travelTime\":\"09:00:00\",\"trainNumber\":\"CA123\",\"price\":\"199.95\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "seatNumber": "12A",
+          "coachNumber": 5,
+          "accountId": "550e8400-e29b-41d4-a716-446655440000",
+          "status": 1,
+          "documentType": 2,
+          "contactsName": "Jordan Miles",
+          "id": "550e8400-e29b-41d4-a716-446655440000",
+          "to": "San Francisco",
+          "seatClass": 2,
+          "boughtDate": "2024-11-20T08:45:00Z",
+          "contactsDocumentNumber": "ID12345678",
+          "from": "Los Angeles",
+          "travelDate": "2024-12-01T09:00:00Z",
+          "travelTime": "09:00:00",
+          "trainNumber": "CA123",
+          "price": "199.95"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is granted access so the update should succeed with a 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"seatNumber\":\"12B\",\"coachNumber\":3,\"accountId\":\"550e8400-e29b-41d4-a716-446655441111\",\"status\":2,\"documentType\":1,\"contactsName\":\"Avery Thompson\",\"id\":\"550e8400-e29b-41d4-a716-446655441111\",\"to\":\"Seattle\",\"seatClass\":1,\"boughtDate\":\"2024-11-21T10:15:00Z\",\"contactsDocumentNumber\":\"ID87654321\",\"from\":\"Portland\",\"travelDate\":\"2024-12-05T13:30:00Z\",\"travelTime\":\"13:30:00\",\"trainNumber\":\"NWP456\",\"price\":\"159.50\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "seatNumber": "12B",
+          "coachNumber": 3,
+          "accountId": "550e8400-e29b-41d4-a716-446655441111",
+          "status": 2,
+          "documentType": 1,
+          "contactsName": "Avery Thompson",
+          "id": "550e8400-e29b-41d4-a716-446655441111",
+          "to": "Seattle",
+          "seatClass": 1,
+          "boughtDate": "2024-11-21T10:15:00Z",
+          "contactsDocumentNumber": "ID87654321",
+          "from": "Portland",
+          "travelDate": "2024-12-05T13:30:00Z",
+          "travelTime": "13:30:00",
+          "trainNumber": "NWP456",
+          "price": "159.50"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is an allowed role so the order update should be accepted with a successful 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"seatNumber\":\"14C\",\"coachNumber\":7,\"accountId\":\"550e8400-e29b-41d4-a716-446655442222\",\"status\":3,\"documentType\":4,\"contactsName\":\"Morgan Casey\",\"id\":\"550e8400-e29b-41d4-a716-446655442222\",\"to\":\"Boston\",\"seatClass\":3,\"boughtDate\":\"2024-11-22T11:20:00Z\",\"contactsDocumentNumber\":\"ID55566777\",\"from\":\"New York\",\"travelDate\":\"2024-12-10T16:45:00Z\",\"travelTime\":\"16:45:00\",\"trainNumber\":\"ATL789\",\"price\":\"220.00\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "seatNumber": "14C",
+          "coachNumber": 7,
+          "accountId": "550e8400-e29b-41d4-a716-446655442222",
+          "status": 3,
+          "documentType": 4,
+          "contactsName": "Morgan Casey",
+          "id": "550e8400-e29b-41d4-a716-446655442222",
+          "to": "Boston",
+          "seatClass": 3,
+          "boughtDate": "2024-11-22T11:20:00Z",
+          "contactsDocumentNumber": "ID55566777",
+          "from": "New York",
+          "travelDate": "2024-12-10T16:45:00Z",
+          "travelTime": "16:45:00",
+          "trainNumber": "ATL789",
+          "price": "220.00"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Anonymous access is rejected because the endpoint is not public and requires authentication.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"seatNumber\":\"15D\",\"coachNumber\":2,\"accountId\":\"550e8400-e29b-41d4-a716-446655443333\",\"status\":4,\"documentType\":5,\"contactsName\":\"Riley Harper\",\"id\":\"550e8400-e29b-41d4-a716-446655443333\",\"to\":\"Chicago\",\"seatClass\":2,\"boughtDate\":\"2024-11-23T09:10:00Z\",\"contactsDocumentNumber\":\"ID99887766\",\"from\":\"Denver\",\"travelDate\":\"2024-12-15T14:00:00Z\",\"travelTime\":\"14:00:00\",\"trainNumber\":\"MID321\",\"price\":\"185.75\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "seatNumber": "15D",
+          "coachNumber": 2,
+          "accountId": "550e8400-e29b-41d4-a716-446655443333",
+          "status": 4,
+          "documentType": 5,
+          "contactsName": "Riley Harper",
+          "id": "550e8400-e29b-41d4-a716-446655443333",
+          "to": "Chicago",
+          "seatClass": 2,
+          "boughtDate": "2024-11-23T09:10:00Z",
+          "contactsDocumentNumber": "ID99887766",
+          "from": "Denver",
+          "travelDate": "2024-12-15T14:00:00Z",
+          "travelTime": "14:00:00",
+          "trainNumber": "MID321",
+          "price": "185.75"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid or corrupted tokens must be rejected, yielding a 401 response when authentication cannot be validated.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:28:53.743Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "order",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

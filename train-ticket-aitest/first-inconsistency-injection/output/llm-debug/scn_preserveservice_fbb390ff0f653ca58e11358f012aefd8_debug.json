@@ -1,0 +1,157 @@
+{
+  "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+  "timestamp": "2025-12-23T02:29:01.079Z",
+  "systemPrompt": "You are an API authorization test generator specializing in downstream policy consistency testing.\n\nINPUT FORMAT:\nYou will receive scenario data as JSON including downstream_context with policy inconsistency information.\n\nYOUR JOB:\nGenerate tests that detect authorization policy mismatches across microservice call chains.\n\nRULES:\n1. Parse the INPUT DATA JSON including the downstream_context section\n2. For roles in policy_inconsistency_roles:\n   - UnderPermissiveDownstream: Entry allows but downstream denies → expect 500 or error\n   - OverPermissiveDownstream: Entry denies correctly → expect 403\n   - PolicyExposure: Check data access control → expect appropriate denial\n3. For roles NOT in policy_inconsistency_roles (consistent behavior):\n   - Apply standard rules (allowed_roles → 2xx, denied_roles → 403)\n4. Use token placeholders: {{TOKEN_ROLE_ADMIN}}, {{TOKEN_ROLE_USER}}\n5. For ANONYMOUS tests, set authPlaceholder to \"NONE\"\n   - If is_public=true → expect 2xx (public endpoints allow unauthenticated access)\n   - If is_public=false → expect 401 or 403\n6. For INVALID_TOKEN tests, set authPlaceholder to \"{{TOKEN_INVALID}}\" and expect 401 (or any 4xx/5xx)\n7. Set alternateAcceptable status codes for inconsistency roles (e.g., [500, 502, 503, 403])\n\nPATH AND QUERY PARAMETERS:\n- Path parameters: Replace placeholders in the URL with realistic values based on type\n- Query parameters: Add as URL query string if required=true\n- Use chain_permissions to understand permission flow through the call chain\n\nDATA SENSITIVITY:\n- For sensitive endpoints (PII, FINANCIAL), ensure proper access control tests\n- Check for data exposure through policy inconsistencies\n\nOUTPUT:\nReturn valid JSON matching the provided schema. Include isInconsistencyRole and inconsistencyType for affected roles.",
+  "userPrompt": "INPUT DATA:\n{\n  \"scenario_id\": \"scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8\",\n  \"service_name\": \"ts-preserve-service\",\n  \"method\": \"POST\",\n  \"endpoint\": \"/api/v1/preserveservice/preserve\",\n  \"type\": \"DownstreamPolicyConsistency\",\n  \"authorization\": {\n    \"allowed_roles\": [\n      \"ROLE_ADMIN\",\n      \"ROLE_USER\"\n    ],\n    \"denied_roles\": [],\n    \"expected_status_by_role\": {\n      \"ROLE_ADMIN\": \"2xx\",\n      \"ROLE_USER\": \"2xx\"\n    },\n    \"is_public\": false,\n    \"required_roles\": [\n      \"ROLE_ADMIN\",\n      \"ROLE_USER\"\n    ]\n  },\n  \"entity_schema\": {\n    \"entity_name\": \"OrderTicketsInfo\",\n    \"service_name\": \"ts-preserve-service\",\n    \"fields\": [\n      {\n        \"name\": \"tripId\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"seatType\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"to\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"consigneeWeight\",\n        \"type\": \"double\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"foodName\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"loginToken\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"foodPrice\",\n        \"type\": \"double\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"consigneeName\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"foodType\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"stationName\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"date\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"isWithin\",\n        \"type\": \"boolean\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"handleDate\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"contactsId\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"storeName\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"from\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"accountId\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"assurance\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"consigneePhone\",\n        \"type\": \"String\",\n        \"annotations\": []\n      }\n    ]\n  },\n  \"downstream_context\": {\n    \"max_depth\": 2,\n    \"total_calls\": 17,\n    \"policy_inconsistencies\": [\n      {\n        \"role\": \"ROLE_USER\",\n        \"type\": \"UnderPermissiveDownstream\",\n        \"details\": {\n          \"upstream_endpoint\": \"orderotherservice:c7b6f607fe84a3b88a2bfac24c1292d7\",\n          \"downstream_endpoint\": \"contactservice:e89605fb717241a8b0b39ac0d6bb0c84\",\n          \"upstream_value\": 1,\n          \"downstream_value\": 0\n        }\n      },\n      {\n        \"role\": \"ROLE_USER\",\n        \"type\": \"OverPermissiveDownstream\",\n        \"details\": {\n          \"upstream_endpoint\": \"contactservice:e89605fb717241a8b0b39ac0d6bb0c84\",\n          \"downstream_endpoint\": \"travel2service:b30e9d214c6730447f9311cca9f251f3\",\n          \"upstream_value\": 0,\n          \"downstream_value\": 1\n        }\n      }\n    ],\n    \"policy_inconsistency_roles\": [\n      \"ROLE_USER\"\n    ],\n    \"expected_outcome\": \"Detect and explain inconsistency in downstream authorization policies\"\n  },\n  \"uri_examples\": {\n    \"full_uri\": \"/api/v1/preserveservice/preserve\",\n    \"simplified_uri\": \"/api/v1/preserveservice/preserve\"\n  },\n  \"curl_example\": \"curl -X POST 'http://localhost:8080/api/v1/preserveservice/preserve' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\\\"to\\\": \\\"example-value\\\", \\\"isWithin\\\": true, \\\"date\\\": \\\"2024-01-15T10:30:00Z\\\", \\\"consigneeWeight\\\": 123.45, \\\"loginToken\\\": \\\"example-value\\\", \\\"consigneePhone\\\": \\\"555-123-4567\\\", \\\"foodPrice\\\": 99.99, \\\"assurance\\\": 123, \\\"foodType\\\": \\\"DEFAULT\\\", \\\"stationName\\\": \\\"Sample Name\\\", \\\"seatType\\\": \\\"DEFAULT\\\", \\\"tripId\\\": \\\"12345\\\", \\\"accountId\\\": \\\"12345\\\", \\\"handleDate\\\": \\\"2024-01-15T10:30:00Z\\\", \\\"storeName\\\": \\\"Sample Name\\\", \\\"consigneeName\\\": \\\"Sample Name\\\", \\\"from\\\": \\\"example-value\\\", \\\"foodName\\\": \\\"Sample Name\\\", \\\"contactsId\\\": \\\"12345\\\"}'\",\n  \"chain_dependencies\": {\n    \"dependencies\": [\n      {\n        \"endpoint_id\": \"securityservice:d62f8e2d0feedf74abd2c3c05ef161ac\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/securityservice/securityConfigs/{accountId}\",\n        \"service_name\": \"ts-security-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"orderservice:e0d6a355f4aad44220630a6ddc6c1549\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/orderservice/order/security/{checkDate}/{accountId}\",\n        \"service_name\": \"ts-order-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"orderotherservice:c7b6f607fe84a3b88a2bfac24c1292d7\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId}\",\n        \"service_name\": \"ts-order-other-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"contactservice:e89605fb717241a8b0b39ac0d6bb0c84\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/contactservice/contacts/{id}\",\n        \"service_name\": \"ts-contact-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\"\n        ],\n        \"denied_roles\": [\n          \"ROLE_USER\"\n        ],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"travel2service:b30e9d214c6730447f9311cca9f251f3\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/travel2service/trip_detail\",\n        \"service_name\": \"ts-travel2-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"basicservice:f29a4412da8d99120de59403ac16a49a\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/basicservice/basic/travel\",\n        \"service_name\": \"ts-basic-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"stationservice:b5dd26fcecb6f4874121b7b160ce5b79\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/stationservice/stations/id/{stationNameForId}\",\n        \"service_name\": \"ts-station-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"trainservice:5d58dc81e6e847e5b9a8a3c0c5b625ab\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/trainservice/trains/byName/{name}\",\n        \"service_name\": \"ts-train-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"UNRESOLVED:/api/v1/routeservice/routes/{route}\",\n        \"resolved\": false,\n        \"warning\": \"Scenario not found: scn_UNRESOLVED:/api/v1/routeservice/routes/{route}\",\n        \"allowed_roles\": [],\n        \"denied_roles\": [],\n        \"unknown_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ]\n      },\n      {\n        \"endpoint_id\": \"priceservice:264fd384bea6a2453e0ca294b02baf0b\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/priceservice/prices/{routeId}/{trainType}\",\n        \"service_name\": \"ts-price-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"seatservice:99f639d13471c7f245435434f244da89\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/seatservice/seats\",\n        \"service_name\": \"ts-seat-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"orderotherservice:9995eb9806fc9fa9b74b483129ce3dd8\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/orderOtherService/orderOther\",\n        \"service_name\": \"ts-order-other-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"assuranceservice:cef55275a1e2b1a275e6551a4e4b3781\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/assuranceservice/assurances/{typeIndex}/{orderId}\",\n        \"service_name\": \"ts-assurance-service\",\n        \"allowed_roles\": [\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [\n          \"ROLE_ADMIN\"\n        ],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"foodservice:594f945d0e8f53146ba0113ae47affb7\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/foodservice/orders\",\n        \"service_name\": \"ts-food-service\",\n        \"allowed_roles\": [\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [\n          \"ROLE_ADMIN\"\n        ],\n        \"unknown_roles\": [],\n        \"entity_schema\": {\n          \"entity_name\": \"FoodOrder\",\n          \"fields\": [\n            {\n              \"name\": \"orderId\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"storeName\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"foodType\",\n              \"type\": \"int\"\n            },\n            {\n              \"name\": \"foodName\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"price\",\n              \"type\": \"double\"\n            },\n            {\n              \"name\": \"stationName\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"id\",\n              \"type\": \"String\"\n            }\n          ]\n        }\n      },\n      {\n        \"endpoint_id\": \"consignservice:ef905478902a3d447dfd17b09e927d0d\",\n        \"resolved\": true,\n        \"method\": \"POST\",\n        \"endpoint\": \"/api/v1/consignservice/consigns\",\n        \"service_name\": \"ts-consign-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": [],\n        \"entity_schema\": {\n          \"entity_name\": \"Consign\",\n          \"fields\": [\n            {\n              \"name\": \"orderId\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"from\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"id\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"accountId\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"to\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"consignee\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"phone\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"isWithin\",\n              \"type\": \"boolean\"\n            },\n            {\n              \"name\": \"handleDate\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"targetDate\",\n              \"type\": \"String\"\n            },\n            {\n              \"name\": \"weight\",\n              \"type\": \"double\"\n            }\n          ]\n        }\n      },\n      {\n        \"endpoint_id\": \"userservice:a81d71041fb51215a8ba45747c9eb819\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/api/v1/userservice/users/id/{userId}\",\n        \"service_name\": \"ts-user-service\",\n        \"allowed_roles\": [\n          \"ROLE_ADMIN\",\n          \"ROLE_USER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      }\n    ],\n    \"depth_limit\": 2,\n    \"total_dependencies\": 16\n  },\n  \"api_metadata\": {\n    \"resource_type\": \"preserve\",\n    \"is_idempotent\": false\n  },\n  \"data_metadata\": {\n    \"request_body_type\": \"OrderTicketsInfo\",\n    \"response_type\": \"\",\n    \"status_code_map\": {\n      \"200\": \"\"\n    }\n  },\n  \"architecture\": {\n    \"layer\": \"Annotation\",\n    \"dependencies\": [],\n    \"is_entrypoint\": true\n  }\n}\n\nTASK:\nGenerate test cases for a DOWNSTREAM POLICY CONSISTENCY scenario.\n\nThis endpoint (POST /api/v1/preserveservice/preserve) calls other microservices internally.\nPolicy inconsistencies have been detected in the call chain.\n\nRequirements:\n1. For each role in policy_inconsistency_roles, create a test case that:\n   - Calls the entry endpoint with that role\n   - Expects behavior based on inconsistency type:\n     * UnderPermissiveDownstream: Entry allows but downstream denies → expect 500 or error response\n     * OverPermissiveDownstream: Entry denies correctly → expect 403\n     * PolicyExposure: Check for data exposure → expect proper access control\n   - Set isInconsistencyRole to true\n   - Set inconsistencyType to the type from policy_inconsistencies\n   - Include alternateAcceptable status codes [500, 502, 503, 403]\n\n2. For roles NOT in policy_inconsistency_roles (consistent behavior):\n   - Create standard test cases (allowed_roles → 2xx, denied_roles → 403)\n   - Set isInconsistencyRole to false\n\n3. Create an ANONYMOUS test case:\n   - If is_public is true, expect 2xx (public endpoints allow unauthenticated access)\n   - If is_public is false, expect 401 or 403\n\n4. Create an INVALID_TOKEN test case to verify the endpoint rejects corrupted/invalid tokens (expect 401, with alternateAcceptable: [400, 403, 500, 502, 503])\n\nCHAIN DEPENDENCIES (Full Context):\n- The chain_dependencies object provides full context for each downstream service call\n- Each dependency includes: method, endpoint, service_name, roles, and entity_schema\n- Use this to understand what data flows between services\n- Consider how authorization at each level affects the overall request flow\n- If a dependency shows \"resolved: false\", it could not be looked up - handle gracefully\n- Pay attention to role mismatches between entry point and downstream services\n\nFor each test case:\n- Use {{TOKEN_ROLE_<ROLENAME>}} as the auth placeholder\n- For ANONYMOUS, set authPlaceholder to \"NONE\" and role to \"ANONYMOUS\"\n- For INVALID_TOKEN, set authPlaceholder to \"{{TOKEN_INVALID}}\" and role to \"INVALID_TOKEN\"\n- Generate a realistic request body from entity_schema.fields (if present)\n- Include path_params and query_params in the request if applicable\n- Include rationale explaining the expected behavior based on the inconsistency type\n- Note which downstream service causes the inconsistency (from policy_inconsistencies)\n\nIMPORTANT: Include ALL test cases in the \"testCases\" array, including:\n1. Test cases for each role with inconsistency\n2. An ANONYMOUS test case (no auth token)\n3. An INVALID_TOKEN test case (corrupted/invalid auth token - expects 401 or 403)",
+  "rawResponse": {
+    "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+    "serviceName": "ts-preserve-service",
+    "endpoint": "/api/v1/preserveservice/preserve",
+    "method": "POST",
+    "testCases": [
+      {
+        "role": "ROLE_USER",
+        "isAllowed": true,
+        "isInconsistencyRole": true,
+        "inconsistencyType": "UnderPermissiveDownstream",
+        "request": {
+          "method": "POST",
+          "url": "/api/v1/preserveservice/preserve",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"tripId\":\"TRIP123\",\"seatType\":1,\"to\":\"Destination City\",\"consigneeWeight\":150.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token-value\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central Station\",\"date\":\"2024-11-01T13:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-01T14:00:00Z\",\"contactsId\":\"CONTACT123\",\"storeName\":\"StoreX\",\"from\":\"Origin City\",\"accountId\":\"ACCOUNT123\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+          "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 500,
+          "statusRange": "5xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            500,
+            502,
+            503,
+            403
+          ]
+        },
+        "rationale": "Entry authorization allows ROLE_USER, but the downstream contactservice explicitly denies ROLE_USER access, so preserving the request should fail with a 5xx error instead of completing successfully, revealing the under-permissive downstream policy.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "ROLE_USER",
+        "isAllowed": false,
+        "isInconsistencyRole": true,
+        "inconsistencyType": "OverPermissiveDownstream",
+        "request": {
+          "method": "POST",
+          "url": "/api/v1/preserveservice/preserve",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"tripId\":\"TRIP456\",\"seatType\":2,\"to\":\"Metro City\",\"consigneeWeight\":200.0,\"foodName\":\"Pasta\",\"loginToken\":\"token-value\",\"foodPrice\":15.0,\"consigneeName\":\"John Smith\",\"foodType\":1,\"stationName\":\"North Station\",\"date\":\"2024-11-02T09:30:00Z\",\"isWithin\":false,\"handleDate\":\"2024-11-02T10:00:00Z\",\"contactsId\":\"CONTACT456\",\"storeName\":\"StoreY\",\"from\":\"Suburb\",\"accountId\":\"ACCOUNT456\",\"assurance\":2,\"consigneePhone\":\"555-111-2222\"}",
+          "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 403,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            500,
+            502,
+            503,
+            403
+          ]
+        },
+        "rationale": "Although a downstream service (travel2service) would allow ROLE_USER, the upstream contactservice already denies ROLE_USER, so the entry endpoint must enforce that denial, returning 403 and preventing over-permissive downstream behavior.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "ROLE_ADMIN",
+        "isAllowed": true,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/api/v1/preserveservice/preserve",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"tripId\":\"TRIP789\",\"seatType\":1,\"to\":\"Capital City\",\"consigneeWeight\":120.0,\"foodName\":\"Salad\",\"loginToken\":\"token-value\",\"foodPrice\":20.0,\"consigneeName\":\"Alice Brown\",\"foodType\":3,\"stationName\":\"East Station\",\"date\":\"2024-11-03T08:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-03T09:00:00Z\",\"contactsId\":\"CONTACT789\",\"storeName\":\"StoreZ\",\"from\":\"Coastal\",\"accountId\":\"ACCOUNT789\",\"assurance\":1,\"consigneePhone\":\"555-333-4444\"}",
+          "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 200,
+          "statusRange": "2xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "ROLE_ADMIN is allowed end-to-end in this chain with no policy inconsistencies, so the preserve endpoint should accept the request and return a 2xx status.",
+        "sensitivityLevel": "PII",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "ANONYMOUS",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/api/v1/preserveservice/preserve",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"tripId\":\"TRIP000\",\"seatType\":2,\"to\":\"Anonymous City\",\"consigneeWeight\":100.0,\"foodName\":\"Taco\",\"loginToken\":\"token-value\",\"foodPrice\":10.0,\"consigneeName\":\"Unknown\",\"foodType\":1,\"stationName\":\"West Station\",\"date\":\"2024-11-04T11:00:00Z\",\"isWithin\":false,\"handleDate\":\"2024-11-04T11:30:00Z\",\"contactsId\":\"CONTACT000\",\"storeName\":\"StoreAnon\",\"from\":\"Unknown\",\"accountId\":\"ACCOUNT000\",\"assurance\":0,\"consigneePhone\":\"555-000-1111\"}",
+          "authPlaceholder": "NONE",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            403
+          ]
+        },
+        "rationale": "The endpoint is not public and requires authentication, so an anonymous request must be rejected with 401 (or 403) before entering the downstream chain.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "INVALID_TOKEN",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/api/v1/preserveservice/preserve",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"tripId\":\"TRIP999\",\"seatType\":1,\"to\":\"Invalid City\",\"consigneeWeight\":105.0,\"foodName\":\"Wrap\",\"loginToken\":\"token-value\",\"foodPrice\":11.0,\"consigneeName\":\"Invalid User\",\"foodType\":2,\"stationName\":\"South Station\",\"date\":\"2024-11-05T12:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-05T12:30:00Z\",\"contactsId\":\"CONTACT999\",\"storeName\":\"StoreInvalid\",\"from\":\"Unknown\",\"accountId\":\"ACCOUNT999\",\"assurance\":1,\"consigneePhone\":\"555-999-0000\"}",
+          "authPlaceholder": "{{TOKEN_INVALID}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            400,
+            403,
+            500,
+            502,
+            503
+          ]
+        },
+        "rationale": "An invalid or corrupted token should be rejected immediately with a 401 (or near 4xx/5xx) status, preventing any downstream calls with unauthorized credentials.",
+        "sensitivityLevel": "PII",
+        "testPriority": "MEDIUM"
+      }
+    ]
+  },
+  "timing": {
+    "promptBuildMs": 2,
+    "llmCallMs": 17883,
+    "totalMs": 17885
+  }
+}

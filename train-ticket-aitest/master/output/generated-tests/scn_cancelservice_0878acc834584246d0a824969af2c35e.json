@@ -1,0 +1,181 @@
+{
+  "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+  "serviceName": "ts-cancel-service",
+  "endpoint": "/api/v1/cancelservice/cancel/{orderId}/{loginId}",
+  "method": "GET",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "RestrictiveUpstream",
+      "request": {
+        "method": "GET",
+        "url": "/api/v1/cancelservice/cancel/12345/67890",
+        "headersJson": "{\"Accept\":\"application/json\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "loginId",
+            "value": "67890",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry point denies ROLE_ADMIN even though downstream order and orderOther services allow the role (RestrictiveUpstream inconsistency). Expect a 403 at the entry to highlight the upstream restriction, while alternate codes capture downstream error propagation.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/api/v1/cancelservice/cancel/12345/67890",
+        "headersJson": "{\"Accept\":\"application/json\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "loginId",
+            "value": "67890",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is the permitted entry role; downstream services also allow ROLE_USER so the cancel flow should succeed with 2xx.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/api/v1/cancelservice/cancel/12345/67890",
+        "headersJson": "{\"Accept\":\"application/json\"}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "loginId",
+            "value": "67890",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Endpoint is not public and requires authentication. Anonymous requests should be rejected before reaching downstream services.",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/api/v1/cancelservice/cancel/12345/67890",
+        "headersJson": "{\"Accept\":\"application/json\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "loginId",
+            "value": "67890",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Malformed or invalid token must be rejected at the entry before any downstream calls, ensuring corrupted credentials cannot propagate.",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:06:02.750Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{loginId}",
+    "isIdempotent": true,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

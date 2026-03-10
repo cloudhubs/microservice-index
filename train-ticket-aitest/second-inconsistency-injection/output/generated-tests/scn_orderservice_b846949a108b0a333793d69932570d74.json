@@ -1,0 +1,209 @@
+{
+  "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+  "serviceName": "ts-order-service",
+  "endpoint": "/api/v1/orderservice/order",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Alex Morgan\",\"id\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"Chicago Union Station\",\"seatClass\":1,\"boughtDate\":\"2025-05-10T09:30:00Z\",\"contactsDocumentNumber\":\"X1234567\",\"from\":\"Los Angeles Union Station\",\"travelDate\":\"2025-06-15\",\"travelTime\":\"14:45:00\",\"trainNumber\":\"TR1234\",\"price\":\"149.50\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "seatNumber": "12A",
+          "coachNumber": 5,
+          "accountId": "550e8400-e29b-41d4-a716-446655440000",
+          "status": 1,
+          "documentType": 2,
+          "contactsName": "Alex Morgan",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "to": "Chicago Union Station",
+          "seatClass": 1,
+          "boughtDate": "2025-05-10T09:30:00Z",
+          "contactsDocumentNumber": "X1234567",
+          "from": "Los Angeles Union Station",
+          "travelDate": "2025-06-15",
+          "travelTime": "14:45:00",
+          "trainNumber": "TR1234",
+          "price": "149.50"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN has the required permissions to update order details, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Alex Morgan\",\"id\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"Chicago Union Station\",\"seatClass\":1,\"boughtDate\":\"2025-05-10T09:30:00Z\",\"contactsDocumentNumber\":\"X1234567\",\"from\":\"Los Angeles Union Station\",\"travelDate\":\"2025-06-15\",\"travelTime\":\"14:45:00\",\"trainNumber\":\"TR1234\",\"price\":\"149.50\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "seatNumber": "12A",
+          "coachNumber": 5,
+          "accountId": "550e8400-e29b-41d4-a716-446655440000",
+          "status": 1,
+          "documentType": 2,
+          "contactsName": "Alex Morgan",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "to": "Chicago Union Station",
+          "seatClass": 1,
+          "boughtDate": "2025-05-10T09:30:00Z",
+          "contactsDocumentNumber": "X1234567",
+          "from": "Los Angeles Union Station",
+          "travelDate": "2025-06-15",
+          "travelTime": "14:45:00",
+          "trainNumber": "TR1234",
+          "price": "149.50"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is authorized to submit or modify orders, so the PUT request should return a successful 2xx status.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Alex Morgan\",\"id\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"Chicago Union Station\",\"seatClass\":1,\"boughtDate\":\"2025-05-10T09:30:00Z\",\"contactsDocumentNumber\":\"X1234567\",\"from\":\"Los Angeles Union Station\",\"travelDate\":\"2025-06-15\",\"travelTime\":\"14:45:00\",\"trainNumber\":\"TR1234\",\"price\":\"149.50\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "seatNumber": "12A",
+          "coachNumber": 5,
+          "accountId": "550e8400-e29b-41d4-a716-446655440000",
+          "status": 1,
+          "documentType": 2,
+          "contactsName": "Alex Morgan",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "to": "Chicago Union Station",
+          "seatClass": 1,
+          "boughtDate": "2025-05-10T09:30:00Z",
+          "contactsDocumentNumber": "X1234567",
+          "from": "Los Angeles Union Station",
+          "travelDate": "2025-06-15",
+          "travelTime": "14:45:00",
+          "trainNumber": "TR1234",
+          "price": "149.50"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Unauthenticated requests are not permitted on this non-public endpoint, so the service should reject the call with a 401 (or 403) error.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "INVALID_TOKEN",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/orderservice/order",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Alex Morgan\",\"id\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"Chicago Union Station\",\"seatClass\":1,\"boughtDate\":\"2025-05-10T09:30:00Z\",\"contactsDocumentNumber\":\"X1234567\",\"from\":\"Los Angeles Union Station\",\"travelDate\":\"2025-06-15\",\"travelTime\":\"14:45:00\",\"trainNumber\":\"TR1234\",\"price\":\"149.50\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "seatNumber": "12A",
+          "coachNumber": 5,
+          "accountId": "550e8400-e29b-41d4-a716-446655440000",
+          "status": 1,
+          "documentType": 2,
+          "contactsName": "Alex Morgan",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "to": "Chicago Union Station",
+          "seatClass": 1,
+          "boughtDate": "2025-05-10T09:30:00Z",
+          "contactsDocumentNumber": "X1234567",
+          "from": "Los Angeles Union Station",
+          "travelDate": "2025-06-15",
+          "travelTime": "14:45:00",
+          "trainNumber": "TR1234",
+          "price": "149.50"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid or corrupted token must be rejected, so the service should respond with a 401 error (or another 4xx/5xx indicating rejection).",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:10:08.407Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "order",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

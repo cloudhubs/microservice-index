@@ -1,0 +1,320 @@
+{
+  "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+  "serviceName": "ts-contact-service",
+  "endpoint": "/api/v1/contactservice/contacts",
+  "method": "GET",
+  "executedAt": "2025-12-23T02:29:51.664Z",
+  "baseUrl": "http://localhost:8888",
+  "totalTestCases": 4,
+  "passed": 3,
+  "failed": 1,
+  "testCaseResults": [
+    {
+      "role": "ROLE_ADMIN",
+      "passed": true,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "content-type": "application/json",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": {
+          "status": 1,
+          "msg": "Success",
+          "data": [
+            {
+              "id": "e971e228-2115-4898-b1e9-8724d4cdd220",
+              "accountId": "4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f",
+              "name": "Contacts_One",
+              "documentType": 1,
+              "documentNumber": "DocumentNumber_One",
+              "phoneNumber": "ContactsPhoneNum_One"
+            },
+            {
+              "id": "eb73d488-a203-44ec-8820-7fc69aefa988",
+              "accountId": "4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f",
+              "name": "Contacts_Two",
+              "documentType": 1,
+              "documentNumber": "DocumentNumber_Two",
+              "phoneNumber": "ContactsPhoneNum_Two"
+            }
+          ]
+        },
+        "responseTimeMs": 13.773375000000101,
+        "bodySizeBytes": 459,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 200,
+          "actualStatus": 200,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    },
+    {
+      "role": "ROLE_USER",
+      "passed": false,
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "content-type": "application/json",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": {
+          "status": 1,
+          "msg": "Success",
+          "data": [
+            {
+              "id": "e971e228-2115-4898-b1e9-8724d4cdd220",
+              "accountId": "4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f",
+              "name": "Contacts_One",
+              "documentType": 1,
+              "documentNumber": "DocumentNumber_One",
+              "phoneNumber": "ContactsPhoneNum_One"
+            },
+            {
+              "id": "eb73d488-a203-44ec-8820-7fc69aefa988",
+              "accountId": "4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f",
+              "name": "Contacts_Two",
+              "documentType": 1,
+              "documentNumber": "DocumentNumber_Two",
+              "phoneNumber": "ContactsPhoneNum_Two"
+            }
+          ]
+        },
+        "responseTimeMs": 11.627375000000029,
+        "bodySizeBytes": 459,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 403,
+          "actualStatus": 200,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 403 (4xx), got 200",
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    },
+    {
+      "role": "ANONYMOUS",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "content-length": "0",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": "",
+        "responseTimeMs": 4.9438749999999345,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 401,
+          "actualStatus": 403,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      }
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "content-length": "0",
+          "date": "Tue, 23 Dec 2025 02:29:51 GMT",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": "",
+        "responseTimeMs": 7.985791999999947,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 401,
+          "actualStatus": 403,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    }
+  ],
+  "summary": {
+    "overallPassed": false,
+    "failureReasons": [
+      "ROLE_USER: Expected status 403 (4xx), got 200"
+    ],
+    "executionTimeMs": 1357
+  }
+}

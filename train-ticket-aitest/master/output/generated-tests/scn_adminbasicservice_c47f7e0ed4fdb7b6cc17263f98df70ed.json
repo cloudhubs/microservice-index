@@ -1,0 +1,153 @@
+{
+  "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/stations/{id}",
+  "method": "DELETE",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminbasicservice/adminbasic/stations/12345",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Upstream adminbasicservice correctly denies ROLE_USER, but the downstream ts-station-service DELETE /stations/{stationsId} unexpectedly allows it, indicating an OverPermissiveDownstream policy mismatch that should manifest as a 403 (or 5xx error) at the entry point.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminbasicservice/adminbasic/stations/12345",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 204,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is allowed by both the adminbasicservice entry point and the downstream ts-station-service DELETE endpoint, so the request should succeed (204 No Content) and demonstrate consistent policy enforcement.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminbasicservice/adminbasic/stations/12345",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "This endpoint is not public and requires ROLE_ADMIN. An anonymous request without authentication should be rejected with 401 Unauthorized (or a similar 4xx) before reaching any downstream services.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminbasicservice/adminbasic/stations/12345",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "A malformed or invalid token should be rejected by the authorization layer with a 401 (or related 4xx/5xx) before invoking downstream services, ensuring the system does not process unauthorized requests.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:05:54.089Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

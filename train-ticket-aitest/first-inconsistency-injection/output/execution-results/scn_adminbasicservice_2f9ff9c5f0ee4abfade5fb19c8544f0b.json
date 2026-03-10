@@ -1,0 +1,565 @@
+{
+  "scenarioId": "scn_adminbasicservice:2f9ff9c5f0ee4abfade5fb19c8544f0b",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/prices",
+  "method": "GET",
+  "executedAt": "2025-12-23T02:29:51.437Z",
+  "baseUrl": "http://localhost:8888",
+  "totalTestCases": 4,
+  "passed": 4,
+  "failed": 0,
+  "testCaseResults": [
+    {
+      "role": "ROLE_ADMIN",
+      "passed": true,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "content-type": "application/json",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": {
+          "status": 1,
+          "msg": "Success",
+          "data": [
+            {
+              "id": "0eb474c9-f8be-4119-8681-eb538a404a6a",
+              "trainType": "KuaiSu",
+              "routeId": "1367db1f-461e-4ab7-87ad-2bcc05fd9cb7",
+              "basicPriceRate": 0.2,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "3cea7f21-3fd9-4c6a-b335-00c3de7142d2",
+              "trainType": "DEFAULT",
+              "routeId": "R-12345",
+              "basicPriceRate": 149.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "4519ec75-c7e7-41ad-bbb9-46ea60d89162",
+              "trainType": "DEFAULT",
+              "routeId": "ROUTE-123",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "6d20b8cb-039c-474c-ae25-b6177ea41152",
+              "trainType": "GaoTieOne",
+              "routeId": "92708982-77af-4318-be25-57ccb0ff69ad",
+              "basicPriceRate": 0.38,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "719287d6-d3e7-4b54-9a92-71d039748b22",
+              "trainType": "GaoTieOne",
+              "routeId": "a3f256c1-0e43-4f7d-9c21-121bf258101f",
+              "basicPriceRate": 0.7,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "7de18cf8-bb17-4bb2-aeb4-85d8176d3a93",
+              "trainType": "GaoTieTwo",
+              "routeId": "084837bb-53c8-4438-87c8-0321a4d09917",
+              "basicPriceRate": 0.6,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "8b059dc5-01a2-4f8f-8f94-6c886b38bb34",
+              "trainType": "ZhiDa",
+              "routeId": "d693a2c5-ef87-4a3c-bef8-600b43f62c68",
+              "basicPriceRate": 0.32,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "8db52a3b-e058-429e-b150-3b1d1139e299",
+              "trainType": "EXPRESS",
+              "routeId": "R-123",
+              "basicPriceRate": 120,
+              "firstClassPriceRate": 200
+            },
+            {
+              "id": "8fb01829-393f-4af4-9e96-f72866f94d14",
+              "trainType": "ZhiDa",
+              "routeId": "9fc9c261-3263-4bfa-82f8-bb44e06b2f52",
+              "basicPriceRate": 0.35,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "95986aeb-7a57-4caa-89ac-73856d1da62b",
+              "trainType": "DEFAULT",
+              "routeId": "RTE-12345",
+              "basicPriceRate": 85.75,
+              "firstClassPriceRate": 120.5
+            },
+            {
+              "id": "b47ac645-8aaa-43fa-b42c-424cbbd72a83",
+              "trainType": "DEFAULT",
+              "routeId": "12345",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 99.99
+            },
+            {
+              "id": "b7293471-68d7-40ef-b1eb-962c0de70f53",
+              "trainType": "DEFAULT",
+              "routeId": "12343-12345-12434-12344-12345",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 149.99
+            },
+            {
+              "id": "b90a6ad7-ffad-4624-9655-48e9e185fa6c",
+              "trainType": "ZhiDa",
+              "routeId": "0b23bd3e-876a-4af3-b920-c50a90c90b04",
+              "basicPriceRate": 0.35,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "be617237-3a67-4775-83d5-651f0a1b0dd9",
+              "trainType": "fast",
+              "routeId": "route123",
+              "basicPriceRate": 1.5,
+              "firstClassPriceRate": 2.5
+            },
+            {
+              "id": "c5679b7e-4a54-4f52-9939-1ae86ba16fa7",
+              "trainType": "GaoTieOne",
+              "routeId": "aefcef3f-3f42-46e8-afd7-6cb2a928bd3d",
+              "basicPriceRate": 0.5,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "d5c4523a-827c-468c-95be-e9024a40572e",
+              "trainType": "DongCheOne",
+              "routeId": "f3d4d4ef-693b-4456-8eed-59c0d717dd08",
+              "basicPriceRate": 0.45,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "dd0e572e-7443-420c-8280-7d8215636069",
+              "trainType": "TeKuai",
+              "routeId": "20eb7122-3a11-423f-b10a-be0dc5bce7db",
+              "basicPriceRate": 0.3,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "e8e97549-a73c-4552-98f7-154204b0abea",
+              "trainType": "DEFAULT",
+              "routeId": "route-987",
+              "basicPriceRate": 120.75,
+              "firstClassPriceRate": 150.5
+            },
+            {
+              "id": "ecdcdb03-c42d-49f1-90b4-3ab5de64374b",
+              "trainType": "EXPRESS",
+              "routeId": "R100",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "price-conf-001",
+              "trainType": "DEFAULT",
+              "routeId": "R100",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 149.99
+            }
+          ]
+        },
+        "responseTimeMs": 36.82895799999994,
+        "bodySizeBytes": 3048,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 200,
+          "actualStatus": 200,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    },
+    {
+      "role": "ROLE_USER",
+      "passed": true,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "content-type": "application/json",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": {
+          "status": 1,
+          "msg": "Success",
+          "data": [
+            {
+              "id": "0eb474c9-f8be-4119-8681-eb538a404a6a",
+              "trainType": "KuaiSu",
+              "routeId": "1367db1f-461e-4ab7-87ad-2bcc05fd9cb7",
+              "basicPriceRate": 0.2,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "3cea7f21-3fd9-4c6a-b335-00c3de7142d2",
+              "trainType": "DEFAULT",
+              "routeId": "R-12345",
+              "basicPriceRate": 149.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "4519ec75-c7e7-41ad-bbb9-46ea60d89162",
+              "trainType": "DEFAULT",
+              "routeId": "ROUTE-123",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "6d20b8cb-039c-474c-ae25-b6177ea41152",
+              "trainType": "GaoTieOne",
+              "routeId": "92708982-77af-4318-be25-57ccb0ff69ad",
+              "basicPriceRate": 0.38,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "719287d6-d3e7-4b54-9a92-71d039748b22",
+              "trainType": "GaoTieOne",
+              "routeId": "a3f256c1-0e43-4f7d-9c21-121bf258101f",
+              "basicPriceRate": 0.7,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "7de18cf8-bb17-4bb2-aeb4-85d8176d3a93",
+              "trainType": "GaoTieTwo",
+              "routeId": "084837bb-53c8-4438-87c8-0321a4d09917",
+              "basicPriceRate": 0.6,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "8b059dc5-01a2-4f8f-8f94-6c886b38bb34",
+              "trainType": "ZhiDa",
+              "routeId": "d693a2c5-ef87-4a3c-bef8-600b43f62c68",
+              "basicPriceRate": 0.32,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "8db52a3b-e058-429e-b150-3b1d1139e299",
+              "trainType": "EXPRESS",
+              "routeId": "R-123",
+              "basicPriceRate": 120,
+              "firstClassPriceRate": 200
+            },
+            {
+              "id": "8fb01829-393f-4af4-9e96-f72866f94d14",
+              "trainType": "ZhiDa",
+              "routeId": "9fc9c261-3263-4bfa-82f8-bb44e06b2f52",
+              "basicPriceRate": 0.35,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "95986aeb-7a57-4caa-89ac-73856d1da62b",
+              "trainType": "DEFAULT",
+              "routeId": "RTE-12345",
+              "basicPriceRate": 85.75,
+              "firstClassPriceRate": 120.5
+            },
+            {
+              "id": "b47ac645-8aaa-43fa-b42c-424cbbd72a83",
+              "trainType": "DEFAULT",
+              "routeId": "12345",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 99.99
+            },
+            {
+              "id": "b7293471-68d7-40ef-b1eb-962c0de70f53",
+              "trainType": "DEFAULT",
+              "routeId": "12343-12345-12434-12344-12345",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 149.99
+            },
+            {
+              "id": "b90a6ad7-ffad-4624-9655-48e9e185fa6c",
+              "trainType": "ZhiDa",
+              "routeId": "0b23bd3e-876a-4af3-b920-c50a90c90b04",
+              "basicPriceRate": 0.35,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "be617237-3a67-4775-83d5-651f0a1b0dd9",
+              "trainType": "fast",
+              "routeId": "route123",
+              "basicPriceRate": 1.5,
+              "firstClassPriceRate": 2.5
+            },
+            {
+              "id": "c5679b7e-4a54-4f52-9939-1ae86ba16fa7",
+              "trainType": "GaoTieOne",
+              "routeId": "aefcef3f-3f42-46e8-afd7-6cb2a928bd3d",
+              "basicPriceRate": 0.5,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "d5c4523a-827c-468c-95be-e9024a40572e",
+              "trainType": "DongCheOne",
+              "routeId": "f3d4d4ef-693b-4456-8eed-59c0d717dd08",
+              "basicPriceRate": 0.45,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "dd0e572e-7443-420c-8280-7d8215636069",
+              "trainType": "TeKuai",
+              "routeId": "20eb7122-3a11-423f-b10a-be0dc5bce7db",
+              "basicPriceRate": 0.3,
+              "firstClassPriceRate": 1
+            },
+            {
+              "id": "e8e97549-a73c-4552-98f7-154204b0abea",
+              "trainType": "DEFAULT",
+              "routeId": "route-987",
+              "basicPriceRate": 120.75,
+              "firstClassPriceRate": 150.5
+            },
+            {
+              "id": "ecdcdb03-c42d-49f1-90b4-3ab5de64374b",
+              "trainType": "EXPRESS",
+              "routeId": "R100",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 199.99
+            },
+            {
+              "id": "price-conf-001",
+              "trainType": "DEFAULT",
+              "routeId": "R100",
+              "basicPriceRate": 99.99,
+              "firstClassPriceRate": 149.99
+            }
+          ]
+        },
+        "responseTimeMs": 28.810583000000065,
+        "bodySizeBytes": 3048,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 200,
+          "actualStatus": 200,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    },
+    {
+      "role": "ANONYMOUS",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "content-length": "0",
+          "date": "Tue, 23 Dec 2025 02:29:50 GMT",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": "",
+        "responseTimeMs": 6.118666999999959,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 401,
+          "actualStatus": 403,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      }
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "content-length": "0",
+          "date": "Tue, 23 Dec 2025 02:29:51 GMT",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "DENY",
+          "x-xss-protection": "0"
+        },
+        "body": "",
+        "responseTimeMs": 7.673083000000133,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": null,
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 401,
+          "actualStatus": 403,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJIUzI1NiJ9..."
+    }
+  ],
+  "summary": {
+    "overallPassed": true,
+    "failureReasons": [],
+    "executionTimeMs": 1138
+  }
+}

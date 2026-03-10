@@ -1,0 +1,276 @@
+{
+  "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+  "serviceName": "ts-preserve-service",
+  "endpoint": "/api/v1/preserveservice/preserve",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "UnderPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP123\",\"seatType\":1,\"to\":\"Destination City\",\"consigneeWeight\":150.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token-value\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central Station\",\"date\":\"2024-11-01T13:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-01T14:00:00Z\",\"contactsId\":\"CONTACT123\",\"storeName\":\"StoreX\",\"from\":\"Origin City\",\"accountId\":\"ACCOUNT123\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP123",
+          "seatType": 1,
+          "to": "Destination City",
+          "consigneeWeight": 150.5,
+          "foodName": "Sandwich",
+          "loginToken": "token-value",
+          "foodPrice": 12.5,
+          "consigneeName": "Jane Doe",
+          "foodType": 2,
+          "stationName": "Central Station",
+          "date": "2024-11-01T13:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-11-01T14:00:00Z",
+          "contactsId": "CONTACT123",
+          "storeName": "StoreX",
+          "from": "Origin City",
+          "accountId": "ACCOUNT123",
+          "assurance": 1,
+          "consigneePhone": "555-987-6543"
+        }
+      },
+      "expected": {
+        "statusCode": 500,
+        "statusRange": "5xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry authorization allows ROLE_USER, but the downstream contactservice explicitly denies ROLE_USER access, so preserving the request should fail with a 5xx error instead of completing successfully, revealing the under-permissive downstream policy.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP456\",\"seatType\":2,\"to\":\"Metro City\",\"consigneeWeight\":200.0,\"foodName\":\"Pasta\",\"loginToken\":\"token-value\",\"foodPrice\":15.0,\"consigneeName\":\"John Smith\",\"foodType\":1,\"stationName\":\"North Station\",\"date\":\"2024-11-02T09:30:00Z\",\"isWithin\":false,\"handleDate\":\"2024-11-02T10:00:00Z\",\"contactsId\":\"CONTACT456\",\"storeName\":\"StoreY\",\"from\":\"Suburb\",\"accountId\":\"ACCOUNT456\",\"assurance\":2,\"consigneePhone\":\"555-111-2222\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP456",
+          "seatType": 2,
+          "to": "Metro City",
+          "consigneeWeight": 200,
+          "foodName": "Pasta",
+          "loginToken": "token-value",
+          "foodPrice": 15,
+          "consigneeName": "John Smith",
+          "foodType": 1,
+          "stationName": "North Station",
+          "date": "2024-11-02T09:30:00Z",
+          "isWithin": false,
+          "handleDate": "2024-11-02T10:00:00Z",
+          "contactsId": "CONTACT456",
+          "storeName": "StoreY",
+          "from": "Suburb",
+          "accountId": "ACCOUNT456",
+          "assurance": 2,
+          "consigneePhone": "555-111-2222"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Although a downstream service (travel2service) would allow ROLE_USER, the upstream contactservice already denies ROLE_USER, so the entry endpoint must enforce that denial, returning 403 and preventing over-permissive downstream behavior.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP789\",\"seatType\":1,\"to\":\"Capital City\",\"consigneeWeight\":120.0,\"foodName\":\"Salad\",\"loginToken\":\"token-value\",\"foodPrice\":20.0,\"consigneeName\":\"Alice Brown\",\"foodType\":3,\"stationName\":\"East Station\",\"date\":\"2024-11-03T08:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-03T09:00:00Z\",\"contactsId\":\"CONTACT789\",\"storeName\":\"StoreZ\",\"from\":\"Coastal\",\"accountId\":\"ACCOUNT789\",\"assurance\":1,\"consigneePhone\":\"555-333-4444\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP789",
+          "seatType": 1,
+          "to": "Capital City",
+          "consigneeWeight": 120,
+          "foodName": "Salad",
+          "loginToken": "token-value",
+          "foodPrice": 20,
+          "consigneeName": "Alice Brown",
+          "foodType": 3,
+          "stationName": "East Station",
+          "date": "2024-11-03T08:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-11-03T09:00:00Z",
+          "contactsId": "CONTACT789",
+          "storeName": "StoreZ",
+          "from": "Coastal",
+          "accountId": "ACCOUNT789",
+          "assurance": 1,
+          "consigneePhone": "555-333-4444"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is allowed end-to-end in this chain with no policy inconsistencies, so the preserve endpoint should accept the request and return a 2xx status.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP000\",\"seatType\":2,\"to\":\"Anonymous City\",\"consigneeWeight\":100.0,\"foodName\":\"Taco\",\"loginToken\":\"token-value\",\"foodPrice\":10.0,\"consigneeName\":\"Unknown\",\"foodType\":1,\"stationName\":\"West Station\",\"date\":\"2024-11-04T11:00:00Z\",\"isWithin\":false,\"handleDate\":\"2024-11-04T11:30:00Z\",\"contactsId\":\"CONTACT000\",\"storeName\":\"StoreAnon\",\"from\":\"Unknown\",\"accountId\":\"ACCOUNT000\",\"assurance\":0,\"consigneePhone\":\"555-000-1111\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP000",
+          "seatType": 2,
+          "to": "Anonymous City",
+          "consigneeWeight": 100,
+          "foodName": "Taco",
+          "loginToken": "token-value",
+          "foodPrice": 10,
+          "consigneeName": "Unknown",
+          "foodType": 1,
+          "stationName": "West Station",
+          "date": "2024-11-04T11:00:00Z",
+          "isWithin": false,
+          "handleDate": "2024-11-04T11:30:00Z",
+          "contactsId": "CONTACT000",
+          "storeName": "StoreAnon",
+          "from": "Unknown",
+          "accountId": "ACCOUNT000",
+          "assurance": 0,
+          "consigneePhone": "555-000-1111"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "The endpoint is not public and requires authentication, so an anonymous request must be rejected with 401 (or 403) before entering the downstream chain.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP999\",\"seatType\":1,\"to\":\"Invalid City\",\"consigneeWeight\":105.0,\"foodName\":\"Wrap\",\"loginToken\":\"token-value\",\"foodPrice\":11.0,\"consigneeName\":\"Invalid User\",\"foodType\":2,\"stationName\":\"South Station\",\"date\":\"2024-11-05T12:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-11-05T12:30:00Z\",\"contactsId\":\"CONTACT999\",\"storeName\":\"StoreInvalid\",\"from\":\"Unknown\",\"accountId\":\"ACCOUNT999\",\"assurance\":1,\"consigneePhone\":\"555-999-0000\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP999",
+          "seatType": 1,
+          "to": "Invalid City",
+          "consigneeWeight": 105,
+          "foodName": "Wrap",
+          "loginToken": "token-value",
+          "foodPrice": 11,
+          "consigneeName": "Invalid User",
+          "foodType": 2,
+          "stationName": "South Station",
+          "date": "2024-11-05T12:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-11-05T12:30:00Z",
+          "contactsId": "CONTACT999",
+          "storeName": "StoreInvalid",
+          "from": "Unknown",
+          "accountId": "ACCOUNT999",
+          "assurance": 1,
+          "consigneePhone": "555-999-0000"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid or corrupted token should be rejected immediately with a 401 (or near 4xx/5xx) status, preventing any downstream calls with unauthorized credentials.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:29:01.079Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "preserve",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

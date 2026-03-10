@@ -1,0 +1,221 @@
+{
+  "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+  "serviceName": "ts-preserve-service",
+  "endpoint": "/api/v1/preserveservice/preserve",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "RestrictiveUpstream",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":2,\"to\":\"Destination City\",\"consigneeWeight\":75.5,\"foodName\":\"Veggie Meal\",\"loginToken\":\"token-abc\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":1,\"stationName\":\"Central Station\",\"date\":\"2025-01-15T10:30:00Z\",\"isWithin\":true,\"handleDate\":\"2025-01-15T10:30:00Z\",\"contactsId\":\"CONTACT-987\",\"storeName\":\"Main Cafe\",\"from\":\"Origin Town\",\"accountId\":\"ACC-100\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 2,
+          "to": "Destination City",
+          "consigneeWeight": 75.5,
+          "foodName": "Veggie Meal",
+          "loginToken": "token-abc",
+          "foodPrice": 12.5,
+          "consigneeName": "Jane Doe",
+          "foodType": 1,
+          "stationName": "Central Station",
+          "date": "2025-01-15T10:30:00Z",
+          "isWithin": true,
+          "handleDate": "2025-01-15T10:30:00Z",
+          "contactsId": "CONTACT-987",
+          "storeName": "Main Cafe",
+          "from": "Origin Town",
+          "accountId": "ACC-100",
+          "assurance": 1,
+          "consigneePhone": "555-987-6543"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry point requires ROLE_USER and returns 403 for ROLE_ADMIN even though downstream services (securityservice, contactservice, orderotherservice, consignservice) allow ROLE_ADMIN, creating a RestrictiveUpstream mismatch. This test ensures the denial is detected and flags the inconsistency by also accepting downstream error codes.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":2,\"to\":\"Destination City\",\"consigneeWeight\":75.5,\"foodName\":\"Veggie Meal\",\"loginToken\":\"token-abc\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":1,\"stationName\":\"Central Station\",\"date\":\"2025-01-15T10:30:00Z\",\"isWithin\":true,\"handleDate\":\"2025-01-15T10:30:00Z\",\"contactsId\":\"CONTACT-987\",\"storeName\":\"Main Cafe\",\"from\":\"Origin Town\",\"accountId\":\"ACC-100\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 2,
+          "to": "Destination City",
+          "consigneeWeight": 75.5,
+          "foodName": "Veggie Meal",
+          "loginToken": "token-abc",
+          "foodPrice": 12.5,
+          "consigneeName": "Jane Doe",
+          "foodType": 1,
+          "stationName": "Central Station",
+          "date": "2025-01-15T10:30:00Z",
+          "isWithin": true,
+          "handleDate": "2025-01-15T10:30:00Z",
+          "contactsId": "CONTACT-987",
+          "storeName": "Main Cafe",
+          "from": "Origin Town",
+          "accountId": "ACC-100",
+          "assurance": 1,
+          "consigneePhone": "555-987-6543"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is explicitly allowed at the entry point and downstream services in the chain also accept ROLE_USER, so the POST should succeed with a 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":2,\"to\":\"Destination City\",\"consigneeWeight\":75.5,\"foodName\":\"Veggie Meal\",\"loginToken\":\"token-abc\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":1,\"stationName\":\"Central Station\",\"date\":\"2025-01-15T10:30:00Z\",\"isWithin\":true,\"handleDate\":\"2025-01-15T10:30:00Z\",\"contactsId\":\"CONTACT-987\",\"storeName\":\"Main Cafe\",\"from\":\"Origin Town\",\"accountId\":\"ACC-100\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 2,
+          "to": "Destination City",
+          "consigneeWeight": 75.5,
+          "foodName": "Veggie Meal",
+          "loginToken": "token-abc",
+          "foodPrice": 12.5,
+          "consigneeName": "Jane Doe",
+          "foodType": 1,
+          "stationName": "Central Station",
+          "date": "2025-01-15T10:30:00Z",
+          "isWithin": true,
+          "handleDate": "2025-01-15T10:30:00Z",
+          "contactsId": "CONTACT-987",
+          "storeName": "Main Cafe",
+          "from": "Origin Town",
+          "accountId": "ACC-100",
+          "assurance": 1,
+          "consigneePhone": "555-987-6543"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "The endpoint is not public and requires ROLE_USER; anonymous requests should be rejected with an authentication error before hitting downstream services.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":2,\"to\":\"Destination City\",\"consigneeWeight\":75.5,\"foodName\":\"Veggie Meal\",\"loginToken\":\"token-abc\",\"foodPrice\":12.5,\"consigneeName\":\"Jane Doe\",\"foodType\":1,\"stationName\":\"Central Station\",\"date\":\"2025-01-15T10:30:00Z\",\"isWithin\":true,\"handleDate\":\"2025-01-15T10:30:00Z\",\"contactsId\":\"CONTACT-987\",\"storeName\":\"Main Cafe\",\"from\":\"Origin Town\",\"accountId\":\"ACC-100\",\"assurance\":1,\"consigneePhone\":\"555-987-6543\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 2,
+          "to": "Destination City",
+          "consigneeWeight": 75.5,
+          "foodName": "Veggie Meal",
+          "loginToken": "token-abc",
+          "foodPrice": 12.5,
+          "consigneeName": "Jane Doe",
+          "foodType": 1,
+          "stationName": "Central Station",
+          "date": "2025-01-15T10:30:00Z",
+          "isWithin": true,
+          "handleDate": "2025-01-15T10:30:00Z",
+          "contactsId": "CONTACT-987",
+          "storeName": "Main Cafe",
+          "from": "Origin Town",
+          "accountId": "ACC-100",
+          "assurance": 1,
+          "consigneePhone": "555-987-6543"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected with a 401 (or similar) before the request is processed, preventing inconsistent downstream calls.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:10:13.874Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "preserve",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

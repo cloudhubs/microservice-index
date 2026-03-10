@@ -1,0 +1,153 @@
+{
+  "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+  "serviceName": "ts-delivery-service",
+  "endpoint": "/api/v1/inside_pay_service/inside_payment/account",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"1250.75\",\"userId\":\"user-98765\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "1250.75",
+          "userId": "user-98765"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is explicitly allowed to create account payment records, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"1250.75\",\"userId\":\"user-98765\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "1250.75",
+          "userId": "user-98765"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is denied access per the authorization policy, so the service should return 403 Forbidden.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"1250.75\",\"userId\":\"user-98765\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "1250.75",
+          "userId": "user-98765"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "The endpoint is not public, so requests without authentication should be rejected with 401 Unauthorized.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/inside_pay_service/inside_payment/account",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"money\":\"1250.75\",\"userId\":\"user-98765\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "money": "1250.75",
+          "userId": "user-98765"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Corrupted or invalid tokens should be rejected, so the service should return 401 Unauthorized (or equivalent 4xx/5xx).",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:06:09.579Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "account",
+    "isIdempotent": false,
+    "sensitivityType": "FINANCIAL",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

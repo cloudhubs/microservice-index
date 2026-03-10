@@ -1,0 +1,221 @@
+{
+  "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+  "serviceName": "ts-preserve-service",
+  "endpoint": "/api/v1/preserveservice/preserve",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "RestrictiveUpstream",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":1,\"to\":\"CityA\",\"consigneeWeight\":20.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token123\",\"foodPrice\":12.34,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central\",\"date\":\"2024-10-01T10:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-10-01T12:00:00Z\",\"contactsId\":\"C123\",\"storeName\":\"FoodStore\",\"from\":\"CityB\",\"accountId\":\"ACC999\",\"assurance\":5,\"consigneePhone\":\"555-0100\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 1,
+          "to": "CityA",
+          "consigneeWeight": 20.5,
+          "foodName": "Sandwich",
+          "loginToken": "token123",
+          "foodPrice": 12.34,
+          "consigneeName": "Jane Doe",
+          "foodType": 2,
+          "stationName": "Central",
+          "date": "2024-10-01T10:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-10-01T12:00:00Z",
+          "contactsId": "C123",
+          "storeName": "FoodStore",
+          "from": "CityB",
+          "accountId": "ACC999",
+          "assurance": 5,
+          "consigneePhone": "555-0100"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry policy restricts ROLE_ADMIN at preserveservice even though downstream services (securityservice, contactservice, orderotherservice, consignservice) allow ROLE_ADMIN. This RestrictiveUpstream inconsistency should surface as an authorization denial and highlight the mismatch with downstream requirements.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":1,\"to\":\"CityA\",\"consigneeWeight\":20.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token123\",\"foodPrice\":12.34,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central\",\"date\":\"2024-10-01T10:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-10-01T12:00:00Z\",\"contactsId\":\"C123\",\"storeName\":\"FoodStore\",\"from\":\"CityB\",\"accountId\":\"ACC999\",\"assurance\":5,\"consigneePhone\":\"555-0100\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 1,
+          "to": "CityA",
+          "consigneeWeight": 20.5,
+          "foodName": "Sandwich",
+          "loginToken": "token123",
+          "foodPrice": 12.34,
+          "consigneeName": "Jane Doe",
+          "foodType": 2,
+          "stationName": "Central",
+          "date": "2024-10-01T10:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-10-01T12:00:00Z",
+          "contactsId": "C123",
+          "storeName": "FoodStore",
+          "from": "CityB",
+          "accountId": "ACC999",
+          "assurance": 5,
+          "consigneePhone": "555-0100"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is authorized by the entrypoint and is consistently allowed across the downstream chain, so the request should succeed with a 2xx status.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":1,\"to\":\"CityA\",\"consigneeWeight\":20.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token123\",\"foodPrice\":12.34,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central\",\"date\":\"2024-10-01T10:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-10-01T12:00:00Z\",\"contactsId\":\"C123\",\"storeName\":\"FoodStore\",\"from\":\"CityB\",\"accountId\":\"ACC999\",\"assurance\":5,\"consigneePhone\":\"555-0100\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 1,
+          "to": "CityA",
+          "consigneeWeight": 20.5,
+          "foodName": "Sandwich",
+          "loginToken": "token123",
+          "foodPrice": 12.34,
+          "consigneeName": "Jane Doe",
+          "foodType": 2,
+          "stationName": "Central",
+          "date": "2024-10-01T10:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-10-01T12:00:00Z",
+          "contactsId": "C123",
+          "storeName": "FoodStore",
+          "from": "CityB",
+          "accountId": "ACC999",
+          "assurance": 5,
+          "consigneePhone": "555-0100"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "The endpoint is not public and requires authentication; anonymous requests should be rejected with an authentication error.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/preserveservice/preserve",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"tripId\":\"TRIP12345\",\"seatType\":1,\"to\":\"CityA\",\"consigneeWeight\":20.5,\"foodName\":\"Sandwich\",\"loginToken\":\"token123\",\"foodPrice\":12.34,\"consigneeName\":\"Jane Doe\",\"foodType\":2,\"stationName\":\"Central\",\"date\":\"2024-10-01T10:00:00Z\",\"isWithin\":true,\"handleDate\":\"2024-10-01T12:00:00Z\",\"contactsId\":\"C123\",\"storeName\":\"FoodStore\",\"from\":\"CityB\",\"accountId\":\"ACC999\",\"assurance\":5,\"consigneePhone\":\"555-0100\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "tripId": "TRIP12345",
+          "seatType": 1,
+          "to": "CityA",
+          "consigneeWeight": 20.5,
+          "foodName": "Sandwich",
+          "loginToken": "token123",
+          "foodPrice": 12.34,
+          "consigneeName": "Jane Doe",
+          "foodType": 2,
+          "stationName": "Central",
+          "date": "2024-10-01T10:00:00Z",
+          "isWithin": true,
+          "handleDate": "2024-10-01T12:00:00Z",
+          "contactsId": "C123",
+          "storeName": "FoodStore",
+          "from": "CityB",
+          "accountId": "ACC999",
+          "assurance": 5,
+          "consigneePhone": "555-0100"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected by the authorization layer with a 4xx error, ensuring the entrypoint enforces authentication before invoking downstream services.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:06:25.550Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "preserve",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

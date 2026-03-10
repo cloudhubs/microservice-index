@@ -1,0 +1,181 @@
+{
+  "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+  "serviceName": "ts-adminorder-service",
+  "endpoint": "/api/v1/adminorderservice/adminorder/{orderId}/{trainNumber}",
+  "method": "DELETE",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminorderservice/adminorder/12345/901A",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "trainNumber",
+            "value": "901A",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 204,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly allowed by the admin order service and should successfully delete the order; downstream services (orderservice/order/{orderId}) also permit ROLE_ADMIN so the overall 2xx response is consistent.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminorderservice/adminorder/12345/901A",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "trainNumber",
+            "value": "901A",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "ROLE_USER is denied at the adminorderservice entry point but downstream orderservice/order/{orderId} allows this role (OverPermissiveDownstream). The test should catch that the entry point correctly rejects the user (403) despite downstream allowing the call, highlighting the inconsistency.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminorderservice/adminorder/12345/901A",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "trainNumber",
+            "value": "901A",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public and requires authentication; anonymous requests should be rejected with 401/403.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/api/v1/adminorderservice/adminorder/12345/901A",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "orderId",
+            "value": "12345",
+            "type": "String"
+          },
+          {
+            "name": "trainNumber",
+            "value": "901A",
+            "type": "String"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Corrupted/invalid tokens must be rejected before reaching downstream services; expect 401 (or similar 4xx/5xx) to enforce authentication validation.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:28:35.782Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{trainNumber}",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

@@ -1,0 +1,1603 @@
+{
+  "generatedAt": "2025-12-23T02:16:49.384Z",
+  "runId": "run_mjhyf2eg_pyhl8l",
+  "endpoints": [
+    {
+      "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+      "serviceName": "ts-adminbasic-service",
+      "endpoint": "/api/v1/adminbasicservice/adminbasic/prices",
+      "method": "POST",
+      "executedAt": "2025-12-23T02:15:04.546Z",
+      "totalTestCases": 4,
+      "passed": 3,
+      "failed": 1,
+      "passRate": 75,
+      "responseTime": {
+        "avgMs": 61.99,
+        "minMs": 7.782459000000017,
+        "maxMs": 217.13662499999998,
+        "stdDevMs": 89.62
+      },
+      "avgBodySizeBytes": 0,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 4,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 4
+      },
+      "validation": {
+        "statusMatchRate": 25,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+            "role": "ROLE_ADMIN",
+            "expected": 200,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "403": 4
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 217.14,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 14.75,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 8.28,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 7.78,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_adminbasicservice:2f9ff9c5f0ee4abfade5fb19c8544f0b",
+      "serviceName": "ts-adminbasic-service",
+      "endpoint": "/api/v1/adminbasicservice/adminbasic/prices",
+      "method": "GET",
+      "executedAt": "2025-12-23T02:15:04.490Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 75.79,
+        "minMs": 12.222541999999976,
+        "maxMs": 190.86066599999998,
+        "stdDevMs": 68.27
+      },
+      "avgBodySizeBytes": 2286,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 1,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 1
+      },
+      "validation": {
+        "statusMatchRate": 75,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminbasicservice:2f9ff9c5f0ee4abfade5fb19c8544f0b",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 3,
+        "403": 1
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 190.86,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 54.18,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 45.91,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 12.22,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+      "serviceName": "ts-adminbasic-service",
+      "endpoint": "/api/v1/adminbasicservice/adminbasic/stations/{id}",
+      "method": "DELETE",
+      "executedAt": "2025-12-23T02:15:04.400Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 24.84,
+        "minMs": 13.906709000000092,
+        "maxMs": 52.52537499999994,
+        "stdDevMs": 16.12
+      },
+      "avgBodySizeBytes": 12.5,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 25,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+            "role": "ROLE_ADMIN",
+            "expected": 204,
+            "actual": 200
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 52.53,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 13.91,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 19,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 13.92,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+      "serviceName": "ts-adminbasic-service",
+      "endpoint": "/api/v1/adminbasicservice/adminbasic/contacts",
+      "method": "PUT",
+      "executedAt": "2025-12-23T02:15:04.304Z",
+      "totalTestCases": 4,
+      "passed": 3,
+      "failed": 1,
+      "passRate": 75,
+      "responseTime": {
+        "avgMs": 20.33,
+        "minMs": 12.743874999999889,
+        "maxMs": 27.738749999999982,
+        "stdDevMs": 5.31
+      },
+      "avgBodySizeBytes": 85,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 1,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 25,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+            "role": "ROLE_ADMIN",
+            "expected": 200,
+            "actual": 400
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "400": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 20.13,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 27.74,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 20.72,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 12.74,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+      "serviceName": "ts-adminorder-service",
+      "endpoint": "/api/v1/adminorderservice/adminorder/{orderId}/{trainNumber}",
+      "method": "DELETE",
+      "executedAt": "2025-12-23T02:15:04.363Z",
+      "totalTestCases": 4,
+      "passed": 3,
+      "failed": 1,
+      "passRate": 75,
+      "responseTime": {
+        "avgMs": 43.76,
+        "minMs": 13.99754200000001,
+        "maxMs": 124.43091700000014,
+        "stdDevMs": 46.67
+      },
+      "avgBodySizeBytes": 0,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 4,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 4
+      },
+      "validation": {
+        "statusMatchRate": 25,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+            "role": "ROLE_ADMIN",
+            "expected": 200,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "403": 4
+      },
+      "roleMetrics": {
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 14,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 124.43,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 21.51,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 15.09,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+      "serviceName": "ts-adminuser-service",
+      "endpoint": "/api/v1/adminuserservice/users",
+      "method": "PUT",
+      "executedAt": "2025-12-23T02:15:04.907Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 87.1,
+        "minMs": 6.721708000000035,
+        "maxMs": 317.92595800000004,
+        "stdDevMs": 133.29
+      },
+      "avgBodySizeBytes": 12.5,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 317.93,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 10.15,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 6.72,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 13.6,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+      "serviceName": "ts-assurance-service",
+      "endpoint": "/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}",
+      "method": "PATCH",
+      "executedAt": "2025-12-23T02:15:04.632Z",
+      "totalTestCases": 4,
+      "passed": 1,
+      "failed": 3,
+      "passRate": 25,
+      "responseTime": {
+        "avgMs": 5.61,
+        "minMs": 4.3996250000000146,
+        "maxMs": 6.358459000000039,
+        "stdDevMs": 0.73
+      },
+      "avgBodySizeBytes": 184,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 4,
+        "authErrorCount": 0,
+        "authzErrorCount": 0,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 0
+      },
+      "validation": {
+        "statusMatchRate": 0,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+            "role": "ROLE_USER",
+            "expected": 200,
+            "actual": 503
+          },
+          {
+            "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+            "role": "ROLE_ADMIN",
+            "expected": 403,
+            "actual": 503
+          },
+          {
+            "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 503
+          },
+          {
+            "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 503
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "503": 4
+      },
+      "roleMetrics": {
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 6.36,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 5.77,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 0,
+          "failed": 1,
+          "passRate": 0,
+          "avgResponseTimeMs": 5.91,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 4.4,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+      "serviceName": "ts-cancel-service",
+      "endpoint": "/api/v1/cancelservice/cancel/{orderId}/{loginId}",
+      "method": "GET",
+      "executedAt": "2025-12-23T02:15:04.963Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 70.47,
+        "minMs": 15.073417000000063,
+        "maxMs": 108.88204199999996,
+        "stdDevMs": 39.32
+      },
+      "avgBodySizeBytes": 12.25,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 106.32,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 108.88,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 51.6,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 15.07,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+      "serviceName": "ts-contact-service",
+      "endpoint": "/api/v1/contactservice/contacts/{contactsId}",
+      "method": "DELETE",
+      "executedAt": "2025-12-23T02:15:04.717Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 20.83,
+        "minMs": 8.956249999999955,
+        "maxMs": 38.26712499999985,
+        "stdDevMs": 11.03
+      },
+      "avgBodySizeBytes": 28,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 2,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 2
+      },
+      "validation": {
+        "statusMatchRate": 0,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+            "role": "ROLE_ADMIN",
+            "expected": 204,
+            "actual": 200
+          },
+          {
+            "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+            "role": "ROLE_USER",
+            "expected": 204,
+            "actual": 200
+          },
+          {
+            "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 2,
+        "403": 2
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 21.65,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 14.44,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 8.96,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 38.27,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+      "serviceName": "ts-contact-service",
+      "endpoint": "/api/v1/contactservice/contacts",
+      "method": "GET",
+      "executedAt": "2025-12-23T02:15:04.265Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 25.31,
+        "minMs": 7.145792000000029,
+        "maxMs": 42.08495800000003,
+        "stdDevMs": 13.73
+      },
+      "avgBodySizeBytes": 229.5,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 2,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 2
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 2,
+        "403": 2
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 42.08,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 34.43,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 17.58,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 7.15,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+      "serviceName": "ts-delivery-service",
+      "endpoint": "/api/v1/inside_pay_service/inside_payment/account",
+      "method": "POST",
+      "executedAt": "2025-12-23T02:15:05.149Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 14.1,
+        "minMs": 9.580375000000004,
+        "maxMs": 22.784875000000056,
+        "stdDevMs": 5.11
+      },
+      "avgBodySizeBytes": 19.5,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 22.78,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 11.79,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 12.24,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 9.58,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+      "serviceName": "ts-order-service",
+      "endpoint": "/api/v1/orderservice/order",
+      "method": "PUT",
+      "executedAt": "2025-12-23T02:15:05.186Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 11.81,
+        "minMs": 6.85479099999975,
+        "maxMs": 17.605540999999903,
+        "stdDevMs": 4.38
+      },
+      "avgBodySizeBytes": 24,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 2,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 2
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 2,
+        "403": 2
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 14.41,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 17.61,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 6.85,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 8.38,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    },
+    {
+      "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+      "serviceName": "ts-preserve-service",
+      "endpoint": "/api/v1/preserveservice/preserve",
+      "method": "POST",
+      "executedAt": "2025-12-23T02:15:05.267Z",
+      "totalTestCases": 4,
+      "passed": 4,
+      "failed": 0,
+      "passRate": 100,
+      "responseTime": {
+        "avgMs": 25.85,
+        "minMs": 5.058500000000095,
+        "maxMs": 74.400709,
+        "stdDevMs": 28.36
+      },
+      "avgBodySizeBytes": 17.25,
+      "errors": {
+        "timeoutCount": 0,
+        "connectionErrorCount": 0,
+        "serverErrorCount": 0,
+        "authErrorCount": 0,
+        "authzErrorCount": 3,
+        "notFoundCount": 0,
+        "validationErrorCount": 0,
+        "emptyResponseCount": 3
+      },
+      "validation": {
+        "statusMatchRate": 50,
+        "statusMismatchDetails": [
+          {
+            "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+            "role": "ANONYMOUS",
+            "expected": 401,
+            "actual": 403
+          },
+          {
+            "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+            "role": "INVALID_TOKEN",
+            "expected": 401,
+            "actual": 403
+          }
+        ]
+      },
+      "statusCodeDistribution": {
+        "200": 1,
+        "403": 3
+      },
+      "roleMetrics": {
+        "ROLE_ADMIN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 16.6,
+          "stdDevResponseTimeMs": 0
+        },
+        "ROLE_USER": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 74.4,
+          "stdDevResponseTimeMs": 0
+        },
+        "ANONYMOUS": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 5.06,
+          "stdDevResponseTimeMs": 0
+        },
+        "INVALID_TOKEN": {
+          "totalTests": 1,
+          "passed": 1,
+          "failed": 0,
+          "passRate": 100,
+          "avgResponseTimeMs": 7.36,
+          "stdDevResponseTimeMs": 0
+        }
+      },
+      "flakiness": 0
+    }
+  ],
+  "overall": {
+    "totalScenarios": 13,
+    "totalTestCases": 52,
+    "totalPassed": 46,
+    "totalFailed": 6,
+    "passRate": 88.46,
+    "responseTime": {
+      "avgMs": 37.52,
+      "minMs": 4.3996250000000146,
+      "maxMs": 317.92595800000004,
+      "stdDevMs": 58.52,
+      "p50Ms": 14.75,
+      "p95Ms": 190.86,
+      "p99Ms": 317.93
+    },
+    "avgBodySizeBytes": 223.88,
+    "errors": {
+      "timeoutCount": 0,
+      "connectionErrorCount": 0,
+      "serverErrorCount": 4,
+      "authErrorCount": 0,
+      "authzErrorCount": 33,
+      "notFoundCount": 0,
+      "validationErrorCount": 1,
+      "emptyResponseCount": 33
+    },
+    "validation": {
+      "statusMatchRate": 36.54,
+      "statusMismatchDetails": [
+        {
+          "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+          "role": "ROLE_ADMIN",
+          "expected": 200,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:2f9ff9c5f0ee4abfade5fb19c8544f0b",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+          "role": "ROLE_ADMIN",
+          "expected": 204,
+          "actual": 200
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c47f7e0ed4fdb7b6cc17263f98df70ed",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+          "role": "ROLE_ADMIN",
+          "expected": 200,
+          "actual": 400
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+          "role": "ROLE_ADMIN",
+          "expected": 200,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminorderservice:54e009bc1164ed3119fbf2eb2515920d",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+          "role": "ROLE_USER",
+          "expected": 200,
+          "actual": 503
+        },
+        {
+          "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+          "role": "ROLE_ADMIN",
+          "expected": 403,
+          "actual": 503
+        },
+        {
+          "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 503
+        },
+        {
+          "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 503
+        },
+        {
+          "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+          "role": "ROLE_ADMIN",
+          "expected": 204,
+          "actual": 200
+        },
+        {
+          "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+          "role": "ROLE_USER",
+          "expected": 204,
+          "actual": 200
+        },
+        {
+          "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_contactservice:0943f3033ac9a3e82f09125748a8dd9a",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_contactservice:48cdba4e2fce261166196727eb6abee1",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_deliveryservice:44ada7180e4fd2c2834067224531678d",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+          "role": "ANONYMOUS",
+          "expected": 401,
+          "actual": 403
+        },
+        {
+          "scenarioId": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
+          "role": "INVALID_TOKEN",
+          "expected": 401,
+          "actual": 403
+        }
+      ]
+    },
+    "statusCodeDistribution": {
+      "200": 14,
+      "400": 1,
+      "403": 33,
+      "503": 4
+    },
+    "roleMetrics": {
+      "ROLE_ADMIN": {
+        "totalTests": 13,
+        "passed": 9,
+        "failed": 4,
+        "passRate": 69.23,
+        "avgResponseTimeMs": 88.4,
+        "stdDevResponseTimeMs": 94.57
+      },
+      "ROLE_USER": {
+        "totalTests": 13,
+        "passed": 12,
+        "failed": 1,
+        "passRate": 92.31,
+        "avgResponseTimeMs": 31.23,
+        "stdDevResponseTimeMs": 29.12
+      },
+      "ANONYMOUS": {
+        "totalTests": 13,
+        "passed": 12,
+        "failed": 1,
+        "passRate": 92.31,
+        "avgResponseTimeMs": 17.72,
+        "stdDevResponseTimeMs": 14.42
+      },
+      "INVALID_TOKEN": {
+        "totalTests": 13,
+        "passed": 13,
+        "failed": 0,
+        "passRate": 100,
+        "avgResponseTimeMs": 12.74,
+        "stdDevResponseTimeMs": 8.08
+      }
+    }
+  },
+  "flakiness": {},
+  "research": {
+    "generation": {
+      "totalScenarios": 13,
+      "provider": "openai",
+      "model": "gpt-5.1-codex-mini",
+      "tokens": {
+        "totalPromptTokens": 33901,
+        "totalCompletionTokens": 24345,
+        "totalTokens": 58246,
+        "avgTokensPerScenario": 4480.46
+      },
+      "cost": {
+        "totalInputCost": 0.0083,
+        "totalOutputCost": 0.0487,
+        "totalCost": 0.057,
+        "avgCostPerScenario": 0.004385,
+        "avgCostPerTestCase": 0.001096,
+        "currency": "USD"
+      },
+      "timing": {
+        "totalGenerationTimeMs": 154739,
+        "avgGenerationTimeMs": 11903,
+        "minGenerationTimeMs": 6703,
+        "maxGenerationTimeMs": 21319
+      }
+    },
+    "testQuality": {
+      "totalTestCasesGenerated": 52,
+      "avgTestCasesPerEndpoint": 4,
+      "priorityDistribution": {
+        "HIGH": 26,
+        "MEDIUM": 23,
+        "LOW": 3,
+        "UNSPECIFIED": 0
+      },
+      "sensitivityCoverage": {
+        "PII": 24,
+        "INTERNAL": 0,
+        "FINANCIAL": 8,
+        "PUBLIC": 0,
+        "UNSPECIFIED": 20
+      },
+      "policyInconsistencyTests": 7,
+      "testsWithRationale": 52
+    },
+    "coverage": {
+      "uniqueServices": 9,
+      "servicesList": [
+        "ts-adminbasic-service",
+        "ts-adminorder-service",
+        "ts-adminuser-service",
+        "ts-assurance-service",
+        "ts-cancel-service",
+        "ts-contact-service",
+        "ts-delivery-service",
+        "ts-order-service",
+        "ts-preserve-service"
+      ],
+      "httpMethodDistribution": {
+        "POST": 3,
+        "GET": 3,
+        "DELETE": 3,
+        "PUT": 3,
+        "PATCH": 1
+      },
+      "endpointsWithPathParams": 5,
+      "endpointsWithQueryParams": 0
+    },
+    "oracleAccuracy": {
+      "exactStatusMatchRate": 36.54,
+      "rangeStatusMatchRate": 86.54,
+      "status401vs403ConfusionCount": 23,
+      "status200vs204ConfusionCount": 3,
+      "falsePositiveCount": 0,
+      "falseNegativeCount": 4
+    },
+    "authorization": {
+      "violationDetected": 0,
+      "policyInconsistenciesDetected": 0,
+      "authBypassAttempts": {
+        "anonymous": {
+          "total": 13,
+          "blocked": 12,
+          "bypassed": 1
+        },
+        "invalidToken": {
+          "total": 13,
+          "blocked": 13,
+          "bypassed": 0
+        }
+      },
+      "roleBreakdown": {
+        "ROLE_ADMIN": {
+          "allowedEndpoints": 9,
+          "deniedEndpoints": 4,
+          "actuallyAllowed": 6,
+          "actuallyDenied": 7
+        },
+        "ROLE_USER": {
+          "allowedEndpoints": 8,
+          "deniedEndpoints": 5,
+          "actuallyAllowed": 7,
+          "actuallyDenied": 6
+        },
+        "ANONYMOUS": {
+          "allowedEndpoints": 0,
+          "deniedEndpoints": 13,
+          "actuallyAllowed": 1,
+          "actuallyDenied": 12
+        },
+        "INVALID_TOKEN": {
+          "allowedEndpoints": 0,
+          "deniedEndpoints": 13,
+          "actuallyAllowed": 0,
+          "actuallyDenied": 13
+        }
+      }
+    },
+    "execution": {
+      "totalExecutionTimeMs": 17342,
+      "avgExecutionTimePerScenarioMs": 1334,
+      "executedAt": "2025-12-23T02:15:04.546Z"
+    },
+    "byScenarioType": {
+      "EntryPointAuthorization": {
+        "scenarios": 13,
+        "testCases": 52,
+        "passed": 46,
+        "failed": 6,
+        "passRate": 88.46,
+        "avgResponseTimeMs": 37.52
+      },
+      "DownstreamPolicyConsistency": {
+        "scenarios": 0,
+        "testCases": 0,
+        "passed": 0,
+        "failed": 0,
+        "passRate": 0,
+        "avgResponseTimeMs": 0
+      }
+    }
+  },
+  "researchSummary": {
+    "experimentInfo": {
+      "timestamp": "2025-12-23T02:16:49.384Z",
+      "runId": "run_mjhyf2eg_pyhl8l",
+      "targetSystem": "train-ticket",
+      "llmProvider": "openai",
+      "llmModel": "gpt-5.1-codex-mini"
+    },
+    "testGeneration": {
+      "totalEndpoints": 13,
+      "totalTestCases": 52,
+      "avgTestCasesPerEndpoint": 4,
+      "generationCostUSD": 0.057,
+      "avgCostPerTestCase": 0.001096,
+      "totalTokens": 58246,
+      "avgGenerationTimeMs": 11903
+    },
+    "testExecution": {
+      "passRate": 88.46,
+      "exactMatchRate": 36.54,
+      "rangeMatchRate": 86.54,
+      "avgResponseTimeMs": 37.52,
+      "p95ResponseTimeMs": 190.86
+    },
+    "faultDetection": {
+      "authViolationsDetected": 0,
+      "policyInconsistenciesDetected": 0,
+      "authBypassBlocked": 25,
+      "authBypassTotal": 26
+    },
+    "coverage": {
+      "servicesCount": 9,
+      "methodDistribution": {
+        "POST": 3,
+        "GET": 3,
+        "DELETE": 3,
+        "PUT": 3,
+        "PATCH": 1
+      }
+    },
+    "byScenarioType": {
+      "EntryPointAuthorization": {
+        "scenarios": 13,
+        "testCases": 52,
+        "passRate": 88.46
+      },
+      "DownstreamPolicyConsistency": {
+        "scenarios": 0,
+        "testCases": 0,
+        "passRate": 0
+      }
+    }
+  }
+}

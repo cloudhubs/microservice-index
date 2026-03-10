@@ -1,0 +1,173 @@
+{
+  "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+  "serviceName": "ts-adminuser-service",
+  "endpoint": "/api/v1/adminuserservice/users",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"userId\":\"12345\",\"userName\":\"Sample Name\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"password\":\"Passw0rd!\",\"gender\":1}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "12345",
+          "userName": "Sample Name",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "password": "Passw0rd!",
+          "gender": 1
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "ROLE_USER is denied at the adminuserservice entrypoint but downstream ts-user-service allows this role, indicating an OverPermissiveDownstream inconsistency. The test ensures the upstream 403 denial surfaces instead of letting the user mutate PII data downstream.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"userId\":\"12345\",\"userName\":\"Sample Name\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"password\":\"Passw0rd!\",\"gender\":1}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "12345",
+          "userName": "Sample Name",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "password": "Passw0rd!",
+          "gender": 1
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly allowed by the adminuserservice and downstream userservice for updating PII data, so a successful 2xx response validates consistent authorization across the chain.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"userId\":\"12345\",\"userName\":\"Sample Name\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"password\":\"Passw0rd!\",\"gender\":1}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "12345",
+          "userName": "Sample Name",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "password": "Passw0rd!",
+          "gender": 1
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "This endpoint is not public, so unauthenticated requests must be rejected (401) before upstream or downstream services handle sensitive PII updates.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"userId\":\"12345\",\"userName\":\"Sample Name\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"password\":\"Passw0rd!\",\"gender\":1}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "12345",
+          "userName": "Sample Name",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "password": "Passw0rd!",
+          "gender": 1
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected before entering the microservice chain, preventing unauthorized access to PII data regardless of downstream policies.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:05:58.123Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "users",
+    "isIdempotent": false,
+    "sensitivityType": "PII",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

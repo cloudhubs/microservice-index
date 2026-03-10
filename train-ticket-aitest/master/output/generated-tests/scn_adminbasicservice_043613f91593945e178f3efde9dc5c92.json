@@ -1,0 +1,165 @@
+{
+  "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/prices",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"routeId\":\"12345\",\"trainType\":\"DEFAULT\",\"id\":\"12345\",\"firstClassPriceRate\":199.99,\"basicPriceRate\":99.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "routeId": "12345",
+          "trainType": "DEFAULT",
+          "id": "12345",
+          "firstClassPriceRate": 199.99,
+          "basicPriceRate": 99.99
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly allowed at both the entry service and the downstream ts-price-service. A successful 2xx response confirms consistent permission coverage for the downstream price creation call.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"routeId\":\"12345\",\"trainType\":\"DEFAULT\",\"id\":\"12345\",\"firstClassPriceRate\":199.99,\"basicPriceRate\":99.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "routeId": "12345",
+          "trainType": "DEFAULT",
+          "id": "12345",
+          "firstClassPriceRate": 199.99,
+          "basicPriceRate": 99.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is denied at the entry service and the downstream ts-price-service, so the call should be rejected with 403 to avoid unauthorized price configuration.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"routeId\":\"12345\",\"trainType\":\"DEFAULT\",\"id\":\"12345\",\"firstClassPriceRate\":199.99,\"basicPriceRate\":99.99}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "routeId": "12345",
+          "trainType": "DEFAULT",
+          "id": "12345",
+          "firstClassPriceRate": 199.99,
+          "basicPriceRate": 99.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public and requires authentication, so anonymous requests should be rejected (401 Unauthorized) before reaching downstream services.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"routeId\":\"12345\",\"trainType\":\"DEFAULT\",\"id\":\"12345\",\"firstClassPriceRate\":199.99,\"basicPriceRate\":99.99}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "routeId": "12345",
+          "trainType": "DEFAULT",
+          "id": "12345",
+          "firstClassPriceRate": 199.99,
+          "basicPriceRate": 99.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "A malformed or invalid token must be rejected by the gateway or entry service before any downstream authorization, ensuring a 401-level failure rather than allowing unauthorized price configurations.",
+      "sensitivityLevel": "FINANCIAL",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T00:05:45.850Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "prices",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+  "serviceName": "ts-adminuser-service",
+  "endpoint": "/api/v1/adminuserservice/users",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"gender\":1,\"password\":\"P@ssw0rd123!\",\"userName\":\"Sample User\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"userId\":\"user-5678\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "gender": 1,
+          "password": "P@ssw0rd123!",
+          "userName": "Sample User",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "userId": "user-5678"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry policy rightly denies ROLE_USER, but downstream ts-user-service (/api/v1/userservice/users) allows this role, revealing an over-permissive downstream policy. We expect a 403 because the upstream check should block the role even though the downstream service would accept it, highlighting the downstream inconsistency while protecting PII.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"gender\":1,\"password\":\"P@ssw0rd123!\",\"userName\":\"Sample User\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"userId\":\"user-5678\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "gender": 1,
+          "password": "P@ssw0rd123!",
+          "userName": "Sample User",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "userId": "user-5678"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly allowed by the adminuser service and should succeed when updating PII-bearing user data, ensuring the entry and downstream permissions keep the call chain consistent.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"gender\":1,\"password\":\"P@ssw0rd123!\",\"userName\":\"Sample User\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"userId\":\"user-5678\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "gender": 1,
+          "password": "P@ssw0rd123!",
+          "userName": "Sample User",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "userId": "user-5678"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "The endpoint is not public and handles PII, so anonymous access must be rejected to prevent unauthorized exposure of sensitive user records.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"gender\":1,\"password\":\"P@ssw0rd123!\",\"userName\":\"Sample User\",\"email\":\"user@example.com\",\"documentType\":1,\"documentNum\":\"ABC123456\",\"userId\":\"user-5678\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "gender": 1,
+          "password": "P@ssw0rd123!",
+          "userName": "Sample User",
+          "email": "user@example.com",
+          "documentType": 1,
+          "documentNum": "ABC123456",
+          "userId": "user-5678"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected before reaching downstream services to safeguard PII; this ensures the authorization layer enforces authentication even if downstream policies differ.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:28:49.597Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "users",
+    "isIdempotent": false,
+    "sensitivityType": "PII",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

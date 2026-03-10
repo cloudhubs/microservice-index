@@ -1,0 +1,178 @@
+{
+  "scenarioId": "scn_adminuserservice:552e89aaa2a61d20b5432b6aae930b44",
+  "serviceName": "ts-adminuser-service",
+  "endpoint": "/api/v1/adminuserservice/users",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"userId\":\"u-12345\",\"documentNum\":\"W123456\",\"email\":\"user+test@example.com\",\"userName\":\"Test User\",\"gender\":1,\"password\":\"SecurePass!23\",\"documentType\":1}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "userId": "u-12345",
+          "documentNum": "W123456",
+          "email": "user+test@example.com",
+          "userName": "Test User",
+          "gender": 1,
+          "password": "SecurePass!23",
+          "documentType": 1
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is authorized at the entry service and should successfully invoke the downstream ts-user-service update that also permits ROLE_ADMIN. This verifies the positive path across the chain for sensitive PII handling.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"userId\":\"u-12345\",\"documentNum\":\"W123456\",\"email\":\"user+test@example.com\",\"userName\":\"Test User\",\"gender\":1,\"password\":\"SecurePass!23\",\"documentType\":1}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "userId": "u-12345",
+          "documentNum": "W123456",
+          "email": "user+test@example.com",
+          "userName": "Test User",
+          "gender": 1,
+          "password": "SecurePass!23",
+          "documentType": 1
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "The entry adminuserservice correctly denies ROLE_USER, but downstream ts-user-service would allow this role, creating an OverPermissiveDownstream inconsistency. Expect 403 (with 500/502/503 alternatives) to flag the mismatch before any PII exposure.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"userId\":\"u-12345\",\"documentNum\":\"W123456\",\"email\":\"user+test@example.com\",\"userName\":\"Test User\",\"gender\":1,\"password\":\"SecurePass!23\",\"documentType\":1}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "u-12345",
+          "documentNum": "W123456",
+          "email": "user+test@example.com",
+          "userName": "Test User",
+          "gender": 1,
+          "password": "SecurePass!23",
+          "documentType": 1
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public; anonymous requests should be rejected to protect PII. Verifies that lack of credentials is handled as 401/403.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminuserservice/users",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"userId\":\"u-12345\",\"documentNum\":\"W123456\",\"email\":\"user+test@example.com\",\"userName\":\"Test User\",\"gender\":1,\"password\":\"SecurePass!23\",\"documentType\":1}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "userId": "u-12345",
+          "documentNum": "W123456",
+          "email": "user+test@example.com",
+          "userName": "Test User",
+          "gender": 1,
+          "password": "SecurePass!23",
+          "documentType": 1
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid tokens must be rejected before reaching downstream services to prevent unauthorized PII mutation. Ensures the entry service fails fast with 401 (allowing other 4xx/5xx alternatives).",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:09:54.348Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "users",
+    "isIdempotent": false,
+    "sensitivityType": "PII",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

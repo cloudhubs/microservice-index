@@ -1,0 +1,22 @@
+{
+  "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+  "provider": "openai",
+  "model": "gpt-5.1-codex-mini",
+  "tokenUsage": {
+    "promptTokens": 2596,
+    "completionTokens": 2409,
+    "totalTokens": 5005
+  },
+  "costEstimate": {
+    "inputCost": 0.0006,
+    "outputCost": 0.0048,
+    "totalCost": 0.0055,
+    "currency": "USD"
+  },
+  "timing": {
+    "promptBuildMs": 0,
+    "llmCallMs": 13470,
+    "totalMs": 13470
+  },
+  "timestamp": "2025-12-23T02:10:08.407Z"
+}

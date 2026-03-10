@@ -1,0 +1,162 @@
+{
+  "scenarioId": "scn_adminbasicservice:043613f91593945e178f3efde9dc5c92",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/prices",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"routeId\":\"R-123\",\"id\":\"CFG-001\",\"basicPriceRate\":120.0,\"trainType\":\"EXPRESS\",\"firstClassPriceRate\":200.0}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "routeId": "R-123",
+          "id": "CFG-001",
+          "basicPriceRate": 120,
+          "trainType": "EXPRESS",
+          "firstClassPriceRate": 200
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is allowed at the entry service and downstream PRICE service, so the request should succeed with a 2xx status.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"routeId\":\"R-123\",\"id\":\"CFG-001\",\"basicPriceRate\":120.0,\"trainType\":\"EXPRESS\",\"firstClassPriceRate\":200.0}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "routeId": "R-123",
+          "id": "CFG-001",
+          "basicPriceRate": 120,
+          "trainType": "EXPRESS",
+          "firstClassPriceRate": 200
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is explicitly denied by the adminbasic service authorization policy, so the request should be rejected with 403.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"routeId\":\"R-123\",\"id\":\"CFG-001\",\"basicPriceRate\":120.0,\"trainType\":\"EXPRESS\",\"firstClassPriceRate\":200.0}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "routeId": "R-123",
+          "id": "CFG-001",
+          "basicPriceRate": 120,
+          "trainType": "EXPRESS",
+          "firstClassPriceRate": 200
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "The endpoint is not public and requires authentication; anonymous requests should be rejected (401).",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/api/v1/adminbasicservice/adminbasic/prices",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"routeId\":\"R-123\",\"id\":\"CFG-001\",\"basicPriceRate\":120.0,\"trainType\":\"EXPRESS\",\"firstClassPriceRate\":200.0}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "routeId": "R-123",
+          "id": "CFG-001",
+          "basicPriceRate": 120,
+          "trainType": "EXPRESS",
+          "firstClassPriceRate": 200
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "A corrupted or invalid token should be rejected by the gateway/service, returning 401 (with other 4xx/5xx codes acceptable).",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:09:40.700Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "prices",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

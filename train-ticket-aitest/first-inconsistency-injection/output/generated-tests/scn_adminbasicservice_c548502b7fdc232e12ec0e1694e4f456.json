@@ -1,0 +1,166 @@
+{
+  "scenarioId": "scn_adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
+  "serviceName": "ts-adminbasic-service",
+  "endpoint": "/api/v1/adminbasicservice/adminbasic/contacts",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\": \"Sample Name\", \"id\": \"12345\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Sample Name",
+          "id": "12345",
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "documentNumber": "example-value",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly allowed at both this entry point and downstream contact service, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\": \"Sample Name\", \"id\": \"12345\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Sample Name",
+          "id": "12345",
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "documentNumber": "example-value",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is denied at this endpoint (and downstream), so the request should be rejected with a 403 to maintain consistent access control.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\": \"Sample Name\", \"id\": \"12345\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Sample Name",
+          "id": "12345",
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "documentNumber": "example-value",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public, so unauthenticated requests should be rejected with 401 (or 403) to prevent unauthorized access to contact data.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/api/v1/adminbasicservice/adminbasic/contacts",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\": \"Sample Name\", \"id\": \"12345\", \"accountId\": \"12345\", \"phoneNumber\": \"555-123-4567\", \"documentNumber\": \"example-value\", \"documentType\": \"DEFAULT\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Sample Name",
+          "id": "12345",
+          "accountId": "12345",
+          "phoneNumber": "555-123-4567",
+          "documentNumber": "example-value",
+          "documentType": "DEFAULT"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid tokens must be treated as unauthorized; the endpoint should reject with 401 (or other 4xx/5xx) to ensure corrupted credentials cannot reach downstream services.",
+      "sensitivityLevel": "PII",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:28:34.472Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "contacts",
+    "isIdempotent": false,
+    "sensitivityType": "INTERNAL",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

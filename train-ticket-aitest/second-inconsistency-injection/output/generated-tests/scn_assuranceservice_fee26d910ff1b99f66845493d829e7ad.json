@@ -1,0 +1,194 @@
+{
+  "scenarioId": "scn_assuranceservice:fee26d910ff1b99f66845493d829e7ad",
+  "serviceName": "ts-assurance-service",
+  "endpoint": "/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}",
+  "method": "PATCH",
+  "testCases": [
+    {
+      "role": "ROLE_USER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PATCH",
+        "url": "/api/v1/assuranceservice/assurances/ASSUR-8523/ORDER-7301/2",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "assuranceId",
+            "value": "ASSUR-8523",
+            "type": "String"
+          },
+          {
+            "name": "orderId",
+            "value": "ORDER-7301",
+            "type": "String"
+          },
+          {
+            "name": "typeIndex",
+            "value": "2",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_USER is authorized for this PATCH endpoint, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PATCH",
+        "url": "/api/v1/assuranceservice/assurances/ASSUR-8523/ORDER-7301/2",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "assuranceId",
+            "value": "ASSUR-8523",
+            "type": "String"
+          },
+          {
+            "name": "orderId",
+            "value": "ORDER-7301",
+            "type": "String"
+          },
+          {
+            "name": "typeIndex",
+            "value": "2",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ROLE_ADMIN is explicitly denied access to this endpoint, so the service should return 403 Forbidden.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PATCH",
+        "url": "/api/v1/assuranceservice/assurances/ASSUR-8523/ORDER-7301/2",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "assuranceId",
+            "value": "ASSUR-8523",
+            "type": "String"
+          },
+          {
+            "name": "orderId",
+            "value": "ORDER-7301",
+            "type": "String"
+          },
+          {
+            "name": "typeIndex",
+            "value": "2",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "The endpoint requires ROLE_USER and is not public, so anonymous requests should be rejected with 401 Unauthorized.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PATCH",
+        "url": "/api/v1/assuranceservice/assurances/ASSUR-8523/ORDER-7301/2",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "assuranceId",
+            "value": "ASSUR-8523",
+            "type": "String"
+          },
+          {
+            "name": "orderId",
+            "value": "ORDER-7301",
+            "type": "String"
+          },
+          {
+            "name": "typeIndex",
+            "value": "2",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Corrupted or invalid tokens must be rejected even for authenticated roles, resulting in 401 Unauthorized (or other 4xx/5xx error).",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2025-12-23T02:09:52.728Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{typeIndex}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

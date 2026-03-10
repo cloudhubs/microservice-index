@@ -1,0 +1,123 @@
+{
+  "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+  "timestamp": "2025-12-23T00:06:17.055Z",
+  "systemPrompt": "You are an API authorization test generator.\n\nINPUT FORMAT:\nYou will receive scenario data as JSON followed by task instructions.\n\nYOUR JOB:\nAnalyze the scenario and generate HTTP request specifications for testing role-based access control.\n\nRULES:\n1. Parse the INPUT DATA JSON to understand the endpoint and authorization requirements\n2. Generate realistic request bodies using entity_schema.fields:\n   - String fields → realistic values (names, IDs, amounts - not \"test\" or empty)\n   - int/long fields → realistic numbers\n   - double/float fields → decimal numbers\n   - boolean fields → true/false\n   - UUID fields → use realistic UUID format like \"550e8400-e29b-41d4-a716-446655440000\"\n3. Use token placeholders: {{TOKEN_ROLE_ADMIN}}, {{TOKEN_ROLE_USER}}\n4. For ANONYMOUS tests, set authPlaceholder to \"NONE\" and omit Authorization header\n5. For INVALID_TOKEN tests, set authPlaceholder to \"{{TOKEN_INVALID}}\" (will be replaced with a corrupted token)\n6. Map roles to expected statuses:\n   - Roles in allowed_roles → expect 2xx\n   - Roles in denied_roles → expect 403\n   - ANONYMOUS when is_public=true → expect 2xx (public endpoints allow unauthenticated access)\n   - ANONYMOUS when is_public=false → expect 401 or 403\n   - INVALID_TOKEN → expect 401 (or any 4xx/5xx, use alternateAcceptable: [400, 403, 500, 502, 503])\n\nPATH AND QUERY PARAMETERS:\n- Path parameters: Replace placeholders in the URL with realistic values based on type\n  - Long/int IDs → use numbers like 1, 123, 42\n  - UUID → use \"550e8400-e29b-41d4-a716-446655440000\"\n  - String names → use realistic values like \"john-doe\", \"order-123\"\n- Query parameters: Add as URL query string if required=true or needed for the test\n  - Follow the type constraints (string, int, boolean, etc.)\n\nDATA SENSITIVITY:\n- PII data: Use realistic but clearly fake data (e.g., \"John Doe\", \"john.doe@example.com\")\n- Financial data: Use test amounts (e.g., 99.99, 1000.00)\n- For sensitive endpoints, generate comprehensive validation tests\n\nOUTPUT:\nReturn valid JSON matching the provided schema. No markdown, no explanations outside the JSON.",
+  "userPrompt": "INPUT DATA:\n{\n  \"scenario_id\": \"scn_orderservice:b846949a108b0a333793d69932570d74\",\n  \"service_name\": \"ts-order-service\",\n  \"method\": \"PUT\",\n  \"endpoint\": \"/api/v1/orderservice/order\",\n  \"authorization\": {\n    \"allowed_roles\": [\n      \"ROLE_ADMIN\",\n      \"ROLE_USER\"\n    ],\n    \"denied_roles\": [],\n    \"expected_status_by_role\": {\n      \"ROLE_ADMIN\": \"2xx\",\n      \"ROLE_USER\": \"2xx\"\n    },\n    \"is_public\": false,\n    \"required_roles\": [\n      \"ROLE_ADMIN\",\n      \"ROLE_USER\"\n    ]\n  },\n  \"entity_schema\": {\n    \"entity_name\": \"Order\",\n    \"service_name\": \"ts-order-service\",\n    \"fields\": [\n      {\n        \"name\": \"seatNumber\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"coachNumber\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"accountId\",\n        \"type\": \"String\",\n        \"annotations\": [\n          {\n            \"name\": \"Column\",\n            \"attributes\": {\n              \"length\": \"36\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"status\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"documentType\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"contactsName\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"id\",\n        \"type\": \"String\",\n        \"annotations\": [\n          {\n            \"name\": \"GeneratedValue\",\n            \"attributes\": {\n              \"generator\": \"order-jpa-uuid\"\n            }\n          },\n          {\n            \"name\": \"Column\",\n            \"attributes\": {\n              \"length\": \"36\"\n            }\n          },\n          {\n            \"name\": \"Id\",\n            \"attributes\": {}\n          }\n        ]\n      },\n      {\n        \"name\": \"to\",\n        \"type\": \"String\",\n        \"annotations\": [\n          {\n            \"name\": \"Column\",\n            \"attributes\": {\n              \"name\": \"to_station\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"seatClass\",\n        \"type\": \"int\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"boughtDate\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"contactsDocumentNumber\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"from\",\n        \"type\": \"String\",\n        \"annotations\": [\n          {\n            \"name\": \"Column\",\n            \"attributes\": {\n              \"name\": \"from_station\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"travelDate\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"travelTime\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"trainNumber\",\n        \"type\": \"String\",\n        \"annotations\": []\n      },\n      {\n        \"name\": \"price\",\n        \"type\": \"String\",\n        \"annotations\": []\n      }\n    ]\n  },\n  \"uri_examples\": {\n    \"full_uri\": \"/api/v1/orderservice/order\",\n    \"simplified_uri\": \"/api/v1/orderservice/order\"\n  },\n  \"curl_example\": \"curl -X PUT 'http://localhost:8080/api/v1/orderservice/order' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\\\"contactsDocumentNumber\\\": \\\"example-value\\\", \\\"status\\\": \\\"ACTIVE\\\", \\\"price\\\": 99.99, \\\"trainNumber\\\": \\\"example-value\\\", \\\"contactsName\\\": \\\"Sample Name\\\", \\\"from\\\": \\\"example-value\\\", \\\"seatNumber\\\": \\\"example-value\\\", \\\"id\\\": \\\"12345\\\", \\\"coachNumber\\\": 123, \\\"travelDate\\\": \\\"2024-01-15T10:30:00Z\\\", \\\"boughtDate\\\": \\\"2024-01-15T10:30:00Z\\\", \\\"to\\\": \\\"example-value\\\", \\\"seatClass\\\": 123, \\\"travelTime\\\": \\\"10:30:00\\\", \\\"documentType\\\": \\\"DEFAULT\\\", \\\"accountId\\\": \\\"12345\\\"}'\",\n  \"api_metadata\": {\n    \"resource_type\": \"order\",\n    \"is_idempotent\": false\n  },\n  \"data_metadata\": {\n    \"request_body_type\": \"Order\",\n    \"response_type\": \"\",\n    \"status_code_map\": {\n      \"200\": \"\"\n    },\n    \"error_descriptions\": {\n      \"200\": \"\"\n    }\n  },\n  \"prompt_guidance\": {\n    \"goals\": [\n      \"Validate role-based access control enforcement.\",\n      \"Check that PUBLIC endpoints do not expose sensitive resources (PII/Financial).\"\n    ],\n    \"scenario_category\": \"ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED\"\n  }\n}\n\nTASK:\nGenerate test cases for the endpoint PUT /api/v1/orderservice/order\n\nRequirements:\n1. Create one test case per role in allowed_roles (expect 2xx status)\n2. Create one test case per role in denied_roles (expect 403 status)\n3. If is_public is true, create an ANONYMOUS test case (expect 2xx - public endpoints allow unauthenticated access)\n4. If is_public is false, create an ANONYMOUS test case (expect 401 or 403)\n5. Create an INVALID_TOKEN test case to verify the endpoint rejects corrupted/invalid tokens (expect 401, with alternateAcceptable: [400, 403, 500, 502, 503])\n\nFor each test case:\n- Use {{TOKEN_ROLE_<ROLENAME>}} as the auth placeholder (e.g., {{TOKEN_ROLE_ADMIN}})\n- For ANONYMOUS, set authPlaceholder to \"NONE\" and role to \"ANONYMOUS\"\n- For INVALID_TOKEN, set authPlaceholder to \"{{TOKEN_INVALID}}\" and role to \"INVALID_TOKEN\"\n- Generate a realistic request body from entity_schema.fields (if present and method is POST/PUT/PATCH)\n- Include path_params and query_params in the request if applicable\n- Include a brief rationale explaining why this status is expected\n\nIMPORTANT: Include ALL test cases in the \"testCases\" array, including:\n1. Test cases for each allowed role (ROLE_ADMIN, ROLE_USER, etc.)\n2. An ANONYMOUS test case (no auth token)\n3. An INVALID_TOKEN test case (corrupted/invalid auth token - expects 401 or 403)",
+  "rawResponse": {
+    "scenarioId": "scn_orderservice:b846949a108b0a333793d69932570d74",
+    "serviceName": "ts-order-service",
+    "endpoint": "/api/v1/orderservice/order",
+    "method": "PUT",
+    "testCases": [
+      {
+        "role": "ROLE_ADMIN",
+        "isAllowed": true,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/api/v1/orderservice/order",
+          "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\",\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"seatNumber\":\"12A\",\"coachNumber\":5,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":1,\"documentType\":2,\"contactsName\":\"Emily Chen\",\"id\":\"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\"to\":\"Central Station\",\"seatClass\":2,\"boughtDate\":\"2024-11-01T09:00:00Z\",\"contactsDocumentNumber\":\"B1234567\",\"from\":\"North Gate\",\"travelDate\":\"2024-12-05\",\"travelTime\":\"14:30:00\",\"trainNumber\":\"TR-203\",\"price\":\"199.50\"}",
+          "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 200,
+          "statusRange": "2xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "ROLE_ADMIN is listed as allowed; expect a successful update of the order resource with valid authentication.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "ROLE_USER",
+        "isAllowed": true,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/api/v1/orderservice/order",
+          "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\",\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"seatNumber\":\"14B\",\"coachNumber\":7,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":2,\"documentType\":1,\"contactsName\":\"Marcus Rivera\",\"id\":\"7c9e6679-7425-40de-944b-e07fc1f90ae7\",\"to\":\"Lakeside Terminal\",\"seatClass\":3,\"boughtDate\":\"2024-10-22T13:15:00Z\",\"contactsDocumentNumber\":\"C9876543\",\"from\":\"Downtown Hub\",\"travelDate\":\"2024-12-15\",\"travelTime\":\"08:45:00\",\"trainNumber\":\"EXP-721\",\"price\":\"249.75\"}",
+          "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 200,
+          "statusRange": "2xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "ROLE_USER is also authorized to modify orders, so a valid token should return a success response.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "ANONYMOUS",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/api/v1/orderservice/order",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"seatNumber\":\"15C\",\"coachNumber\":9,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":3,\"documentType\":1,\"contactsName\":\"Layla Nguyen\",\"id\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"East Ridge\",\"seatClass\":1,\"boughtDate\":\"2024-09-30T16:50:00Z\",\"contactsDocumentNumber\":\"D5555555\",\"from\":\"Harbor View\",\"travelDate\":\"2024-12-01\",\"travelTime\":\"11:20:00\",\"trainNumber\":\"REG-112\",\"price\":\"179.00\"}",
+          "authPlaceholder": "NONE",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            403
+          ]
+        },
+        "rationale": "Anonymous access is not permitted for this restricted endpoint, so the request should be rejected due to missing authentication.",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "INVALID_TOKEN",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/api/v1/orderservice/order",
+          "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\",\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"seatNumber\":\"20D\",\"coachNumber\":3,\"accountId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":4,\"documentType\":2,\"contactsName\":\"Samuel Ortiz\",\"id\":\"6fa85f64-5717-4562-b3fc-2c963f66afa6\",\"to\":\"Summit Point\",\"seatClass\":4,\"boughtDate\":\"2024-12-11T07:40:00Z\",\"contactsDocumentNumber\":\"E2222222\",\"from\":\"West End\",\"travelDate\":\"2024-12-20\",\"travelTime\":\"19:55:00\",\"trainNumber\":\"INT-309\",\"price\":\"215.25\"}",
+          "authPlaceholder": "{{TOKEN_INVALID}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            400,
+            403,
+            500,
+            502,
+            503
+          ]
+        },
+        "rationale": "An invalid token should be rejected, so the API must return an authentication failure (ideally 401).",
+        "sensitivityLevel": "PII",
+        "testPriority": "HIGH"
+      }
+    ]
+  },
+  "timing": {
+    "promptBuildMs": 0,
+    "llmCallMs": 14909,
+    "totalMs": 14909
+  }
+}
