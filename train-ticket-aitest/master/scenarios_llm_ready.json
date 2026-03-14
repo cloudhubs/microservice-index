@@ -6,14 +6,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/account",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -34,6 +33,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -107,13 +107,12 @@
         "method": "POST",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -411,14 +410,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/account",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -439,6 +437,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -496,13 +495,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -743,14 +741,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/payment",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -771,6 +768,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -828,13 +826,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -1785,14 +1782,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -1847,31 +1843,13 @@
     },
     "max_depth": 1,
     "total_calls": 6,
-    "policy_inconsistencies": [
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "deliveryservice:1ae2acc27e8ff7779454b55da6bd5331",
-          "downstream_endpoint": "paymentservice:9bc56771957de779a5256dfb421ee53b",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      }
-    ],
-    "policy_inconsistency_roles": [
-      "ROLE_ADMIN"
-    ],
-    "expected_outcome": "Detect and explain inconsistency in downstream authorization policies",
-    "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_FINANCIAL_RESTRICTED",
+    "policy_inconsistencies": [],
+    "policy_inconsistency_roles": [],
+    "expected_outcome": "Return 2xx for allowed roles and 403 for denied roles",
+    "scenario_category": "DOWNSTREAM_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -1939,7 +1917,7 @@
     "data_awareness_level": "HIGH",
     "llm_prompt_type": "CHAIN_OF_THOUGHT",
     "sensitivity_type": "FINANCIAL",
-    "prompt_template_id": "downstream_inconsistency_cot",
+    "prompt_template_id": "downstream_consistent_path",
     "prompt_context": {
       "goals": [
         "Validate role-based access control enforcement.",
@@ -1949,8 +1927,8 @@
       ],
       "prompt_type": "CHAIN_OF_THOUGHT",
       "sensitivity": "FINANCIAL",
-      "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_FINANCIAL_RESTRICTED",
-      "template_id": "downstream_inconsistency_cot",
+      "scenario_category": "DOWNSTREAM_CONSISTENT_FINANCIAL_RESTRICTED",
+      "template_id": "downstream_consistent_path",
       "parameters": {
         "scenario_id": "scn_deliveryservice:1ae2acc27e8ff7779454b55da6bd5331",
         "service_name": "ts-delivery-service",
@@ -1958,26 +1936,9 @@
         "method": "POST",
         "max_depth": 1,
         "total_calls": 6,
-        "policy_inconsistencies": [
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "deliveryservice:1ae2acc27e8ff7779454b55da6bd5331",
-              "downstream_endpoint": "paymentservice:9bc56771957de779a5256dfb421ee53b",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          }
-        ],
-        "policy_inconsistency_roles": [
-          "ROLE_ADMIN"
+        "allowed_roles": [
+          "ROLE_ADMIN",
+          "ROLE_USER"
         ]
       }
     },
@@ -2725,14 +2686,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}",
     "method": "PATCH",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -2753,6 +2713,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -2856,13 +2817,12 @@
         "method": "PATCH",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -3007,14 +2967,13 @@
     "endpoint": "/api/v1/inside_pay_service/welcome",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -3035,6 +2994,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -3092,13 +3052,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -3825,14 +3784,13 @@
     "endpoint": "/api/v1/cancelservice/cancel/{orderId}/{loginId}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -3895,47 +3853,13 @@
     },
     "max_depth": 1,
     "total_calls": 7,
-    "policy_inconsistencies": [
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "cancelservice:0878acc834584246d0a824969af2c35e",
-          "downstream_endpoint": "orderservice:b846949a108b0a333793d69932570d74",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      },
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "cancelservice:0878acc834584246d0a824969af2c35e",
-          "downstream_endpoint": "orderotherservice:c952885a5a27c76ff1dde89a11aa2e98",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      }
-    ],
-    "policy_inconsistency_roles": [
-      "ROLE_ADMIN"
-    ],
-    "expected_outcome": "Detect and explain inconsistency in downstream authorization policies",
-    "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_PUBLIC_RESTRICTED",
+    "policy_inconsistencies": [],
+    "policy_inconsistency_roles": [],
+    "expected_outcome": "Return 2xx for allowed roles and 403 for denied roles",
+    "scenario_category": "DOWNSTREAM_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -4008,7 +3932,7 @@
     "data_awareness_level": "HIGH",
     "llm_prompt_type": "CHAIN_OF_THOUGHT",
     "sensitivity_type": "PUBLIC",
-    "prompt_template_id": "downstream_inconsistency_cot",
+    "prompt_template_id": "downstream_consistent_path",
     "prompt_context": {
       "goals": [
         "Validate role-based access control enforcement.",
@@ -4018,8 +3942,8 @@
       ],
       "prompt_type": "CHAIN_OF_THOUGHT",
       "sensitivity": "PUBLIC",
-      "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_PUBLIC_RESTRICTED",
-      "template_id": "downstream_inconsistency_cot",
+      "scenario_category": "DOWNSTREAM_CONSISTENT_PUBLIC_RESTRICTED",
+      "template_id": "downstream_consistent_path",
       "parameters": {
         "scenario_id": "scn_cancelservice:0878acc834584246d0a824969af2c35e",
         "service_name": "ts-cancel-service",
@@ -4027,42 +3951,9 @@
         "method": "GET",
         "max_depth": 1,
         "total_calls": 7,
-        "policy_inconsistencies": [
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "cancelservice:0878acc834584246d0a824969af2c35e",
-              "downstream_endpoint": "orderservice:b846949a108b0a333793d69932570d74",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          },
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "cancelservice:0878acc834584246d0a824969af2c35e",
-              "downstream_endpoint": "orderotherservice:c952885a5a27c76ff1dde89a11aa2e98",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          }
-        ],
-        "policy_inconsistency_roles": [
-          "ROLE_ADMIN"
+        "allowed_roles": [
+          "ROLE_ADMIN",
+          "ROLE_USER"
         ]
       }
     },
@@ -4320,22 +4211,6 @@
           "upstream_value": 0,
           "downstream_value": 1
         }
-      },
-      {
-        "role": "ROLE_USER",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
-          "downstream_endpoint": "contactservice:11d5bb119f9764a380b38cc25ed43d62",
-          "entry_required_roles": [
-            "ROLE_ADMIN"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_USER can access downstream but is blocked at entry point"
-        }
       }
     ],
     "policy_inconsistency_roles": [
@@ -4409,22 +4284,6 @@
               "downstream_endpoint": "contactservice:11d5bb119f9764a380b38cc25ed43d62",
               "upstream_value": 0,
               "downstream_value": 1
-            }
-          },
-          {
-            "role": "ROLE_USER",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "adminbasicservice:c548502b7fdc232e12ec0e1694e4f456",
-              "downstream_endpoint": "contactservice:11d5bb119f9764a380b38cc25ed43d62",
-              "entry_required_roles": [
-                "ROLE_ADMIN"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_USER can access downstream but is blocked at entry point"
             }
           }
         ],
@@ -5078,14 +4937,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/{typeIndex}/{orderId}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -5106,6 +4964,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -5194,13 +5053,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -5361,14 +5219,13 @@
     "endpoint": "/api/v1/waitorderservice/waitlistorders",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -5389,6 +5246,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -5441,13 +5299,12 @@
         "method": "GET",
         "service_name": "ts-waitorder-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -5919,14 +5776,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/types",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -5947,6 +5803,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -6004,13 +5861,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -7796,21 +7652,6 @@
           "upstream_value": 0,
           "downstream_value": 1
         }
-      },
-      {
-        "role": "ROLE_USER",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "admintravelservice:e29836be2fb95d6b8f87aefd87f97fd1",
-          "downstream_endpoint": "travel2service:d06d46b218537ccbdd0c12c4653efc4a",
-          "entry_required_roles": [
-            "ROLE_ADMIN"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER"
-          ],
-          "reason": "ROLE_USER can access downstream but is blocked at entry point"
-        }
       }
     ],
     "policy_inconsistency_roles": [
@@ -7904,21 +7745,6 @@
               "downstream_endpoint": "travel2service:d06d46b218537ccbdd0c12c4653efc4a",
               "upstream_value": 0,
               "downstream_value": 1
-            }
-          },
-          {
-            "role": "ROLE_USER",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "admintravelservice:e29836be2fb95d6b8f87aefd87f97fd1",
-              "downstream_endpoint": "travel2service:d06d46b218537ccbdd0c12c4653efc4a",
-              "entry_required_roles": [
-                "ROLE_ADMIN"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER"
-              ],
-              "reason": "ROLE_USER can access downstream but is blocked at entry point"
             }
           }
         ],
@@ -8907,14 +8733,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/assuranceid/{assuranceId}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -8935,6 +8760,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -9008,13 +8834,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -9797,14 +9622,13 @@
     "endpoint": "/api/v1/cancelservice/welcome",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -9825,6 +9649,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -9882,13 +9707,12 @@
         "method": "GET",
         "service_name": "ts-cancel-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -11006,14 +10830,13 @@
     "endpoint": "/api/v1/preserveservice/preserve",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -11156,79 +10979,13 @@
     },
     "max_depth": 2,
     "total_calls": 17,
-    "policy_inconsistencies": [
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-          "downstream_endpoint": "securityservice:d62f8e2d0feedf74abd2c3c05ef161ac",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      },
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-          "downstream_endpoint": "contactservice:e89605fb717241a8b0b39ac0d6bb0c84",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      },
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-          "downstream_endpoint": "orderotherservice:9995eb9806fc9fa9b74b483129ce3dd8",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      },
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-          "downstream_endpoint": "consignservice:ef905478902a3d447dfd17b09e927d0d",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      }
-    ],
-    "policy_inconsistency_roles": [
-      "ROLE_ADMIN"
-    ],
-    "expected_outcome": "Detect and explain inconsistency in downstream authorization policies",
-    "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_PUBLIC_RESTRICTED",
+    "policy_inconsistencies": [],
+    "policy_inconsistency_roles": [],
+    "expected_outcome": "Return 2xx for allowed roles and 403 for denied roles",
+    "scenario_category": "DOWNSTREAM_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -11371,7 +11128,7 @@
     "data_awareness_level": "HIGH",
     "llm_prompt_type": "CHAIN_OF_THOUGHT",
     "sensitivity_type": "PUBLIC",
-    "prompt_template_id": "downstream_inconsistency_cot",
+    "prompt_template_id": "downstream_consistent_path",
     "prompt_context": {
       "goals": [
         "Validate role-based access control enforcement.",
@@ -11381,8 +11138,8 @@
       ],
       "prompt_type": "CHAIN_OF_THOUGHT",
       "sensitivity": "PUBLIC",
-      "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_PUBLIC_RESTRICTED",
-      "template_id": "downstream_inconsistency_cot",
+      "scenario_category": "DOWNSTREAM_CONSISTENT_PUBLIC_RESTRICTED",
+      "template_id": "downstream_consistent_path",
       "parameters": {
         "scenario_id": "scn_preserveservice:fbb390ff0f653ca58e11358f012aefd8",
         "service_name": "ts-preserve-service",
@@ -11390,74 +11147,9 @@
         "method": "POST",
         "max_depth": 2,
         "total_calls": 17,
-        "policy_inconsistencies": [
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-              "downstream_endpoint": "securityservice:d62f8e2d0feedf74abd2c3c05ef161ac",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          },
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-              "downstream_endpoint": "contactservice:e89605fb717241a8b0b39ac0d6bb0c84",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          },
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-              "downstream_endpoint": "orderotherservice:9995eb9806fc9fa9b74b483129ce3dd8",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          },
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "preserveservice:fbb390ff0f653ca58e11358f012aefd8",
-              "downstream_endpoint": "consignservice:ef905478902a3d447dfd17b09e927d0d",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          }
-        ],
-        "policy_inconsistency_roles": [
-          "ROLE_ADMIN"
+        "allowed_roles": [
+          "ROLE_ADMIN",
+          "ROLE_USER"
         ]
       }
     },
@@ -14066,21 +13758,6 @@
           "upstream_value": 0,
           "downstream_value": 1
         }
-      },
-      {
-        "role": "ROLE_USER",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "adminbasicservice:4ddd6733bfc01e91c1e39d67ce3e725b",
-          "downstream_endpoint": "configservice:49a892344917c5b779b3613e26fef310",
-          "entry_required_roles": [
-            "ROLE_ADMIN"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER"
-          ],
-          "reason": "ROLE_USER can access downstream but is blocked at entry point"
-        }
       }
     ],
     "policy_inconsistency_roles": [
@@ -14154,21 +13831,6 @@
               "downstream_endpoint": "configservice:49a892344917c5b779b3613e26fef310",
               "upstream_value": 0,
               "downstream_value": 1
-            }
-          },
-          {
-            "role": "ROLE_USER",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "adminbasicservice:4ddd6733bfc01e91c1e39d67ce3e725b",
-              "downstream_endpoint": "configservice:49a892344917c5b779b3613e26fef310",
-              "entry_required_roles": [
-                "ROLE_ADMIN"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER"
-              ],
-              "reason": "ROLE_USER can access downstream but is blocked at entry point"
             }
           }
         ],
@@ -16729,14 +16391,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/money",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -16757,6 +16418,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -16814,13 +16476,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -16962,14 +16623,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -16990,6 +16650,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -17047,13 +16708,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -18627,14 +18287,13 @@
     "endpoint": "/api/v1/preserveservice/welcome",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -18655,6 +18314,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -18712,13 +18372,12 @@
         "method": "GET",
         "service_name": "ts-preserve-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -19680,22 +19339,6 @@
           "upstream_value": 0,
           "downstream_value": 1
         }
-      },
-      {
-        "role": "ROLE_USER",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "adminbasicservice:0fc9a1ed05bfa90591a551fdc82a9aa6",
-          "downstream_endpoint": "contactservice:42c7f9ca15a0465990e6b8e0babbd832",
-          "entry_required_roles": [
-            "ROLE_ADMIN"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_USER can access downstream but is blocked at entry point"
-        }
       }
     ],
     "policy_inconsistency_roles": [
@@ -19769,22 +19412,6 @@
               "downstream_endpoint": "contactservice:42c7f9ca15a0465990e6b8e0babbd832",
               "upstream_value": 0,
               "downstream_value": 1
-            }
-          },
-          {
-            "role": "ROLE_USER",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "adminbasicservice:0fc9a1ed05bfa90591a551fdc82a9aa6",
-              "downstream_endpoint": "contactservice:42c7f9ca15a0465990e6b8e0babbd832",
-              "entry_required_roles": [
-                "ROLE_ADMIN"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_USER can access downstream but is blocked at entry point"
             }
           }
         ],
@@ -20264,14 +19891,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -20292,6 +19918,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -20380,13 +20007,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -20404,14 +20030,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/{userId}/{money}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -20432,6 +20057,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -20520,13 +20146,12 @@
         "method": "GET",
         "service_name": "ts-delivery-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -22314,14 +21939,13 @@
     "endpoint": "/api/v1/waitorderservice/orders",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -22342,6 +21966,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -22394,13 +22019,12 @@
         "method": "GET",
         "service_name": "ts-waitorder-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -23470,14 +23094,13 @@
     "endpoint": "/api/v1/assuranceservice/assurance/orderid/{orderId}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -23498,6 +23121,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -23571,13 +23195,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -24196,14 +23819,13 @@
     "endpoint": "/api/v1/cancelservice/cancel/refound/{orderId}",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -24240,6 +23862,7 @@
     "scenario_category": "DOWNSTREAM_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -24317,6 +23940,7 @@
         "max_depth": 1,
         "total_calls": 3,
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ]
       }
@@ -25868,14 +25492,13 @@
     "endpoint": "/api/v1/waitorderservice/order",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -25896,6 +25519,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -25948,13 +25572,12 @@
         "method": "POST",
         "service_name": "ts-waitorder-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -28153,14 +27776,13 @@
     "endpoint": "/api/v1/assuranceservice/welcome",
     "method": "GET",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -28181,6 +27803,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -28238,13 +27861,12 @@
         "method": "GET",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -28370,14 +27992,13 @@
     "endpoint": "/api/v1/travel2service/trips",
     "method": "PUT",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -28398,6 +28019,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -28455,13 +28077,12 @@
         "method": "PUT",
         "service_name": "ts-travel2-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -29080,14 +28701,13 @@
     "endpoint": "/api/v1/inside_pay_service/inside_payment/difference",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -29110,31 +28730,13 @@
     },
     "max_depth": 1,
     "total_calls": 2,
-    "policy_inconsistencies": [
-      {
-        "role": "ROLE_ADMIN",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "deliveryservice:bd2364380c5807ef8ef05d08b799576d",
-          "downstream_endpoint": "paymentservice:9bc56771957de779a5256dfb421ee53b",
-          "entry_required_roles": [
-            "ROLE_USER"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-        }
-      }
-    ],
-    "policy_inconsistency_roles": [
-      "ROLE_ADMIN"
-    ],
-    "expected_outcome": "Detect and explain inconsistency in downstream authorization policies",
-    "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_FINANCIAL_RESTRICTED",
+    "policy_inconsistencies": [],
+    "policy_inconsistency_roles": [],
+    "expected_outcome": "Return 2xx for allowed roles and 403 for denied roles",
+    "scenario_category": "DOWNSTREAM_CONSISTENT_FINANCIAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -29202,7 +28804,7 @@
     "data_awareness_level": "HIGH",
     "llm_prompt_type": "CHAIN_OF_THOUGHT",
     "sensitivity_type": "FINANCIAL",
-    "prompt_template_id": "downstream_inconsistency_cot",
+    "prompt_template_id": "downstream_consistent_path",
     "prompt_context": {
       "goals": [
         "Validate role-based access control enforcement.",
@@ -29212,8 +28814,8 @@
       ],
       "prompt_type": "CHAIN_OF_THOUGHT",
       "sensitivity": "FINANCIAL",
-      "scenario_category": "DOWNSTREAM_ROLE_MISMATCH_FINANCIAL_RESTRICTED",
-      "template_id": "downstream_inconsistency_cot",
+      "scenario_category": "DOWNSTREAM_CONSISTENT_FINANCIAL_RESTRICTED",
+      "template_id": "downstream_consistent_path",
       "parameters": {
         "scenario_id": "scn_deliveryservice:bd2364380c5807ef8ef05d08b799576d",
         "service_name": "ts-delivery-service",
@@ -29221,26 +28823,9 @@
         "method": "POST",
         "max_depth": 1,
         "total_calls": 2,
-        "policy_inconsistencies": [
-          {
-            "role": "ROLE_ADMIN",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "deliveryservice:bd2364380c5807ef8ef05d08b799576d",
-              "downstream_endpoint": "paymentservice:9bc56771957de779a5256dfb421ee53b",
-              "entry_required_roles": [
-                "ROLE_USER"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_ADMIN can access downstream but is blocked at entry point"
-            }
-          }
-        ],
-        "policy_inconsistency_roles": [
-          "ROLE_ADMIN"
+        "allowed_roles": [
+          "ROLE_ADMIN",
+          "ROLE_USER"
         ]
       }
     },
@@ -29257,14 +28842,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/orderid/{orderId}",
     "method": "DELETE",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -29285,6 +28869,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -29358,13 +28943,12 @@
         "method": "DELETE",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -30487,14 +30071,13 @@
     "endpoint": "/api/v1/configservice/configs",
     "method": "POST",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -30515,6 +30098,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_INTERNAL_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -30620,13 +30204,12 @@
         "method": "POST",
         "service_name": "ts-config-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
@@ -32420,22 +32003,6 @@
           "upstream_value": 0,
           "downstream_value": 1
         }
-      },
-      {
-        "role": "ROLE_USER",
-        "type": "RestrictiveUpstream",
-        "details": {
-          "upstream_endpoint": "adminbasicservice:3b99bfd6d2c237108247b9a4278ef0f0",
-          "downstream_endpoint": "contactservice:0943f3033ac9a3e82f09125748a8dd9a",
-          "entry_required_roles": [
-            "ROLE_ADMIN"
-          ],
-          "downstream_required_roles": [
-            "ROLE_USER",
-            "ROLE_ADMIN"
-          ],
-          "reason": "ROLE_USER can access downstream but is blocked at entry point"
-        }
       }
     ],
     "policy_inconsistency_roles": [
@@ -32525,22 +32092,6 @@
               "downstream_endpoint": "contactservice:0943f3033ac9a3e82f09125748a8dd9a",
               "upstream_value": 0,
               "downstream_value": 1
-            }
-          },
-          {
-            "role": "ROLE_USER",
-            "type": "RestrictiveUpstream",
-            "details": {
-              "upstream_endpoint": "adminbasicservice:3b99bfd6d2c237108247b9a4278ef0f0",
-              "downstream_endpoint": "contactservice:0943f3033ac9a3e82f09125748a8dd9a",
-              "entry_required_roles": [
-                "ROLE_ADMIN"
-              ],
-              "downstream_required_roles": [
-                "ROLE_USER",
-                "ROLE_ADMIN"
-              ],
-              "reason": "ROLE_USER can access downstream but is blocked at entry point"
             }
           }
         ],
@@ -33457,14 +33008,13 @@
     "endpoint": "/api/v1/assuranceservice/assurances/assuranceid/{assuranceId}",
     "method": "DELETE",
     "allowed_roles": [
+      "ROLE_ADMIN",
       "ROLE_USER"
     ],
-    "denied_roles": [
-      "ROLE_ADMIN"
-    ],
+    "denied_roles": [],
     "unknown_roles": [],
     "expected_status_by_role": {
-      "ROLE_ADMIN": "403",
+      "ROLE_ADMIN": "2xx",
       "ROLE_USER": "2xx"
     },
     "chain_permissions": {
@@ -33485,6 +33035,7 @@
     "scenario_category": "ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED",
     "authorization": {
       "required_roles": [
+        "ROLE_ADMIN",
         "ROLE_USER"
       ],
       "source": "yaml",
@@ -33558,13 +33109,12 @@
         "method": "DELETE",
         "service_name": "ts-assurance-service",
         "allowed_roles": [
+          "ROLE_ADMIN",
           "ROLE_USER"
         ],
-        "denied_roles": [
-          "ROLE_ADMIN"
-        ],
+        "denied_roles": [],
         "expected_status_by_role": {
-          "ROLE_ADMIN": "403",
+          "ROLE_ADMIN": "2xx",
           "ROLE_USER": "2xx"
         }
       }
