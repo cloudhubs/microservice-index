@@ -809,7 +809,7 @@ def main() -> None:
     # round_base = "train-ticket-aitest/master"
     # round_base = "train-ticket-aitest/first-inconsistency-injection/"
     # round_base = "train-ticket-aitest/second-inconsistency-injection/"
-    # round_base = "yas/master"
+    # round_base = "yas/main"
     # round_base = "yas/first-injection"
     round_base = "yas/second-injection/"
     ap.add_argument("--scenarios", default=f"{round_base}/scenarios_llm_ready.json")

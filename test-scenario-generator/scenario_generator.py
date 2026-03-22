@@ -922,8 +922,8 @@ def main():
     # BASE_PATH = "train-ticket-aitest/first-inconsistency-injection"
     # BASE_PATH = "train-ticket-aitest/master"
     # BASE_PATH = "train-ticket-aitest/second-inconsistency-injection"
+    # BASE_PATH = "yas/main"
     # BASE_PATH = "yas/first-injection"
-    # BASE_PATH = "yas/master"
     BASE_PATH = "yas/second-injection"
 
     all_vectors = load_json(f"{BASE_PATH}/all_vectors.json")
