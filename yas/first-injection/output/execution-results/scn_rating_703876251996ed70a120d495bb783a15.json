@@ -1,0 +1,473 @@
+{
+  "scenarioId": "scn_rating:703876251996ed70a120d495bb783a15",
+  "serviceName": "rating",
+  "endpoint": "/rating/backoffice/ratings/{id}",
+  "method": "DELETE",
+  "executedAt": "2026-03-22T06:43:11.354Z",
+  "baseUrl": "http://localhost",
+  "totalTestCases": 6,
+  "passed": 5,
+  "failed": 1,
+  "testCaseResults": [
+    {
+      "role": "ROLE_ADMIN",
+      "passed": false,
+      "expected": {
+        "statusCode": 204,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 404,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "404 NOT_FOUND",
+          "title": "Not Found",
+          "detail": "RATING 123 is not found",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 57.61845799999901,
+        "bodySizeBytes": 104,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": true,
+          "isValidationError": false,
+          "errorMessage": "RATING 123 is not found",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 204,
+          "actualStatus": 404,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 204 (2xx), got 404",
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ROLE_SUPER-ADMIN",
+      "passed": true,
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 404,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "404 NOT_FOUND",
+          "title": "Not Found",
+          "detail": "RATING 123 is not found",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 10.717082999999548,
+        "bodySizeBytes": 104,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": true,
+          "isValidationError": false,
+          "errorMessage": "RATING 123 is not found",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 403,
+          "actualStatus": 404,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ROLE_USER",
+      "passed": true,
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 404,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "404 NOT_FOUND",
+          "title": "Not Found",
+          "detail": "RATING 123 is not found",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 10.453332999999475,
+        "bodySizeBytes": 104,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": true,
+          "isValidationError": false,
+          "errorMessage": "RATING 123 is not found",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 403,
+          "actualStatus": 404,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "passed": true,
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 404,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "404 NOT_FOUND",
+          "title": "Not Found",
+          "detail": "RATING 123 is not found",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 10.051290999999765,
+        "bodySizeBytes": 104,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": true,
+          "isValidationError": false,
+          "errorMessage": "RATING 123 is not found",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 403,
+          "actualStatus": 404,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ANONYMOUS",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "set-cookie": [
+            "JSESSIONID=B5F06B3AD5CC5444E4298E6A192ED40B; Path=/rating; HttpOnly"
+          ],
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+        },
+        "body": {
+          "timestamp": "2026-03-22T06:43:11.310Z",
+          "status": 403,
+          "error": "Forbidden",
+          "path": "/rating/backoffice/ratings/123"
+        },
+        "responseTimeMs": 6.262375000000247,
+        "bodySizeBytes": 113,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "Forbidden",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 401,
+          "actualStatus": 403,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      }
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "actual": {
+        "statusCode": 401,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 06:43:11 GMT",
+          "content-length": "0",
+          "connection": "keep-alive",
+          "www-authenticate": "Bearer error=\"invalid_token\", error_description=\"An error occurred while attempting to decode the Jwt: Signed JWT rejected: Invalid signature\", error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\", resource_metadata=\"http://rating/.well-known/oauth-protected-resource\"",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": "",
+        "responseTimeMs": 4.090208999999959,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": true,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 401,
+          "actualStatus": 401,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    }
+  ],
+  "summary": {
+    "overallPassed": false,
+    "failureReasons": [
+      "ROLE_ADMIN: Expected status 204 (2xx), got 404"
+    ],
+    "executionTimeMs": 318
+  }
+}

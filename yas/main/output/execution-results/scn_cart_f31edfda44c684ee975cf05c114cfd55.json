@@ -1,0 +1,302 @@
+{
+  "scenarioId": "scn_cart:f31edfda44c684ee975cf05c114cfd55",
+  "serviceName": "cart",
+  "endpoint": "/cart/storefront/cart/items",
+  "method": "GET",
+  "executedAt": "2026-03-22T05:19:02.921Z",
+  "baseUrl": "http://localhost",
+  "totalTestCases": 4,
+  "passed": 3,
+  "failed": 1,
+  "testCaseResults": [
+    {
+      "role": "ROLE_ADMIN",
+      "passed": true,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 05:19:02 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": [],
+        "responseTimeMs": 18.059834000000023,
+        "bodySizeBytes": 2,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 200,
+          "actualStatus": 200,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "passed": true,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 200,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 05:19:02 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": [],
+        "responseTimeMs": 20.4495,
+        "bodySizeBytes": 2,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 200,
+          "actualStatus": 200,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ANONYMOUS",
+      "passed": false,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 05:19:02 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "403 FORBIDDEN",
+          "title": "Forbidden",
+          "detail": "ACCESS_DENIED",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 19.84858300000002,
+        "bodySizeBytes": 94,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "ACCESS_DENIED",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 200,
+          "actualStatus": 403,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 200 (2xx), got 403"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "actual": {
+        "statusCode": 401,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 05:19:02 GMT",
+          "content-length": "0",
+          "connection": "keep-alive",
+          "www-authenticate": "Bearer error=\"invalid_token\", error_description=\"An error occurred while attempting to decode the Jwt: Signed JWT rejected: Invalid signature\", error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\", resource_metadata=\"http://cart/.well-known/oauth-protected-resource\"",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": "",
+        "responseTimeMs": 10.386833000000024,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": true,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 401,
+          "actualStatus": 401,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    }
+  ],
+  "summary": {
+    "overallPassed": false,
+    "failureReasons": [
+      "ANONYMOUS: Expected status 200 (2xx), got 403"
+    ],
+    "executionTimeMs": 189
+  }
+}

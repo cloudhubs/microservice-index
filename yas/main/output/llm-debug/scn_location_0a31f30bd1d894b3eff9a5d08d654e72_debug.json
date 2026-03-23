@@ -1,0 +1,147 @@
+{
+  "scenarioId": "scn_location:0a31f30bd1d894b3eff9a5d08d654e72",
+  "timestamp": "2026-03-22T06:09:27.350Z",
+  "systemPrompt": "You are an API authorization test generator.\n\nINPUT FORMAT:\nYou will receive scenario data as JSON followed by task instructions.\n\nYOUR JOB:\nAnalyze the scenario and generate HTTP request specifications for testing role-based access control.\n\nRULES:\n1. Parse the INPUT DATA JSON to understand the endpoint and authorization requirements\n2. CRITICAL: The request URL must be EXACTLY the same as the \"endpoint\" field in INPUT DATA, with only path parameter placeholders resolved. Do NOT modify, shorten, or remove any part of the path.\n3. Generate realistic request bodies using entity_schema.fields:\n   - String fields → realistic values (names, IDs, amounts - not \"test\" or empty)\n   - int/long fields → realistic numbers\n   - double/float fields → decimal numbers\n   - boolean fields → true/false\n   - UUID fields → use realistic UUID format like \"550e8400-e29b-41d4-a716-446655440000\"\n4. Use token placeholders: {{TOKEN_ROLE_ADMIN}}, {{TOKEN_ROLE_USER}}\n5. For ANONYMOUS tests, set authPlaceholder to \"NONE\" and omit Authorization header\n6. For INVALID_TOKEN tests, set authPlaceholder to \"{{TOKEN_INVALID}}\" (will be replaced with a corrupted token)\n7. Map roles to expected statuses:\n   - Roles in allowed_roles → expect 2xx\n   - Roles in denied_roles → expect 403\n   - ANONYMOUS when is_public=true → expect 2xx (public endpoints allow unauthenticated access)\n   - ANONYMOUS when is_public=false → expect 401 or 403\n   - INVALID_TOKEN → expect 401 (or any 4xx/5xx, use alternateAcceptable: [400, 403, 500, 502, 503])\n\nPATH AND QUERY PARAMETERS:\n- Path parameters: Replace placeholders in the URL with realistic values based on type\n  - Long/int IDs → use numbers like 1, 123, 42\n  - UUID → use \"550e8400-e29b-41d4-a716-446655440000\"\n  - String names → use realistic values like \"john-doe\", \"order-123\"\n- Query parameters: Add as URL query string if required=true or needed for the test\n  - Follow the type constraints (string, int, boolean, etc.)\n\nDATA SENSITIVITY:\n- PII data: Use realistic but clearly fake data (e.g., \"John Doe\", \"john.doe@example.com\")\n- Financial data: Use test amounts (e.g., 99.99, 1000.00)\n- For sensitive endpoints, generate comprehensive validation tests\n\nOUTPUT:\nReturn valid JSON matching the provided schema. No markdown, no explanations outside the JSON.",
+  "userPrompt": "INPUT DATA:\n{\n  \"scenario_id\": \"scn_location:0a31f30bd1d894b3eff9a5d08d654e72\",\n  \"service_name\": \"location\",\n  \"method\": \"PUT\",\n  \"endpoint\": \"/location/backoffice/state-or-provinces/{id}\",\n  \"authorization\": {\n    \"allowed_roles\": [\n      \"ADMIN\"\n    ],\n    \"denied_roles\": [\n      \"CUSTOMER\"\n    ],\n    \"expected_status_by_role\": {\n      \"ADMIN\": \"2xx\",\n      \"CUSTOMER\": \"403\"\n    },\n    \"is_public\": false,\n    \"required_roles\": [\n      \"ADMIN\"\n    ]\n  },\n  \"entity_schema\": null,\n  \"path_parameters\": [\n    {\n      \"name\": \"id\",\n      \"type\": \"Long\",\n      \"required\": true,\n      \"validationConstraints\": []\n    }\n  ],\n  \"uri_examples\": {\n    \"full_uri\": \"/backoffice/state-or-provinces/{id}\",\n    \"simplified_uri\": \"/backoffice/state-or-provinces/{?}\"\n  },\n  \"curl_example\": \"curl -X PUT 'http://localhost:8080/backoffice/state-or-provinces/12345' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\\\"field1\\\": \\\"value1\\\", \\\"field2\\\": \\\"value2\\\"}'\",\n  \"api_metadata\": {\n    \"resource_type\": \"{id}\",\n    \"is_idempotent\": false\n  },\n  \"data_metadata\": {\n    \"request_body_type\": \"StateOrProvincePostVm\",\n    \"response_type\": \"\",\n    \"status_code_map\": {\n      \"200\": \"\"\n    },\n    \"error_descriptions\": {\n      \"200\": \"\"\n    }\n  },\n  \"prompt_guidance\": {\n    \"goals\": [\n      \"Validate role-based access control enforcement.\",\n      \"Check that PUBLIC endpoints do not expose sensitive resources (PII/Financial).\"\n    ],\n    \"scenario_category\": \"ENTRYPOINT_CONSISTENT_PUBLIC_RESTRICTED\"\n  }\n}\n\nTASK:\nGenerate test cases for the endpoint PUT /location/backoffice/state-or-provinces/{id}\n\nRequirements:\n1. Create one test case per role in allowed_roles (expect 2xx status)\n2. Create one test case per role in denied_roles (expect 403 status)\n3. If is_public is true, create an ANONYMOUS test case (expect 2xx - public endpoints allow unauthenticated access)\n4. If is_public is false, create an ANONYMOUS test case (expect 401 or 403)\n5. Create an INVALID_TOKEN test case to verify the endpoint rejects corrupted/invalid tokens (expect 401, with alternateAcceptable: [400, 403, 500, 502, 503])\n\nPATH PARAMETERS:\n- Replace path placeholders with realistic values based on their types\n- For IDs (Long, int): use numbers like 1, 42, 123\n- For UUIDs: use \"550e8400-e29b-41d4-a716-446655440000\"\n- For String names: use descriptive values like \"test-resource\"\n\nFor each test case:\n- Use {{TOKEN_ROLE_<ROLENAME>}} as the auth placeholder (e.g., {{TOKEN_ROLE_ADMIN}})\n- For ANONYMOUS, set authPlaceholder to \"NONE\" and role to \"ANONYMOUS\"\n- For INVALID_TOKEN, set authPlaceholder to \"{{TOKEN_INVALID}}\" and role to \"INVALID_TOKEN\"\n- Generate a realistic request body from entity_schema.fields (if present and method is POST/PUT/PATCH)\n- Include path_params and query_params in the request if applicable\n- Include a brief rationale explaining why this status is expected\n\nIMPORTANT: Include ALL test cases in the \"testCases\" array, including:\n1. Test cases for each allowed role (ROLE_ADMIN, ROLE_USER, etc.)\n2. An ANONYMOUS test case (no auth token)\n3. An INVALID_TOKEN test case (corrupted/invalid auth token - expects 401 or 403)",
+  "rawResponse": {
+    "scenarioId": "scn_location:0a31f30bd1d894b3eff9a5d08d654e72",
+    "serviceName": "location",
+    "endpoint": "/location/backoffice/state-or-provinces/{id}",
+    "method": "PUT",
+    "testCases": [
+      {
+        "role": "ROLE_ADMIN",
+        "isAllowed": true,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/location/backoffice/state-or-provinces/12345",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+          "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+          "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+          "pathParams": [
+            {
+              "name": "id",
+              "value": "12345",
+              "type": "Long"
+            }
+          ],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 200,
+          "statusRange": "2xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "ADMIN role has permission to update state/province resources, so the request should succeed with 2xx.",
+        "sensitivityLevel": "",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "ROLE_CUSTOMER",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/location/backoffice/state-or-provinces/12345",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+          "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+          "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+          "pathParams": [
+            {
+              "name": "id",
+              "value": "12345",
+              "type": "Long"
+            }
+          ],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 403,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "CUSTOMER is not granted access to administrative state/province updates, so the request should be forbidden.",
+        "sensitivityLevel": "",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "ANONYMOUS",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/location/backoffice/state-or-provinces/12345",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+          "authPlaceholder": "NONE",
+          "pathParams": [
+            {
+              "name": "id",
+              "value": "12345",
+              "type": "Long"
+            }
+          ],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            403
+          ]
+        },
+        "rationale": "Endpoint is not public, so anonymous access should be denied with 401 (or 403) when no credentials are provided.",
+        "sensitivityLevel": "",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "INVALID_TOKEN",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "PUT",
+          "url": "/location/backoffice/state-or-provinces/12345",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+          "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+          "authPlaceholder": "{{TOKEN_INVALID}}",
+          "pathParams": [
+            {
+              "name": "id",
+              "value": "12345",
+              "type": "Long"
+            }
+          ],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            400,
+            403,
+            500,
+            502,
+            503
+          ]
+        },
+        "rationale": "An invalid token should be rejected, resulting in an unauthorized response (401), or other 4xx/5xx error if token processing fails.",
+        "sensitivityLevel": "",
+        "testPriority": "MEDIUM"
+      }
+    ]
+  },
+  "timing": {
+    "promptBuildMs": 1,
+    "llmCallMs": 11756,
+    "totalMs": 11757
+  }
+}

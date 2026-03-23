@@ -1,0 +1,226 @@
+{
+  "scenarioId": "scn_rating:3c41ba5e3ce668ae095bfdfde0453c1c",
+  "serviceName": "rating",
+  "endpoint": "/rating/storefront/ratings",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "SUPER-ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-1001\",\"score\":5,\"comment\":\"Excellent service received\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-1001",
+          "score": 5,
+          "comment": "Excellent service received"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is explicitly allowed to create ratings at the entrypoint and no downstream inconsistencies affect this role, so the request should succeed.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-1002\",\"score\":4,\"comment\":\"Works as expected\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-1002",
+          "score": 4,
+          "comment": "Works as expected"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is part of the required roles for this endpoint and all downstream services consistently allow ADMIN, so the rating submission should succeed.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "CUSTOMER",
+      "isAllowed": true,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "UnderPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-2001\",\"score\":3,\"comment\":\"Good\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-2001",
+          "score": 3,
+          "comment": "Good"
+        }
+      },
+      "expected": {
+        "statusCode": 500,
+        "statusRange": "5xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "ENTRY allows CUSTOMER but the downstream product service (/product/backoffice/product-variations/{id}) denies CUSTOMER (upstream order service allows 1 while downstream value is 0), so the request fails with an internal error when the denied downstream call surfaces.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-3001\",\"score\":2,\"comment\":\"Needs improvement\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-3001",
+          "score": 2,
+          "comment": "Needs improvement"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "ENTRY correctly denies CUSTOMER, but downstream product storefront (/product/storefront/products/list-featured) allows access; this mismatch should still surface a 403 to ensure downstream over-permissiveness does not expose data.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-4001\",\"score\":4,\"comment\":\"Nice\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-4001",
+          "score": 4,
+          "comment": "Nice"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Endpoint is marked as public, so ANONYMOUS requests should succeed (2xx) even without authentication.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/rating/storefront/ratings",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"productId\":\"prod-5001\",\"score\":5,\"comment\":\"Great overall\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": "prod-5001",
+          "score": 5,
+          "comment": "Great overall"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "The request must fail with 401 (or similar 4xx/5xx) when an invalid token is presented, ensuring authentication is enforced before downstream calls.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:34:57.410Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "ratings",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

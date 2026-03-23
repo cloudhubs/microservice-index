@@ -1,0 +1,222 @@
+{
+  "scenarioId": "scn_rating:703876251996ed70a120d495bb783a15",
+  "serviceName": "rating",
+  "endpoint": "/rating/backoffice/ratings/{id}",
+  "method": "DELETE",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 204,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is the required role for this entrypoint and downstream calls also permit ADMIN. Expect a successful deletion (2xx).",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is not granted access by the entry policy. Expect 403 denial consistent with downstream controls.",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry policy denies USER but downstream product service allows it (OverPermissiveDownstream). Expect the entry endpoint to reject with 403 while detecting the inconsistency from the product service call.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry policy denies CUSTOMER while downstream product service permits it (OverPermissiveDownstream). Expect denial at entry to highlight the downstream inconsistency.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public and requires authentication, so anonymous requests should be rejected (401/403).",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Corrupted or invalid token should trigger authentication failure (401) even before entry policy evaluation.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:43:11.035Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

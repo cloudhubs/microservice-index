@@ -1,0 +1,475 @@
+{
+  "scenarioId": "scn_rating:3c41ba5e3ce668ae095bfdfde0453c1c",
+  "serviceName": "rating",
+  "endpoint": "/rating/storefront/ratings",
+  "method": "POST",
+  "executedAt": "2026-03-22T07:34:57.823Z",
+  "baseUrl": "http://localhost",
+  "totalTestCases": 6,
+  "passed": 3,
+  "failed": 3,
+  "testCaseResults": [
+    {
+      "role": "SUPER-ADMIN",
+      "passed": false,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 500,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "500 INTERNAL_SERVER_ERROR",
+          "title": "Internal Server Error",
+          "detail": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-1001\": not a valid `java.lang.Long` value",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 119.68920800000342,
+        "bodySizeBytes": 234,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": true,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-1001\": not a valid `java.lang.Long` value",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 200,
+          "actualStatus": 500,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 200 (2xx), got 500",
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ADMIN",
+      "passed": false,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 500,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "500 INTERNAL_SERVER_ERROR",
+          "title": "Internal Server Error",
+          "detail": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-1002\": not a valid `java.lang.Long` value",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 11.302082999998674,
+        "bodySizeBytes": 234,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": true,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-1002\": not a valid `java.lang.Long` value",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 200,
+          "actualStatus": 500,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 200 (2xx), got 500",
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "CUSTOMER",
+      "passed": true,
+      "expected": {
+        "statusCode": 500,
+        "statusRange": "5xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 500,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "500 INTERNAL_SERVER_ERROR",
+          "title": "Internal Server Error",
+          "detail": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-2001\": not a valid `java.lang.Long` value",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 10.33100000000195,
+        "bodySizeBytes": 234,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": true,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-2001\": not a valid `java.lang.Long` value",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 500,
+          "actualStatus": 500,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "CUSTOMER",
+      "passed": true,
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "actual": {
+        "statusCode": 500,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": {
+          "statusCode": "500 INTERNAL_SERVER_ERROR",
+          "title": "Internal Server Error",
+          "detail": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-3001\": not a valid `java.lang.Long` value",
+          "fieldErrors": null
+        },
+        "responseTimeMs": 9.596957999998267,
+        "bodySizeBytes": 234,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": true,
+          "isAuthError": false,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "JSON parse error: Cannot deserialize value of type `java.lang.Long` from String \"prod-3001\": not a valid `java.lang.Long` value",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 403,
+          "actualStatus": 500,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    },
+    {
+      "role": "ANONYMOUS",
+      "passed": false,
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "actual": {
+        "statusCode": 403,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-type": "application/json",
+          "transfer-encoding": "chunked",
+          "connection": "keep-alive",
+          "set-cookie": [
+            "JSESSIONID=C4AF897B2DA8FA09167771E7F3022FF0; Path=/rating; HttpOnly"
+          ],
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+        },
+        "body": {
+          "timestamp": "2026-03-22T07:34:57.767Z",
+          "status": 403,
+          "error": "Forbidden",
+          "path": "/rating/storefront/ratings"
+        },
+        "responseTimeMs": 33.12316700000156,
+        "bodySizeBytes": 109,
+        "contentType": "application/json",
+        "contentEncoding": null,
+        "isEmpty": false,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": false,
+          "isAuthzError": true,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": "Forbidden",
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": false,
+          "expectedStatus": 200,
+          "actualStatus": 403,
+          "statusInRange": false,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "mismatchDetails": "Expected status 200 (2xx), got 403"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "passed": true,
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "actual": {
+        "statusCode": 401,
+        "headers": {
+          "server": "nginx/1.27.2",
+          "date": "Sun, 22 Mar 2026 07:34:57 GMT",
+          "content-length": "0",
+          "connection": "keep-alive",
+          "www-authenticate": "Bearer error=\"invalid_token\", error_description=\"An error occurred while attempting to decode the Jwt: Signed JWT rejected: Invalid signature\", error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\", resource_metadata=\"http://rating/.well-known/oauth-protected-resource\"",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "0",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-frame-options": "DENY"
+        },
+        "body": "",
+        "responseTimeMs": 5.439416000001074,
+        "bodySizeBytes": 0,
+        "contentType": null,
+        "contentEncoding": null,
+        "isEmpty": true,
+        "corsHeaders": {
+          "allowOrigin": null,
+          "allowMethods": null,
+          "allowHeaders": null
+        },
+        "rateLimitHeaders": {
+          "limit": null,
+          "remaining": null,
+          "reset": null
+        },
+        "cacheHeaders": {
+          "etag": null,
+          "cacheControl": "no-cache, no-store, max-age=0, must-revalidate",
+          "lastModified": null
+        },
+        "errorDetails": {
+          "isTimeout": false,
+          "isConnectionError": false,
+          "isServerError": false,
+          "isAuthError": true,
+          "isAuthzError": false,
+          "isNotFound": false,
+          "isValidationError": false,
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "validation": {
+          "statusMatch": true,
+          "expectedStatus": 401,
+          "actualStatus": 401,
+          "statusInRange": true,
+          "bodyContainsMatch": true,
+          "bodyNotContainsMatch": true
+        }
+      },
+      "tokenUsed": "eyJhbGciOiJSUzI1NiIs..."
+    }
+  ],
+  "summary": {
+    "overallPassed": false,
+    "failureReasons": [
+      "SUPER-ADMIN: Expected status 200 (2xx), got 500",
+      "ADMIN: Expected status 200 (2xx), got 500",
+      "ANONYMOUS: Expected status 200 (2xx), got 403"
+    ],
+    "executionTimeMs": 410
+  }
+}

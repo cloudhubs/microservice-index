@@ -1,0 +1,181 @@
+{
+  "scenarioId": "scn_location:0a31f30bd1d894b3eff9a5d08d654e72",
+  "serviceName": "location",
+  "endpoint": "/location/backoffice/state-or-provinces/{id}",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/12345",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "name": "Central Valley",
+          "code": "CV",
+          "countryId": 42
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN role has permission to update state/province resources, so the request should succeed with 2xx.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/12345",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        },
+        "body": {
+          "name": "Central Valley",
+          "code": "CV",
+          "countryId": 42
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER is not granted access to administrative state/province updates, so the request should be forbidden.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/12345",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Central Valley",
+          "code": "CV",
+          "countryId": 42
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public, so anonymous access should be denied with 401 (or 403) when no credentials are provided.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/12345",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"name\":\"Central Valley\",\"code\":\"CV\",\"countryId\":42}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "12345",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "name": "Central Valley",
+          "code": "CV",
+          "countryId": 42
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected, resulting in an unauthorized response (401), or other 4xx/5xx error if token processing fails.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:09:27.350Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

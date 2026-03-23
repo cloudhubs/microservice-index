@@ -1,0 +1,155 @@
+{
+  "scenarioId": "scn_rating:703876251996ed70a120d495bb783a15",
+  "serviceName": "rating",
+  "endpoint": "/rating/backoffice/ratings/{id}",
+  "method": "DELETE",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 204,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is authorized to delete ratings at the entrypoint. Since downstream services (product/media) also allow ADMIN, the call should succeed with a 2xx response.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "CUSTOMER (ROLE_USER) is denied at the rating entrypoint but downstream product service allows the role, indicating an OverPermissiveDownstream inconsistency. Expect the entry policy to return 403, though downstream failures could surface as 5xx/403.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public, so anonymous requests should be rejected before reaching downstream services, resulting in 401 Unauthorized (alternatively 403).",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/rating/backoffice/ratings/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should be rejected immediately with a 4xx error (typically 401), preventing any downstream outbound calls.",
+      "sensitivityLevel": "",
+      "testPriority": "LOW"
+    }
+  ],
+  "generatedAt": "2026-03-22T05:50:19.588Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

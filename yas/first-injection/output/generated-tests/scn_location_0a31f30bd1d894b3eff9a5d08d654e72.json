@@ -1,0 +1,263 @@
+{
+  "scenarioId": "scn_location:0a31f30bd1d894b3eff9a5d08d654e72",
+  "serviceName": "location",
+  "endpoint": "/location/backoffice/state-or-provinces/{id}",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is explicitly allowed and holds the required privileges for updating state or province records, so the request should succeed with 2xx.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_USER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "USER does not have the ADMIN role required by this restricted endpoint, so access should be denied with 403.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER is not granted access to update back-office state or province records, so the call should be forbidden.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_SUPER_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER_ADMIN}}\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER_ADMIN}}"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is denied by policy for this endpoint, so even though highly privileged, the request must return 403.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "The endpoint is not public and anonymous requests lack authentication, so the update must be rejected with 401.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"name\":\"British Columbia\",\"code\":\"BC\",\"countryId\":1,\"active\":true}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "name": "British Columbia",
+          "code": "BC",
+          "countryId": 1,
+          "active": true
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid or corrupted token should be rejected before accessing protected resources, so a 401 (or another client/server error) is expected.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:54:27.858Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

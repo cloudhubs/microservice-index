@@ -1,0 +1,189 @@
+{
+  "scenarioId": "scn_inventory:be291c4561c47c0a79e3b07bbaa489d3",
+  "serviceName": "inventory",
+  "endpoint": "/inventory/backoffice/warehouses/{id}",
+  "method": "DELETE",
+  "testCases": [
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/inventory/backoffice/warehouses/1",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER is an allowed role per entry policy; expect successful deletion with 2xx.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/inventory/backoffice/warehouses/1",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is denied at entry and downstream; expect 403 Forbidden consistent with access policy.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/inventory/backoffice/warehouses/1",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER-ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER-ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is explicitly denied by the entry service and downstream, so DELETE should return 403.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/inventory/backoffice/warehouses/1",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public; anonymous requests must be rejected, so expect 401 Unauthorized (403 acceptable).",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "DELETE",
+        "url": "/inventory/backoffice/warehouses/1",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid token should not be accepted; expect authentication failure (401 with acceptable alternatives).",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:43:59.642Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

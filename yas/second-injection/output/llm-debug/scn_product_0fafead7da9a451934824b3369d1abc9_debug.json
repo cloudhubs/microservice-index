@@ -1,0 +1,152 @@
+{
+  "scenarioId": "scn_product:0fafead7da9a451934824b3369d1abc9",
+  "timestamp": "2026-03-22T07:33:16.034Z",
+  "systemPrompt": "You are an API authorization test generator specializing in downstream policy consistency testing.\n\nINPUT FORMAT:\nYou will receive scenario data as JSON including downstream_context with policy inconsistency information.\n\nYOUR JOB:\nGenerate tests that detect authorization policy mismatches across microservice call chains.\n\nRULES:\n1. Parse the INPUT DATA JSON including the downstream_context section\n2. CRITICAL: The request URL must be EXACTLY the same as the \"endpoint\" field in INPUT DATA, with only path parameter placeholders resolved. Do NOT modify, shorten, or remove any part of the path.\n3. For roles in policy_inconsistency_roles:\n   - UnderPermissiveDownstream: Entry allows but downstream denies → expect 500 or error\n   - OverPermissiveDownstream: Entry denies correctly → expect 403\n   - PolicyExposure: Check data access control → expect appropriate denial\n4. For roles NOT in policy_inconsistency_roles (consistent behavior):\n   - Apply standard rules (allowed_roles → 2xx, denied_roles → 403)\n5. Use token placeholders: {{TOKEN_ROLE_ADMIN}}, {{TOKEN_ROLE_USER}}\n6. For ANONYMOUS tests, set authPlaceholder to \"NONE\"\n   - If is_public=true → expect 2xx (public endpoints allow unauthenticated access)\n   - If is_public=false → expect 401 or 403\n7. For INVALID_TOKEN tests, set authPlaceholder to \"{{TOKEN_INVALID}}\" and expect 401 (or any 4xx/5xx)\n8. Set alternateAcceptable status codes for inconsistency roles (e.g., [500, 502, 503, 403])\n\nPATH AND QUERY PARAMETERS:\n- Path parameters: Replace placeholders in the URL with realistic values based on type\n- Query parameters: Add as URL query string if required=true\n- Use chain_permissions to understand permission flow through the call chain\n\nDATA SENSITIVITY:\n- For sensitive endpoints (PII, FINANCIAL), ensure proper access control tests\n- Check for data exposure through policy inconsistencies\n\nOUTPUT:\nReturn valid JSON matching the provided schema. Include isInconsistencyRole and inconsistencyType for affected roles.",
+  "userPrompt": "INPUT DATA:\n{\n  \"scenario_id\": \"scn_product:0fafead7da9a451934824b3369d1abc9\",\n  \"service_name\": \"product\",\n  \"method\": \"POST\",\n  \"endpoint\": \"/product/backoffice/products\",\n  \"type\": \"DownstreamPolicyConsistency\",\n  \"authorization\": {\n    \"allowed_roles\": [\n      \"ADMIN\"\n    ],\n    \"denied_roles\": [\n      \"CUSTOMER\",\n      \"SUPER-ADMIN\"\n    ],\n    \"expected_status_by_role\": {\n      \"SUPER-ADMIN\": \"403\",\n      \"ADMIN\": \"2xx\",\n      \"CUSTOMER\": \"403\"\n    },\n    \"is_public\": false,\n    \"required_roles\": [\n      \"ADMIN\"\n    ]\n  },\n  \"entity_schema\": null,\n  \"downstream_context\": {\n    \"max_depth\": 3,\n    \"total_calls\": 4,\n    \"policy_inconsistencies\": [\n      {\n        \"role\": \"CUSTOMER\",\n        \"type\": \"OverPermissiveDownstream\",\n        \"details\": {\n          \"upstream_endpoint\": \"product:0fafead7da9a451934824b3369d1abc9\",\n          \"downstream_endpoint\": \"product:c12aca012decb6059f27fcfc9018a691\",\n          \"upstream_value\": 0,\n          \"downstream_value\": 1\n        }\n      },\n      {\n        \"role\": \"CUSTOMER\",\n        \"type\": \"RestrictiveUpstream\",\n        \"details\": {\n          \"upstream_endpoint\": \"product:0fafead7da9a451934824b3369d1abc9\",\n          \"downstream_endpoint\": \"media:a469191aedaaa3f8ed87df26a2092de6\",\n          \"reason\": \"CUSTOMER can access downstream but is blocked at entry point\",\n          \"entry_required_roles\": [\n            \"ADMIN\"\n          ],\n          \"downstream_required_roles\": [\n            \"CUSTOMER\"\n          ]\n        }\n      }\n    ],\n    \"policy_inconsistency_roles\": [\n      \"CUSTOMER\"\n    ],\n    \"expected_outcome\": \"Detect and explain inconsistency in downstream authorization policies\"\n  },\n  \"uri_examples\": {\n    \"full_uri\": \"/backoffice/products\",\n    \"simplified_uri\": \"/backoffice/products\"\n  },\n  \"curl_example\": \"curl -X POST 'http://localhost:8080/backoffice/products' -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' -d '{\\\"id\\\": \\\"11111\\\", \\\"name\\\": \\\"Sample Product\\\", \\\"price\\\": 29.99}'\",\n  \"chain_dependencies\": {\n    \"dependencies\": [\n      {\n        \"endpoint_id\": \"product:c12aca012decb6059f27fcfc9018a691\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/product/storefront/products/detail/{productId}\",\n        \"service_name\": \"product\",\n        \"allowed_roles\": [\n          \"SUPER-ADMIN\",\n          \"ADMIN\",\n          \"CUSTOMER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"product:8b562509d9c4cc27f5dfde34b7011cc0\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/product/storefront/products/list-featured\",\n        \"service_name\": \"product\",\n        \"allowed_roles\": [\n          \"SUPER-ADMIN\",\n          \"ADMIN\",\n          \"CUSTOMER\"\n        ],\n        \"denied_roles\": [],\n        \"unknown_roles\": []\n      },\n      {\n        \"endpoint_id\": \"media:a469191aedaaa3f8ed87df26a2092de6\",\n        \"resolved\": true,\n        \"method\": \"GET\",\n        \"endpoint\": \"/medias/{id}\",\n        \"service_name\": \"media\",\n        \"allowed_roles\": [\n          \"CUSTOMER\"\n        ],\n        \"denied_roles\": [\n          \"ADMIN\",\n          \"SUPER-ADMIN\"\n        ],\n        \"unknown_roles\": []\n      }\n    ],\n    \"depth_limit\": 3,\n    \"total_dependencies\": 3\n  },\n  \"api_metadata\": {\n    \"resource_type\": \"products\",\n    \"is_idempotent\": false\n  },\n  \"data_metadata\": {\n    \"request_body_type\": \"ProductPostVm\",\n    \"response_type\": \"\",\n    \"status_code_map\": {\n      \"200\": \"\"\n    }\n  },\n  \"architecture\": {\n    \"layer\": \"Method\",\n    \"dependencies\": [],\n    \"is_entrypoint\": true\n  }\n}\n\nTASK:\nGenerate test cases for a DOWNSTREAM POLICY CONSISTENCY scenario.\n\nThis endpoint (POST /product/backoffice/products) calls other microservices internally.\nPolicy inconsistencies have been detected in the call chain.\n\nRequirements:\n1. For each role in policy_inconsistency_roles, create a test case that:\n   - Calls the entry endpoint with that role\n   - Expects behavior based on inconsistency type:\n     * UnderPermissiveDownstream: Entry allows but downstream denies → expect 500 or error response\n     * OverPermissiveDownstream: Entry denies correctly → expect 403\n     * PolicyExposure: Check for data exposure → expect proper access control\n   - Set isInconsistencyRole to true\n   - Set inconsistencyType to the type from policy_inconsistencies\n   - Include alternateAcceptable status codes [500, 502, 503, 403]\n\n2. For roles NOT in policy_inconsistency_roles (consistent behavior):\n   - Create standard test cases (allowed_roles → 2xx, denied_roles → 403)\n   - Set isInconsistencyRole to false\n\n3. Create an ANONYMOUS test case:\n   - If is_public is true, expect 2xx (public endpoints allow unauthenticated access)\n   - If is_public is false, expect 401 or 403\n\n4. Create an INVALID_TOKEN test case to verify the endpoint rejects corrupted/invalid tokens (expect 401, with alternateAcceptable: [400, 403, 500, 502, 503])\n\nCHAIN DEPENDENCIES (Full Context):\n- The chain_dependencies object provides full context for each downstream service call\n- Each dependency includes: method, endpoint, service_name, roles, and entity_schema\n- Use this to understand what data flows between services\n- Consider how authorization at each level affects the overall request flow\n- If a dependency shows \"resolved: false\", it could not be looked up - handle gracefully\n- Pay attention to role mismatches between entry point and downstream services\n\nFor each test case:\n- Use {{TOKEN_ROLE_<ROLENAME>}} as the auth placeholder\n- For ANONYMOUS, set authPlaceholder to \"NONE\" and role to \"ANONYMOUS\"\n- For INVALID_TOKEN, set authPlaceholder to \"{{TOKEN_INVALID}}\" and role to \"INVALID_TOKEN\"\n- Generate a realistic request body from entity_schema.fields (if present)\n- Include path_params and query_params in the request if applicable\n- Include rationale explaining the expected behavior based on the inconsistency type\n- Note which downstream service causes the inconsistency (from policy_inconsistencies)\n\nIMPORTANT: Include ALL test cases in the \"testCases\" array, including:\n1. Test cases for each role with inconsistency\n2. An ANONYMOUS test case (no auth token)\n3. An INVALID_TOKEN test case (corrupted/invalid auth token - expects 401 or 403)",
+  "rawResponse": {
+    "scenarioId": "scn_product:0fafead7da9a451934824b3369d1abc9",
+    "serviceName": "product",
+    "endpoint": "/product/backoffice/products",
+    "method": "POST",
+    "testCases": [
+      {
+        "role": "CUSTOMER",
+        "isAllowed": false,
+        "isInconsistencyRole": true,
+        "inconsistencyType": "OverPermissiveDownstream",
+        "request": {
+          "method": "POST",
+          "url": "/product/backoffice/products",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+          "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+          "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 403,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            500,
+            502,
+            503,
+            403
+          ]
+        },
+        "rationale": "Entry policy rejects CUSTOMER while downstream product detail (product:c12aca012decb6059f27fcfc9018a691) would allow the role, indicating an overpermissive downstream call; we expect the entry denial to surface (403) but capture downstream inconsistency via alternate errors.",
+        "sensitivityLevel": "PUBLIC",
+        "testPriority": "HIGH"
+      },
+      {
+        "role": "ADMIN",
+        "isAllowed": true,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/product/backoffice/products",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+          "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+          "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 200,
+          "statusRange": "2xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "ADMIN is an allowed role for this entrypoint and should successfully create a product; there is no known downstream inconsistency for this role.",
+        "sensitivityLevel": "PUBLIC",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "SUPER-ADMIN",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/product/backoffice/products",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER-ADMIN}}\"}",
+          "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+          "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 403,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": []
+        },
+        "rationale": "SUPER-ADMIN is explicitly denied at the entrypoint, consistent with upstream policy, so the request should be forbidden before downstream dependencies are invoked.",
+        "sensitivityLevel": "PUBLIC",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "ANONYMOUS",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/product/backoffice/products",
+          "headersJson": "{\"Content-Type\":\"application/json\"}",
+          "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+          "authPlaceholder": "NONE",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            403
+          ]
+        },
+        "rationale": "This endpoint is not public, so anonymous requests without a token should be rejected (401) before reaching downstream services.",
+        "sensitivityLevel": "PUBLIC",
+        "testPriority": "MEDIUM"
+      },
+      {
+        "role": "INVALID_TOKEN",
+        "isAllowed": false,
+        "isInconsistencyRole": false,
+        "inconsistencyType": "",
+        "request": {
+          "method": "POST",
+          "url": "/product/backoffice/products",
+          "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+          "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+          "authPlaceholder": "{{TOKEN_INVALID}}",
+          "pathParams": [],
+          "queryParams": []
+        },
+        "expected": {
+          "statusCode": 401,
+          "statusRange": "4xx",
+          "bodyContains": [],
+          "alternateAcceptable": [
+            400,
+            403,
+            500,
+            502,
+            503
+          ]
+        },
+        "rationale": "An invalid/expired token should result in an authentication failure (401) and prevent the operation from reaching downstream services.",
+        "sensitivityLevel": "PUBLIC",
+        "testPriority": "MEDIUM"
+      }
+    ]
+  },
+  "timing": {
+    "promptBuildMs": 2,
+    "llmCallMs": 17526,
+    "totalMs": 17528
+  }
+}

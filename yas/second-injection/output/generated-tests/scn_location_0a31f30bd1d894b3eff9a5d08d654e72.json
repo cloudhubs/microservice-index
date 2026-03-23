@@ -1,0 +1,193 @@
+{
+  "scenarioId": "scn_location:0a31f30bd1d894b3eff9a5d08d654e72",
+  "serviceName": "location",
+  "endpoint": "/location/backoffice/state-or-provinces/{id}",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is explicitly listed in allowed_roles so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER is listed in denied_roles so access must be rejected with 403.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER-ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER-ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is explicitly denied, so the request should be blocked with a 403.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public and requires authentication, so anonymous access should be rejected (401 or 403).",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/location/backoffice/state-or-provinces/123",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "id",
+            "value": "123",
+            "type": "Long"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Invalid tokens must be rejected; expect 401 (or other client/server errors) to ensure the authorization layer validates credentials.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:00:29.654Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{id}",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

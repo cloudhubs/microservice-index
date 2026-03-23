@@ -1,0 +1,231 @@
+{
+  "scenarioId": "scn_product:0fafead7da9a451934824b3369d1abc9",
+  "serviceName": "product",
+  "endpoint": "/product/backoffice/products",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Authorization\": \"Bearer {{TOKEN_ROLE_ADMIN}}\", \"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 201,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is the only role granted access by the entry policy, so a valid ADMIN token should allow the POST to succeed (201), confirming the upstream enforcement remains in sync with downstream dependencies.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Authorization\": \"Bearer {{TOKEN_ROLE_SUPER_ADMIN}}\", \"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER_ADMIN}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is denied by the entrypoint policy and there are no downstream deviations for this role, so the request should be rejected with 403 at the gateway.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "USER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Authorization\": \"Bearer {{TOKEN_ROLE_USER}}\", \"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "The upstream endpoint denies USER, but downstream /product/storefront/products/detail/{productId} allows USER, creating an over-permissive gap; the entrypoint must still reject with 403 and we monitor for error propagation (500/502/503) from downstream.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Authorization\": \"Bearer {{TOKEN_ROLE_CUSTOMER}}\", \"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry denies CUSTOMER but downstream GET /product/storefront/products/detail/{productId} allows them, so this test verifies the gateway still returns 403 and catches any unexpected downstream success or 5xx propagation.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "The endpoint is not public, so anonymous access should be blocked with 401/403; this ensures the gateway enforces authentication before calling downstream services.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Authorization\": \"Bearer {{TOKEN_INVALID}}\", \"Content-Type\": \"application/json\"}",
+        "bodyJson": "{\"id\": \"11111\", \"name\": \"Sample Product\", \"price\": 29.99}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should fail at the gateway (401), preventing any downstream calls from executing and confirming the entry service rejects malformed credentials.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:34:07.432Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "products",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

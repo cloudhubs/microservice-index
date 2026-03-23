@@ -1,0 +1,157 @@
+{
+  "scenarioId": "scn_customer:a436571b2e62ee081693291596382950",
+  "serviceName": "customer",
+  "endpoint": "/customer/storefront/customer/profile",
+  "method": "GET",
+  "testCases": [
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Customers should be able to access their own profile when authenticated with the appropriate role.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Admin role is denied access to PII profile data, so the request should be rejected with 403.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_SUPER_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Super-admin accounts are also denied to prevent exposure of sensitive customer profile data, so access should be forbidden.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Anonymous requests lack credentials and the endpoint is not public, so it should respond with 401 Unauthorized.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "A corrupted or invalid token should be rejected, returning 401 Unauthorized (or another 4xx/5xx error when token validation fails).",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:10:54.618Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "profile",
+    "isIdempotent": true,
+    "sensitivityType": "PII",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

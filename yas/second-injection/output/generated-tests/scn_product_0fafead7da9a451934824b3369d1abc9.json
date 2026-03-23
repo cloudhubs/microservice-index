@@ -1,0 +1,195 @@
+{
+  "scenarioId": "scn_product:0fafead7da9a451934824b3369d1abc9",
+  "serviceName": "product",
+  "endpoint": "/product/backoffice/products",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": true,
+      "inconsistencyType": "OverPermissiveDownstream",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          500,
+          502,
+          503,
+          403
+        ]
+      },
+      "rationale": "Entry policy rejects CUSTOMER while downstream product detail (product:c12aca012decb6059f27fcfc9018a691) would allow the role, indicating an overpermissive downstream call; we expect the entry denial to surface (403) but capture downstream inconsistency via alternate errors.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is an allowed role for this entrypoint and should successfully create a product; there is no known downstream inconsistency for this role.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER-ADMIN}}\"}",
+        "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER-ADMIN}}"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is explicitly denied at the entrypoint, consistent with upstream policy, so the request should be forbidden before downstream dependencies are invoked.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "This endpoint is not public, so anonymous requests without a token should be rejected (401) before reaching downstream services.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/product/backoffice/products",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "{\"id\":\"11111\",\"name\":\"Sample Product\",\"price\":29.99}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": {
+          "id": "11111",
+          "name": "Sample Product",
+          "price": 29.99
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid/expired token should result in an authentication failure (401) and prevent the operation from reaching downstream services.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:33:16.033Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "products",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}

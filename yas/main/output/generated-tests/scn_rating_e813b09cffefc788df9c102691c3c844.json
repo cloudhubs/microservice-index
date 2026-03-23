@@ -1,0 +1,156 @@
+{
+  "scenarioId": "scn_rating:e813b09cffefc788df9c102691c3c844",
+  "serviceName": "rating",
+  "endpoint": "/rating/backoffice/ratings/latest/{count}",
+  "method": "GET",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/rating/backoffice/ratings/latest/10",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [
+          {
+            "name": "count",
+            "value": "10",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN has the required permissions to fetch the latest ratings, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/rating/backoffice/ratings/latest/10",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [
+          {
+            "name": "count",
+            "value": "10",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER role is explicitly denied access to this backoffice endpoint, so the request should be forbidden.",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/rating/backoffice/ratings/latest/10",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [
+          {
+            "name": "count",
+            "value": "10",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Endpoint is not public, so unauthenticated access should be rejected with 401 Unauthorized (or possibly 403).",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/rating/backoffice/ratings/latest/10",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [
+          {
+            "name": "count",
+            "value": "10",
+            "type": "int"
+          }
+        ],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid or corrupted token should be rejected, resulting in a 401 Unauthorized (with 400/403/5xx alternatives possible).",
+      "sensitivityLevel": "PUBLIC",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T04:45:16.632Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "{count}",
+    "isIdempotent": true,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

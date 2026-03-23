@@ -1,0 +1,165 @@
+{
+  "scenarioId": "scn_product:caac0136bbbfd7f97c0abf191ebbc72f",
+  "serviceName": "product",
+  "endpoint": "/product/backoffice/products/subtract-quantity",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":3,\"reason\":\"Inventory correction\"}]",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 3,
+            "reason": "Inventory correction"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN carries the required role to subtract inventory quantity so the request should succeed.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":3,\"reason\":\"Inventory correction\"}]",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 3,
+            "reason": "Inventory correction"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER does not have the ADMIN role required for this backoffice operation so access must be denied.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":3,\"reason\":\"Inventory correction\"}]",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 3,
+            "reason": "Inventory correction"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "The endpoint is not public, so an anonymous request without credentials should be rejected with 401 Unauthorized.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Content-Type\":\"application/json\",\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":3,\"reason\":\"Inventory correction\"}]",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 3,
+            "reason": "Inventory correction"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "An invalid token should not permit access and must result in a 401 (or similar) error to ensure token validation.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:05:16.635Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "subtract-quantity",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

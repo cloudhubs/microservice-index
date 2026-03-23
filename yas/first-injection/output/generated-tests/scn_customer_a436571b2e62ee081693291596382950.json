@@ -1,0 +1,184 @@
+{
+  "scenarioId": "scn_customer:a436571b2e62ee081693291596382950",
+  "serviceName": "customer",
+  "endpoint": "/customer/storefront/customer/profile",
+  "method": "GET",
+  "testCases": [
+    {
+      "role": "CUSTOMER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER role is required and should receive a successful response for this PII-restricted profile endpoint.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "USER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_USER}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_USER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_USER}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "USER role lacks the required CUSTOMER permission, so access must be denied to protect PII.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "SUPER-ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER-ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER-ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Even elevated SUPER-ADMINs must not access this customer-specific PII endpoint without the CUSTOMER role.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}"
+        }
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN role is not permitted, so the endpoint should block access to sensitive customer profile data.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{}",
+        "bodyJson": "",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {}
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Anonymous requests are unauthenticated; since the endpoint is not public, it must reject access to the PII resource.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "GET",
+        "url": "/customer/storefront/customer/profile",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\"}",
+        "bodyJson": "",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Tampered or invalid tokens must not access the PII endpoint; returning 401 ensures authentication failures are handled.",
+      "sensitivityLevel": "PII",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T06:30:12.587Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "profile",
+    "isIdempotent": true,
+    "sensitivityType": "PII",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

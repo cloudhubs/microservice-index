@@ -1,0 +1,225 @@
+{
+  "scenarioId": "scn_product:caac0136bbbfd7f97c0abf191ebbc72f",
+  "serviceName": "product",
+  "endpoint": "/product/backoffice/products/subtract-quantity",
+  "method": "PUT",
+  "testCases": [
+    {
+      "role": "ROLE_ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_ADMIN}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":12,\"warehouseLocation\":\"warehouse-west-2\"},{\"productId\":\"70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d\",\"quantity\":5,\"warehouseLocation\":\"warehouse-east-1\"}]",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_ADMIN}}",
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 12,
+            "warehouseLocation": "warehouse-west-2"
+          },
+          {
+            "productId": "70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d",
+            "quantity": 5,
+            "warehouseLocation": "warehouse-east-1"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN holds the required permission and should successfully subtract inventory.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_CUSTOMER",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_CUSTOMER}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":12,\"warehouseLocation\":\"warehouse-west-2\"},{\"productId\":\"70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d\",\"quantity\":5,\"warehouseLocation\":\"warehouse-east-1\"}]",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_CUSTOMER}}",
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 12,
+            "warehouseLocation": "warehouse-west-2"
+          },
+          {
+            "productId": "70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d",
+            "quantity": 5,
+            "warehouseLocation": "warehouse-east-1"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER lacks the ADMIN privilege, so access should be forbidden.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ROLE_SUPER_ADMIN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_ROLE_SUPER_ADMIN}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":12,\"warehouseLocation\":\"warehouse-west-2\"},{\"productId\":\"70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d\",\"quantity\":5,\"warehouseLocation\":\"warehouse-east-1\"}]",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_ROLE_SUPER_ADMIN}}",
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 12,
+            "warehouseLocation": "warehouse-west-2"
+          },
+          {
+            "productId": "70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d",
+            "quantity": 5,
+            "warehouseLocation": "warehouse-east-1"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 403,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "SUPER-ADMIN is not granted access in this resource scope, so the request should be denied.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":12,\"warehouseLocation\":\"warehouse-west-2\"},{\"productId\":\"70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d\",\"quantity\":5,\"warehouseLocation\":\"warehouse-east-1\"}]",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 12,
+            "warehouseLocation": "warehouse-west-2"
+          },
+          {
+            "productId": "70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d",
+            "quantity": 5,
+            "warehouseLocation": "warehouse-east-1"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          403
+        ]
+      },
+      "rationale": "Anonymous users cannot access this restricted endpoint, so authentication is required.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "PUT",
+        "url": "/product/backoffice/products/subtract-quantity",
+        "headersJson": "{\"Authorization\":\"Bearer {{TOKEN_INVALID}}\",\"Content-Type\":\"application/json\"}",
+        "bodyJson": "[{\"productId\":\"550e8400-e29b-41d4-a716-446655440000\",\"quantity\":12,\"warehouseLocation\":\"warehouse-west-2\"},{\"productId\":\"70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d\",\"quantity\":5,\"warehouseLocation\":\"warehouse-east-1\"}]",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Authorization": "Bearer {{TOKEN_INVALID}}",
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "productId": "550e8400-e29b-41d4-a716-446655440000",
+            "quantity": 12,
+            "warehouseLocation": "warehouse-west-2"
+          },
+          {
+            "productId": "70b55aa4-8ea4-4f0b-9fcb-3d9a7d5fef3d",
+            "quantity": 5,
+            "warehouseLocation": "warehouse-east-1"
+          }
+        ]
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "The corrupted token should be rejected, enforcing strict authentication.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:46:33.323Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "subtract-quantity",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "SIMPLE"
+  }
+}

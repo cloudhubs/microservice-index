@@ -1,0 +1,179 @@
+{
+  "scenarioId": "scn_sampledata:5dbe9c3307d5f7958919038f770dd59f",
+  "serviceName": "sampledata",
+  "endpoint": "/sampledata/storefront/sampledata",
+  "method": "POST",
+  "testCases": [
+    {
+      "role": "SUPER-ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/sampledata/storefront/sampledata",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"field1\":\"value1\",\"field2\":\"value2\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_SUPER-ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "field1": "value1",
+          "field2": "value2"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Policy allows SUPER-ADMIN at the entry point and no downstream inconsistencies were reported, so the request should succeed with a 2xx response.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ADMIN",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/sampledata/storefront/sampledata",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"field1\":\"value1\",\"field2\":\"value2\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_ADMIN}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "field1": "value1",
+          "field2": "value2"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "ADMIN is explicitly allowed at the entry point and downstream context shows no policy mismatch, so expect a successful 2xx response.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "CUSTOMER",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/sampledata/storefront/sampledata",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"field1\":\"value1\",\"field2\":\"value2\"}",
+        "authPlaceholder": "{{TOKEN_ROLE_CUSTOMER}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "field1": "value1",
+          "field2": "value2"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "CUSTOMER is permitted by the entry policy and no downstream inconsistencies exist, so the endpoint should return a 2xx result.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "ANONYMOUS",
+      "isAllowed": true,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/sampledata/storefront/sampledata",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"field1\":\"value1\",\"field2\":\"value2\"}",
+        "authPlaceholder": "NONE",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "field1": "value1",
+          "field2": "value2"
+        }
+      },
+      "expected": {
+        "statusCode": 200,
+        "statusRange": "2xx",
+        "bodyContains": [],
+        "alternateAcceptable": []
+      },
+      "rationale": "Endpoint is marked public, so unauthenticated requests should be allowed and receive a 2xx success status.",
+      "sensitivityLevel": "",
+      "testPriority": "MEDIUM"
+    },
+    {
+      "role": "INVALID_TOKEN",
+      "isAllowed": false,
+      "isInconsistencyRole": false,
+      "inconsistencyType": "",
+      "request": {
+        "method": "POST",
+        "url": "/sampledata/storefront/sampledata",
+        "headersJson": "{\"Content-Type\":\"application/json\"}",
+        "bodyJson": "{\"field1\":\"value1\",\"field2\":\"value2\"}",
+        "authPlaceholder": "{{TOKEN_INVALID}}",
+        "pathParams": [],
+        "queryParams": [],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "field1": "value1",
+          "field2": "value2"
+        }
+      },
+      "expected": {
+        "statusCode": 401,
+        "statusRange": "4xx",
+        "bodyContains": [],
+        "alternateAcceptable": [
+          400,
+          403,
+          500,
+          502,
+          503
+        ]
+      },
+      "rationale": "Requests with invalid tokens should be rejected, resulting in a 401 (or similar 4xx/5xx) response despite the endpoint being public.",
+      "sensitivityLevel": "",
+      "testPriority": "HIGH"
+    }
+  ],
+  "generatedAt": "2026-03-22T07:40:02.770Z",
+  "llmModel": "gpt-5.1-codex-mini",
+  "llmProvider": "openai",
+  "metadata": {
+    "resourceType": "sampledata",
+    "isIdempotent": false,
+    "sensitivityType": "PUBLIC",
+    "handlesPii": false,
+    "promptComplexity": "CHAIN_OF_THOUGHT"
+  }
+}
